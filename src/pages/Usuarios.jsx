@@ -1,3 +1,3 @@
 export function Usuarios() {
-  return <div>Usuarios</div>;
+  return <div>PRUEBA 1</div>;
 }

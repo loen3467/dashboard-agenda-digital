@@ -4,7 +4,6 @@ import "./App.css";
 import { Navbar } from "./components/header/Navbar";
 import { MyRoutes } from "./routes/routes";
 import { Sidebar } from "./components/header/Sidebar";
-
 function App() {
   const [isSidebarHidden, setIsSidebarHidden] = useState(false);
   const toogleSidebar = () => {

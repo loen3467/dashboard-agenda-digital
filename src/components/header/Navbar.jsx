@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types"; // Importa PropTypes
 import "./styles/navbar.css";
-export function Navbar({ toogleSidebar }) {
+
+export function Navbar({ toggleSidebar }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export function Navbar({ toogleSidebar }) {
 
   return (
     <nav>
-      <i className="bx bx-menu" onClick={toogleSidebar}></i>
+      <i className="bx bx-menu" onClick={toggleSidebar}></i>
       <a href="#" className="nav-link">
         Categorias
       </a>
@@ -46,8 +48,13 @@ export function Navbar({ toogleSidebar }) {
         <span className="num">8</span>
       </a>
       <a href="#" className="profile">
-        <img src="../../assets/images/people.png" />
+        <img src="../../assets/images/people.png" alt="profile" />
       </a>
     </nav>
   );
 }
+
+// Define PropTypes para Navbar
+Navbar.propTypes = {
+  toggleSidebar: PropTypes.func.isRequired, // Asegura que toggleSidebar sea una función requerida
+};

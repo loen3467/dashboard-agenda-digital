@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"; // Importa PropTypes
 import { Link } from "react-router-dom";
 import "./styles/sidebar.css";
 import { SidebarItem } from "./SidebarItem";
@@ -33,9 +34,11 @@ export function Sidebar({ isSidebarHidden }) {
       text: "Usuarios",
     },
   ];
+
   const handleItemClick = (index) => {
     setActiveItem(index);
   };
+
   return (
     <section id="sidebar" className={isSidebarHidden ? "hide" : ""}>
       <Link to={"/"} className="brand">
@@ -67,3 +70,8 @@ export function Sidebar({ isSidebarHidden }) {
     </section>
   );
 }
+
+// Define PropTypes para Sidebar
+Sidebar.propTypes = {
+  isSidebarHidden: PropTypes.bool.isRequired, // Asegura que isSidebarHidden sea un booleano requerido
+};
