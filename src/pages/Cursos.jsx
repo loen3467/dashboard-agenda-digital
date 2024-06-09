@@ -2,9 +2,10 @@
 import { useState, useEffect } from 'react';
 import { db } from '../firebaseConfig';
 import { collection, getDocs, addDoc, updateDoc, doc } from 'firebase/firestore';
-import CursoItem from '../components/CursoItem'; // Asegúrate de importar CursoItem
+import CursoItem from '../components/header/CursoItem'; // Asegúrate de importar CursoItem
 import Materias from '../pages/Materias'; // Asegúrate de importar Materias
 import AsignarMaterias from '../pages/AsignarMaterias'; // Asegúrate de importar AsignarMaterias
+import '../pages/styles/cursos.css'; // Asegúrate de importar los estilos CSS
 
 export function Cursos() {
   const [cursos, setCursos] = useState([]);
@@ -114,8 +115,14 @@ export function Cursos() {
       )}
       {editCursoId && (
         <>
-          <Materias cursoId={editCursoId} />
-          <AsignarMaterias cursoId={editCursoId} />
+          <div className="section-container">
+            <h3>Materias del Curso</h3>
+            <Materias cursoId={editCursoId} />
+          </div>
+          <div className="section-container">
+            <h3>Asignar Materias al Curso</h3>
+            <AsignarMaterias cursoId={editCursoId} />
+          </div>
         </>
       )}
     </div>

@@ -1,6 +1,6 @@
 // CursoItem.jsx
 import PropTypes from 'prop-types';
-
+import '../../pages/styles/cursos.css'; // Asegúrate de importar los estilos CSS
 function CursoItem({ curso, onDelete, onEdit }) {
   const handleDelete = () => {
     onDelete(curso.id);

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types'; // Importamos PropTypes desde prop-types
 import { db } from '../firebaseConfig';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-
+import '../pages/styles/cursos.css'; // Asegúrate de importar los estilos CSS
 function Materias({ cursoId }) {
   const [materias, setMaterias] = useState([]);
   const [loading, setLoading] = useState(true);
