@@ -13,7 +13,7 @@ export function MyRoutes() {
       <Route path="/tareas" element={<Tareas />}></Route>
       <Route path="/anotaciones" element={<Anotaciones />}></Route>
       <Route path="/citaciones" element={<Citaciones />}></Route>
-      <Route path="/usuarios" element={<Usuarios />}></Route>
+      <Route path="/Usuarios" element={<Usuarios />}></Route>
     </Routes>
   );
 }
