@@ -19,6 +19,7 @@ export function Usuarios() {
     telefono: ''
   });
   const [editUserId, setEditUserId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetchUsuarios();
@@ -93,6 +94,17 @@ export function Usuarios() {
     setEditUserId(usuario.id);
   };
 
+  const handleDelete = async (id) => {
+    if (window.confirm(`¿Estás seguro de eliminar a este usuario?`)) {
+      try {
+        await db.collection('usuarios').doc(id).delete();
+        fetchUsuarios();
+      } catch (error) {
+        console.error('Error removing user: ', error);
+      }
+    }
+  };
+
   const handleCancelar = () => {
     setShowModal(false);
     setEditUserId(null);
@@ -107,6 +119,11 @@ export function Usuarios() {
     });
   };
 
+  const handleSearch = () => {
+    // Implementa la lógica de búsqueda aquí si es necesario
+    console.log('Implementa la lógica de búsqueda aquí');
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -115,6 +132,18 @@ export function Usuarios() {
     <div className="usuarios-container">
       <h2>Lista de Usuarios</h2>
       <div className="lista-usuarios">
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Buscar por nombre..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-input"
+          />
+          <button className="icon-search" onClick={handleSearch}>
+            <i className="fas fa-search"></i>
+          </button>
+        </div>
         <table className="usuarios-table">
           <thead>
             <tr>
@@ -128,14 +157,19 @@ export function Usuarios() {
             </tr>
           </thead>
           <tbody>
-            {usuarios.map((usuario) => (
-              <UsuarioItem
-                key={usuario.id}
-                usuario={usuario}
-                toggleEstado={toggleEstado}
-                handleEdit={() => handleEdit(usuario)}
-              />
-            ))}
+            {usuarios
+              .filter((usuario) =>
+                usuario.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+              .map((usuario) => (
+                <UsuarioItem
+                  key={usuario.id}
+                  usuario={usuario}
+                  toggleEstado={toggleEstado}
+                  handleEdit={() => handleEdit(usuario)}
+                  handleDelete={() => handleDelete(usuario.id)}
+                />
+              ))}
           </tbody>
         </table>
       </div>
@@ -205,18 +239,6 @@ export function Usuarios() {
                   value={formData.telefono}
                   onChange={handleChange}
                 />
-              </div>
-              <div className="switch-container">
-                <span className="switch-label">Estado:</span>
-                <label className="switch">
-                  <input
-                    type="checkbox"
-                    name="estado"
-                    checked={formData.estado}
-                    onChange={handleChange}
-                  />
-                  <span className="slider round"></span>
-                </label>
               </div>
               <div className="button-container">
                 <button type="submit" className="button">

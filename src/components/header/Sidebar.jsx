@@ -9,29 +9,29 @@ export function Sidebar({ isSidebarHidden }) {
   const items = [
     { link: "/", icon: "bx bxs-dashboard", text: "Panel de control" },
     {
-      link: "/cursos",
+      link: "/Usuarios",
+      icon: "bx bxs-group",
+      text: "Gestion de Usuarios",
+    },
+    {
+      link: "/Cursos",
       icon: "bx bxs-shopping-bag-alt",
-      text: "Cursos",
-    },
-    {
-      link: "/tareas",
-      icon: "bx bxs-doughnut-chart",
-      text: "Tareas",
-    },
-    {
-      link: "/anotaciones",
-      icon: "bx bxs-message-dots",
-      text: "Anotaciones",
+      text: "Gestion de Cursos",
     },
     {
       link: "/citaciones",
       icon: "bx bxs-group",
-      text: "Citaciones",
+      text: "Gestion de Citaciones",
     },
     {
-      link: "/usuarios",
-      icon: "bx bxs-group",
-      text: "Usuarios",
+      link: "/tareas",
+      icon: "bx bxs-doughnut-chart",
+      text: "Gestion de Tareas",
+    },
+    {
+      link: "/anotaciones",
+      icon: "bx bxs-message-dots",
+      text: "Gestion de Anotaciones",
     },
   ];
 

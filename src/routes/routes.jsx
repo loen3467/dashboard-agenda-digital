@@ -9,10 +9,10 @@ export function MyRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Dashboard />}></Route>
-      <Route path="/cursos" element={<Cursos />}></Route>
-      <Route path="/tareas" element={<Tareas />}></Route>
-      <Route path="/anotaciones" element={<Anotaciones />}></Route>
-      <Route path="/citaciones" element={<Citaciones />}></Route>
+      <Route path="/Cursos" element={<Cursos />}></Route>
+      <Route path="/Tareas" element={<Tareas />}></Route>
+      <Route path="/Anotaciones" element={<Anotaciones />}></Route>
+      <Route path="/Citaciones" element={<Citaciones />}></Route>
       <Route path="/Usuarios" element={<Usuarios />}></Route>
     </Routes>
   );
