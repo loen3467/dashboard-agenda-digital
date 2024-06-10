@@ -1,4 +1,3 @@
-// CursoItem.jsx
 import PropTypes from 'prop-types';
 import '../../pages/styles/cursos.css';
 
@@ -34,7 +33,12 @@ function CursoItem({ curso, onDelete, onEdit, onVerEstudiantes, onVerMaterias })
 }
 
 CursoItem.propTypes = {
-  curso: PropTypes.object.isRequired,
+  curso: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    nombre: PropTypes.string.isRequired,
+    grado: PropTypes.string.isRequired,
+    paralelo: PropTypes.string.isRequired,
+  }).isRequired,
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
   onVerEstudiantes: PropTypes.func.isRequired,

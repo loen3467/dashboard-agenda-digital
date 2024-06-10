@@ -1,11 +1,10 @@
-// Materias.jsx
+// MateriasLista.jsx
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { db } from '../firebaseConfig';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import '../pages/styles/cursos.css';
+import PropTypes from 'prop-types';
 
-function Materias({ cursoId }) {
+function MateriasLista({ cursoId }) {
   const [materias, setMaterias] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -31,21 +30,19 @@ function Materias({ cursoId }) {
   }
 
   return (
-    <div className="materias-container">
-      <h2>Materias del Curso</h2>
+    <div className="materias-lista">
+      <h4>Lista de Materias</h4>
       <ul>
         {materias.map(materia => (
-          <li key={materia.id}>
-            <strong>{materia.nombre}</strong> - Profesor: {materia.idProfesor}
-          </li>
+          <li key={materia.id}>{materia.nombre}</li>
         ))}
       </ul>
     </div>
   );
 }
 
-Materias.propTypes = {
+MateriasLista.propTypes = {
   cursoId: PropTypes.string.isRequired,
 };
 
-export default Materias;
+export default MateriasLista;

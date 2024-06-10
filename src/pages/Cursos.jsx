@@ -1,10 +1,11 @@
+// Cursos.jsx
 import { useState, useEffect } from 'react';
 import { db } from '../firebaseConfig';
 import { collection, getDocs, addDoc, updateDoc, doc } from 'firebase/firestore';
-import CursoItem from '../components/header/CursoItem';
+import CursoItem from '../components/CursoItem';
 import Materias from '../pages/Materias';
 import AsignarMaterias from '../pages/AsignarMaterias';
-import Modal from '../pages/Modal'; // Importamos el componente Modal
+import Modal from '../pages/Modal'; 
 import '../pages/styles/cursos.css';
 
 export function Cursos() {
@@ -113,48 +114,50 @@ export function Cursos() {
 
   return (
     <div className="cursos-container">
-      <h2>Gestion de Cursos</h2>
+      <h2>Gestión de Cursos</h2>
       <div className="panel-buttons">
         <button onClick={() => setShowModal(true)}>Agregar Curso</button>
         <button onClick={() => setViewPanel('cursos')}>Ver Cursos</button>
         <button onClick={() => setViewPanel('materias')}>Ver Materias</button>
       </div>
-      {viewPanel === 'cursos' && (
-        <div className="cursos-list">
-          {cursos.map(curso => (
-            <CursoItem
-              key={curso.id}
-              curso={curso}
-              onDelete={handleDelete}
-              onEdit={handleEdit}
-              onVerEstudiantes={handleVerEstudiantes} // Nuevo prop
-              onVerMaterias={handleVerMaterias}     // Nuevo prop
-            />
-          ))}
-        </div>
-      )}
-      {viewPanel === 'materias' && (
-        <>
-          <div className="section-container">
-            <h3>Materias del Curso</h3>
-            <Materias cursoId={editCursoId} />
+      <div className="main-content">
+        {viewPanel === 'cursos' && (
+          <div className="cursos-list">
+            {cursos.map(curso => (
+              <CursoItem
+                key={curso.id}
+                curso={curso}
+                onDelete={handleDelete}
+                onEdit={handleEdit}
+                onVerEstudiantes={handleVerEstudiantes}
+                onVerMaterias={handleVerMaterias}
+              />
+            ))}
           </div>
-          <div className="section-container">
-            <h3>Asignar Materias al Curso</h3>
-            <AsignarMaterias cursoId={editCursoId} />
-          </div>
-          <button onClick={handleVolver}>Volver</button>
-        </>
-      )}
-      {viewPanel === 'estudiantes' && (
-        <>
-          <div className="section-container">
-            <h3>Lista de Estudiantes del Curso</h3>
-            {/* Aquí debes agregar el componente para mostrar la lista de estudiantes */}
-          </div>
-          <button onClick={handleVolver}>Volver</button>
-        </>
-      )}
+        )}
+        {viewPanel === 'materias' && (
+          <>
+            <div className="section-container">
+              <h3>Materias del Curso</h3>
+              <Materias cursoId={editCursoId} />
+            </div>
+            <div className="section-container">
+              <h3>Asignar Materias al Curso</h3>
+              <AsignarMaterias cursoId={editCursoId} />
+            </div>
+            <button onClick={handleVolver}>Volver</button>
+          </>
+        )}
+        {viewPanel === 'estudiantes' && (
+          <>
+            <div className="section-container">
+              <h3>Lista de Estudiantes del Curso</h3>
+              {/* Aquí debes agregar el componente para mostrar la lista de estudiantes */}
+            </div>
+            <button onClick={handleVolver}>Volver</button>
+          </>
+        )}
+      </div>
       <Modal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
