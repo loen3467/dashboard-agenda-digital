@@ -26,7 +26,7 @@
 
 .panel-buttons button {
   padding: 12px 24px;
-  background-color: #2042dd;
+  background-color: #13b2fc;
   color: white;
   border: none;
   cursor: pointer;
@@ -209,4 +209,33 @@
   border-bottom: 20px solid #ffffff; /* Establece una línea horizontal sólida de color gris claro */
   margin: 10px 0; /* Ajusta el margen según sea necesario */
   border-radius: 50px;
+}
+
+
+.modal-button {
+  padding: 14px 28px;
+  background-color: #2042dd;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 25px;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.modal-button:hover {
+  background-color: #1a16e7;
+}
+
+.modal-button:focus {
+  outline: none;
+}
+
+.cancel-button {
+  background-color: #6c757d;
+  margin-left: 10px;
+}
+
+.cancel-button:hover {
+  background-color: #5a6268;
 }

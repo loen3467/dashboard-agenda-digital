@@ -144,9 +144,7 @@ export function Usuarios() {
   return (
     <div className="usuarios-container">
       <h2>Lista de Usuarios</h2>
-      <div className='container linea'>
-        
-      </div>
+      <div className='container linea'></div>
       <div className="lista-usuarios">
         <div className="search-container">
           <input

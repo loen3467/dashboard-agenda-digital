@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import '../pages/styles/cursos.css'; // Asegúrate de importar tus estilos CSS aquí
 
 const Modal = ({ isOpen, onSubmit, formData, handleChange, handleCancelar, editCursoId }) => {
   const handleSubmit = (e) => {
@@ -47,8 +48,8 @@ const Modal = ({ isOpen, onSubmit, formData, handleChange, handleCancelar, editC
                 />
               </div>
               <div className="button-container">
-                <button type="submit">{editCursoId ? 'Actualizar Curso' : 'Agregar Curso'}</button>
-                <button type="button" onClick={handleCancelar}>Cancelar</button>
+                <button type="submit" className="modal-button">{editCursoId ? 'Actualizar Curso' : 'Agregar Curso'}</button>
+                <button type="button" className="modal-button cancel-button" onClick={handleCancelar}>Cancelar</button>
               </div>
             </form>
           </div>
