@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { db } from '../firebaseConfig';
 import { collection, getDocs, addDoc, updateDoc, doc } from 'firebase/firestore';
 import UsuarioItem from '../components/header/UsuarioItem';
+import CryptoJS from 'crypto-js';
 import './styles/Usuarios.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
@@ -16,7 +17,8 @@ export function Usuarios() {
     nombre: '',
     nombreUsuario: '',
     rol: 'profesor',
-    telefono: ''
+    telefono: '',
+    password: '' // Añadir el campo de contraseña
   });
   const [editUserId, setEditUserId] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -50,12 +52,21 @@ export function Usuarios() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Hashear la contraseña antes de enviarla a Firebase
+    const hashedPassword = CryptoJS.SHA256(formData.password).toString(CryptoJS.enc.Hex);
+
+    const usuarioData = {
+      ...formData,
+      password: hashedPassword
+    };
+
     try {
       if (editUserId) {
         const userDoc = doc(db, 'usuarios', editUserId);
-        await updateDoc(userDoc, formData);
+        await updateDoc(userDoc, usuarioData);
       } else {
-        await addDoc(collection(db, 'usuarios'), formData);
+        await addDoc(collection(db, 'usuarios'), usuarioData);
       }
       setFormData({
         apellido: '',
@@ -64,7 +75,8 @@ export function Usuarios() {
         nombre: '',
         nombreUsuario: '',
         rol: 'profesor',
-        telefono: ''
+        telefono: '',
+        password: '' // Resetear el campo de contraseña
       });
       setShowModal(false);
       setEditUserId(null);
@@ -115,7 +127,8 @@ export function Usuarios() {
       nombre: '',
       nombreUsuario: '',
       rol: 'profesor',
-      telefono: ''
+      telefono: '',
+      password: '' // Resetear el campo de contraseña
     });
   };
 
@@ -131,6 +144,9 @@ export function Usuarios() {
   return (
     <div className="usuarios-container">
       <h2>Lista de Usuarios</h2>
+      <div className='container linea'>
+        
+      </div>
       <div className="lista-usuarios">
         <div className="search-container">
           <input
@@ -238,6 +254,17 @@ export function Usuarios() {
                   name="telefono"
                   value={formData.telefono}
                   onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="password">Contraseña</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div className="button-container">

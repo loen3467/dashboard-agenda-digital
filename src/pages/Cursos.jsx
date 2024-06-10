@@ -65,33 +65,6 @@ export function Cursos() {
     }
   };
 
-  const handleEdit = (curso) => {
-    setFormData(curso);
-    setShowModal(true);
-    setEditCursoId(curso.id);
-  };
-
-  const handleDelete = async (id) => {
-    if (window.confirm(`¿Estás seguro de eliminar este curso?`)) {
-      try {
-        await db.collection('cursos').doc(id).delete();
-        fetchCursos();
-      } catch (error) {
-        console.error('Error removing curso: ', error);
-      }
-    }
-  };
-
-  const handleCancelar = () => {
-    setShowModal(false);
-    setEditCursoId(null);
-    setFormData({
-      nombre: '',
-      grado: '',
-      paralelo: ''
-    });
-  };
-
   const handleVerMaterias = (cursoId) => {
     setViewPanel('materias');
     setEditCursoId(cursoId);
@@ -113,9 +86,9 @@ export function Cursos() {
 
   return (
     <div className="cursos-container">
-      <h2>Gestion de Cursos</h2>
+      <h2>Gestión de Cursos</h2>
+      <div className='container linea'></div>
       <div className="panel-buttons">
-        <button onClick={() => setShowModal(true)}>Agregar Curso</button>
         <button onClick={() => setViewPanel('cursos')}>Ver Cursos</button>
         <button onClick={() => setViewPanel('materias')}>Ver Materias</button>
       </div>
@@ -125,10 +98,8 @@ export function Cursos() {
             <CursoItem
               key={curso.id}
               curso={curso}
-              onDelete={handleDelete}
-              onEdit={handleEdit}
-              onVerEstudiantes={handleVerEstudiantes} // Nuevo prop
-              onVerMaterias={handleVerMaterias}     // Nuevo prop
+              onVerEstudiantes={handleVerEstudiantes}
+              onVerMaterias={handleVerMaterias}
             />
           ))}
         </div>
@@ -161,7 +132,11 @@ export function Cursos() {
         onSubmit={handleSubmit}
         formData={formData}
         handleChange={handleChange}
-        handleCancelar={handleCancelar}
+        handleCancelar={() => {
+          setShowModal(false);
+          setEditCursoId(null);
+          setFormData({ nombre: '', grado: '', paralelo: '' });
+        }}
         editCursoId={editCursoId}
       />
     </div>
