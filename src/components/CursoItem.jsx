@@ -1,50 +1,44 @@
-import { useState } from 'react';
+// CursoItem.jsx
 import PropTypes from 'prop-types';
-import EstudiantesLista from '../pages/EstudiantesLista';
-import MateriasLista from '../pages/MateriasLista';
-import '../pages/styles/cursos.css';
+import '../../pages/styles/cursos.css';
 
-function CursoItem({ curso }) {
-  const [showEstudiantes, setShowEstudiantes] = useState(false);
-  const [showMaterias, setShowMaterias] = useState(false);
-
-  const toggleShowEstudiantes = () => {
-    setShowEstudiantes(!showEstudiantes);
+function CursoItem({ curso, onDelete, onEdit, onVerEstudiantes, onVerMaterias }) {
+  const handleDelete = () => {
+    onDelete(curso.id);
   };
 
-  const toggleShowMaterias = () => {
-    setShowMaterias(!showMaterias);
+  const handleEdit = () => {
+    onEdit(curso);
+  };
+
+  const handleVerMaterias = () => {
+    onVerMaterias(curso.id);
+  };
+
+  const handleVerEstudiantes = () => {
+    onVerEstudiantes(curso.id);
   };
 
   return (
     <div className="curso-item">
-      <div className="curso-header">
-        <h4>{curso.nombre}</h4>
-        <p>
-          Grado: {curso.grado} - Paralelo: {curso.paralelo}
-        </p>
+      <h3>{curso.nombre}</h3>
+      <p>Grado: {curso.grado}, Paralelo: {curso.paralelo}</p>
+      <div>
+        <button onClick={handleEdit}>Editar</button>
+        <button onClick={handleDelete}>Eliminar</button>
+        <button onClick={handleVerEstudiantes}>Ver Estudiantes</button>
+        <button onClick={handleVerMaterias}>Ver Materias</button>
       </div>
-      <div className="curso-buttons">
-        <button onClick={toggleShowEstudiantes}>
-          {showEstudiantes ? 'Ocultar Estudiantes' : 'Ver Estudiantes'}
-        </button>
-        <button onClick={toggleShowMaterias}>
-          {showMaterias ? 'Ocultar Materias' : 'Ver Materias'}
-        </button>
-      </div>
-      {showEstudiantes && <EstudiantesLista cursoId={curso.id} />}
-      {showMaterias && <MateriasLista cursoId={curso.id} />}
     </div>
   );
 }
 
 CursoItem.propTypes = {
-  curso: PropTypes.shape({
-    nombre: PropTypes.string.isRequired,
-    grado: PropTypes.string.isRequired,
-    paralelo: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-  }).isRequired,
+  curso: PropTypes.object.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onVerEstudiantes: PropTypes.func.isRequired,
+  onVerMaterias: PropTypes.func.isRequired,
 };
 
 export default CursoItem;
