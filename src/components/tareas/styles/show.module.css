@@ -2,83 +2,103 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  font-family: var(--poppins);
+  font-size: 1rem;
 }
 
-.row {
+.header {
   display: flex;
-  flex-wrap: wrap;
-  margin: -10px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.col {
-  flex: 1;
-  padding: 10px;
+.title {
+  color: var(--blue);
+  font-size: 24px;
 }
 
-.d-grid {
-  display: grid;
-}
-
-.gap-2 {
+.createButton {
+  background-color: var(--blue);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   gap: 0.5rem;
 }
 
-.btn {
-  display: inline-block;
-  border: none;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-  font-size: 1.5rem;
-}
-
-.btn-secondary {
-  background-color: #6c757d;
-  color: #fff;
-}
-
-.btn-light {
-  background-color: #f8f9fa;
-  color: #000;
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  color: #fff;
-}
-
-.btn-secondary:hover,
-.btn-light:hover,
-.btn-danger:hover {
-  opacity: 0.8;
+.createButton:hover {
+  opacity: 0.5;
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
-}
-
-.table-dark {
-  background-color: #343a40;
-  color: #fff;
-}
-
-.table-hover tbody tr:hover {
-  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .table th,
 .table td {
   padding: 10px;
-  border: 1px solid #444;
+  border: 1px solid var(--dark-grey);
 }
 
-.mt-2 {
-  margin-top: 0.5rem;
+.table th {
+  background-color: var(--dark-grey);
+  color: #fff;
 }
 
-.mb-2 {
-  margin-bottom: 0.5rem;
+.table tbody tr:hover {
+  background-color: var(--grey);
+}
+
+.activeRow {
+  background-color: var(--light-green);
+}
+
+.inactiveRow {
+  background-color: var(--light-orange);
+}
+
+.editButton,
+.toggleButton {
+  background-color: transparent;
+  color: var(--blue);
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 1.3rem;
+  transition: color 0.3s ease;
+}
+
+.editButton:hover,
+.toggleButton:hover {
+  opacity: 0.6;
+}
+
+.toggleButton {
+  background-color: transparent;
+  color: var(--red);
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.toggleButton i {
+  margin-right: 5px;
+}
+
+.toggleButton span {
+  margin-right: 5px;
+}
+.btnActive {
+  color: var(--dark-green);
 }

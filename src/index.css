@@ -16,7 +16,6 @@ li {
 :root {
   --poppins: "Poppins", sans-serif;
   --lato: "Lato", sans-serif;
-
   --light: #f9f9f9;
   --blue: #3c91e6;
   --light-blue: #cfe8ff;
@@ -28,6 +27,8 @@ li {
   --light-yellow: #fff2c6;
   --orange: #fd7238;
   --light-orange: #ffe0d3;
+  --light-green: #d2ffb2;
+  --dark-green: #19b02e;
 }
 
 html {
