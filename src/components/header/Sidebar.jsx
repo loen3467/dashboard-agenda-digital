@@ -1,44 +1,36 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./styles/sidebar.css";
 import { SidebarItem } from "./SidebarItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function Sidebar({ isSidebarHidden }) {
   const [activeItem, setActiveItem] = useState(0);
+  const location = useLocation();
+
   const items = [
     { link: "/", icon: "bx bxs-dashboard", text: "Panel de control" },
-    {
-      link: "/cursos",
-      icon: "bx bxs-shopping-bag-alt",
-      text: "Cursos",
-    },
-    {
-      link: "/tareas",
-      icon: "bx bxs-doughnut-chart",
-      text: "Tareas",
-    },
-    {
-      link: "/anotaciones",
-      icon: "bx bxs-message-dots",
-      text: "Anotaciones",
-    },
-    {
-      link: "/citaciones",
-      icon: "bx bxs-group",
-      text: "Citaciones",
-    },
-    {
-      link: "/usuarios",
-      icon: "bx bxs-group",
-      text: "Usuarios",
-    },
+    { link: "/cursos", icon: "bx bxs-shopping-bag-alt", text: "Cursos" },
+    { link: "/tareas", icon: "bx bxs-doughnut-chart", text: "Tareas" },
+    { link: "/anotaciones", icon: "bx bxs-message-dots", text: "Anotaciones" },
+    { link: "/citaciones", icon: "bx bxs-group", text: "Citaciones" },
+    { link: "/usuarios", icon: "bx bxs-group", text: "Usuarios" },
   ];
+
   const handleItemClick = (index) => {
     setActiveItem(index);
   };
+
+  useEffect(() => {
+    const currentPath = location.pathname;
+    const activeIndex = items.findIndex((item) => item.link === currentPath);
+    if (activeIndex !== -1) {
+      setActiveItem(activeIndex);
+    }
+  }, [location.pathname, items]);
+
   return (
     <section id="sidebar" className={isSidebarHidden ? "hide" : ""}>
-      <Link to={"/"} className="brand">
+      <Link to="/" className="brand">
         <i className="bx bxs-smile"></i>
         <span className="text">Agenda Digital</span>
       </Link>
