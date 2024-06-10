@@ -1,11 +1,11 @@
-// Cursos.jsx
 import { useState, useEffect } from 'react';
 import { db } from '../firebaseConfig';
 import { collection, getDocs, addDoc, updateDoc, doc } from 'firebase/firestore';
-import CursoItem from '../components/header/CursoItem'; // Asegúrate de importar CursoItem
-import Materias from '../pages/Materias'; // Asegúrate de importar Materias
-import AsignarMaterias from '../pages/AsignarMaterias'; // Asegúrate de importar AsignarMaterias
-import '../pages/styles/cursos.css'; // Asegúrate de importar los estilos CSS
+import CursoItem from '../components/header/CursoItem';
+import Materias from '../pages/Materias';
+import AsignarMaterias from '../pages/AsignarMaterias';
+import Modal from '../pages/Modal'; // Importamos el componente Modal
+import '../pages/styles/cursos.css';
 
 export function Cursos() {
   const [cursos, setCursos] = useState([]);
@@ -17,6 +17,7 @@ export function Cursos() {
     paralelo: ''
   });
   const [editCursoId, setEditCursoId] = useState(null);
+  const [viewPanel, setViewPanel] = useState('');
 
   useEffect(() => {
     fetchCursos();
@@ -91,29 +92,48 @@ export function Cursos() {
     });
   };
 
+  const handleVerMaterias = (cursoId) => {
+    setViewPanel('materias');
+    setEditCursoId(cursoId);
+  };
+
+  const handleVerEstudiantes = (cursoId) => {
+    setViewPanel('estudiantes');
+    setEditCursoId(cursoId);
+  };
+
+  const handleVolver = () => {
+    setViewPanel('');
+    setEditCursoId(null);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className="cursos-container">
-      <h2>Lista de Cursos</h2>
-      <button onClick={() => setShowModal(true)}>Agregar Curso</button>
-      {cursos.map(curso => (
-        <CursoItem key={curso.id} curso={curso} onDelete={handleDelete} onEdit={handleEdit} />
-      ))}
-      {showModal && (
-        <div className="modal">
-          <form onSubmit={handleSubmit}>
-            <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} placeholder="Nombre del curso" />
-            <input type="text" name="grado" value={formData.grado} onChange={handleChange} placeholder="Grado" />
-            <input type="text" name="paralelo" value={formData.paralelo} onChange={handleChange} placeholder="Paralelo" />
-            <button type="submit">{editCursoId ? 'Actualizar Curso' : 'Agregar Curso'}</button>
-            <button type="button" onClick={handleCancelar}>Cancelar</button>
-          </form>
+      <h2>Gestion de Cursos</h2>
+      <div className="panel-buttons">
+        <button onClick={() => setShowModal(true)}>Agregar Curso</button>
+        <button onClick={() => setViewPanel('cursos')}>Ver Cursos</button>
+        <button onClick={() => setViewPanel('materias')}>Ver Materias</button>
+      </div>
+      {viewPanel === 'cursos' && (
+        <div className="cursos-list">
+          {cursos.map(curso => (
+            <CursoItem
+              key={curso.id}
+              curso={curso}
+              onDelete={handleDelete}
+              onEdit={handleEdit}
+              onVerEstudiantes={handleVerEstudiantes} // Nuevo prop
+              onVerMaterias={handleVerMaterias}     // Nuevo prop
+            />
+          ))}
         </div>
       )}
-      {editCursoId && (
+      {viewPanel === 'materias' && (
         <>
           <div className="section-container">
             <h3>Materias del Curso</h3>
@@ -123,8 +143,27 @@ export function Cursos() {
             <h3>Asignar Materias al Curso</h3>
             <AsignarMaterias cursoId={editCursoId} />
           </div>
+          <button onClick={handleVolver}>Volver</button>
         </>
       )}
+      {viewPanel === 'estudiantes' && (
+        <>
+          <div className="section-container">
+            <h3>Lista de Estudiantes del Curso</h3>
+            {/* Aquí debes agregar el componente para mostrar la lista de estudiantes */}
+          </div>
+          <button onClick={handleVolver}>Volver</button>
+        </>
+      )}
+      <Modal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onSubmit={handleSubmit}
+        formData={formData}
+        handleChange={handleChange}
+        handleCancelar={handleCancelar}
+        editCursoId={editCursoId}
+      />
     </div>
   );
 }
