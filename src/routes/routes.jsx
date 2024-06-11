@@ -8,10 +8,12 @@ import { Dashboard } from "../pages/Dashboard";
 import { Layout } from "../components/header/Layout";
 import { Create } from "../components/tareas/Create";
 import { Edit } from "../components/tareas/Edit";
+import { Login } from "../pages/Login";
 export function MyRoutes() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/login" element={<Login />}></Route>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Dashboard />}></Route>
           <Route path="/cursos" element={<Cursos />}></Route>

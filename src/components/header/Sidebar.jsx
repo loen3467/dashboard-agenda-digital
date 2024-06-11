@@ -3,7 +3,7 @@ import "./styles/sidebar.css";
 import { SidebarItem } from "./SidebarItem";
 import { useEffect, useState } from "react";
 
-export function Sidebar({ isSidebarHidden }) {
+export function Sidebar({ isSidebarHidden, logOut }) {
   const [activeItem, setActiveItem] = useState(0);
   const location = useLocation();
 
@@ -51,9 +51,13 @@ export function Sidebar({ isSidebarHidden }) {
           onClick={() => {}}
         />
         <SidebarItem
-          item={{ link: "", icon: "bx bxs-log-out-circle", text: "Logout" }}
+          item={{
+            link: "",
+            icon: "bx bxs-log-out-circle",
+            text: "Cerrar Sesión",
+          }}
           isActive={false}
-          onClick={() => {}}
+          onClick={logOut}
         />
       </ul>
     </section>

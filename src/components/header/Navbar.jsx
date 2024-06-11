@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./styles/navbar.css";
+import { Link } from "react-router-dom";
 export function Navbar({ toogleSidebar }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -45,9 +46,9 @@ export function Navbar({ toogleSidebar }) {
         <i className="bx bxs-bell"></i>
         <span className="num">8</span>
       </a>
-      <a href="#" className="profile">
-        <img src="../../assets/images/people.png" />
-      </a>
+      <Link to={"/"} className="profile">
+        <img src="../../assets/images/logo_ad.jpg" />
+      </Link>
     </nav>
   );
 }

@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
 * {
   margin: 0;
   padding: 0;
@@ -14,6 +15,7 @@ li {
 }
 
 :root {
+  --montserrat: "Montserrat", sans-serif;
   --poppins: "Poppins", sans-serif;
   --lato: "Lato", sans-serif;
   --light: #f9f9f9;
