@@ -16,7 +16,9 @@ export function MyRoutes() {
       <Route path="/Tareas" element={<Tareas />}></Route>
       <Route path="/Anotaciones" element={<Anotaciones />}></Route>
       <Route path="/Citaciones" element={<Citaciones />}></Route>
-      <Route path="/Usuarios" element={<Estudiantes />}></Route>
+      <Route path="/Estudiantes" element={<Estudiantes />}></Route>
+      <Route path="/Padres" element={<Padres />}></Route>
+      <Route path="/Profesores" element={<Profesores />}></Route>
     </Routes>
   );
 }

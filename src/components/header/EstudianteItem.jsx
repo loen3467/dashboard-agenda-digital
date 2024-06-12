@@ -14,16 +14,7 @@ function EstudianteItem({ estudiante, toggleEstado, handleEdit, handleDelete }) 
       <td>{estudiante.correo}</td>
       <td>{estudiante.carnet}</td>
       <td>{estudiante.telefono}</td>
-      <td>
-        <label className="switch">
-          <input
-            type="checkbox"
-            checked={estudiante.estado}
-            onChange={() => toggleEstado(estudiante.id, estudiante.estado)}
-          />
-          <span className="slider round"></span>
-        </label>
-      </td>
+
       <td className="action-column">
         <button className="icon-button edit-button" onClick={() => handleEdit(estudiante)}>
           <i className="fas fa-edit"></i> Editar

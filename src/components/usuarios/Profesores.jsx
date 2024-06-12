@@ -172,10 +172,7 @@ export function Profesores() {
               <th>Carnet</th>
               <th>Correo</th>
               <th>Dirección</th>
-              <th>Especialidad</th>
-              <th>Fecha de Nacimiento</th>
               <th>Género</th>
-              <th>ID Materia</th>
               <th>Teléfono</th>
               <th>Acciones</th>
             </tr>

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-function ProfesorItem({ profesor, handleEdit, handleDelete }) {
+function ProfesorItem({ profesor,toggleEstado, handleEdit, handleDelete }) {
   const handleEliminarClick = () => {
     if (window.confirm(`¿Estás seguro de eliminar a ${profesor.nombre} ${profesor.apellido}?`)) {
       handleDelete(profesor.id);
@@ -14,10 +14,7 @@ function ProfesorItem({ profesor, handleEdit, handleDelete }) {
       <td>{profesor.carnet}</td>
       <td>{profesor.correo}</td>
       <td>{profesor.direccion}</td>
-      <td>{profesor.especialidad}</td>
-      <td>{profesor.fecha_nacimiento}</td>
       <td>{profesor.genero}</td>
-      <td>{profesor.id_materia}</td>
       <td>{profesor.telefono}</td>
       <td className="action-column">
         <button className="icon-button edit-button" onClick={() => handleEdit(profesor)}>

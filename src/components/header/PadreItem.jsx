@@ -14,16 +14,7 @@ function PadreItem({ padre, toggleEstado, handleEdit, handleDelete }) {
       <td>{padre.correo}</td>
       <td>{padre.carnet}</td>
       <td>{padre.telefono}</td>
-      <td>
-        <label className="switch">
-          <input
-            type="checkbox"
-            checked={padre.estado}
-            onChange={() => toggleEstado(padre.id, padre.estado)}
-          />
-          <span className="slider round"></span>
-        </label>
-      </td>
+
       <td className="action-column">
         <button className="icon-button edit-button" onClick={() => handleEdit(padre)}>
           <i className="fas fa-edit"></i> Editar
