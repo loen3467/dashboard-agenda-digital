@@ -1,3 +1,9 @@
+import { ShowCourses } from "../components/cursos/ShowCourses";
+
 export function Cursos() {
-  return <div>Cursos</div>;
+  return (
+    <>
+      <ShowCourses />
+    </>
+  );
 }

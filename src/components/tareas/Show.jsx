@@ -18,7 +18,6 @@ export default function Show() {
   const [tareas, setTareas] = useState([]);
 
   const tareasCollection = collection(db, "tareas");
-
   const getTareas = async () => {
     const data = await getDocs(tareasCollection);
     const tareasWithMaterias = await Promise.all(

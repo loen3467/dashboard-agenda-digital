@@ -1,0 +1,38 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.cursoItem {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.cursoItem h2 {
+  margin-bottom: 10px;
+}
+
+.cursoItem p {
+  margin-bottom: 10px;
+}
+
+.cursoItem h3 {
+  margin-bottom: 5px;
+}
+
+.cursoItem ul {
+  list-style: none;
+  padding: 0;
+}
+
+.cursoItem ul li {
+  margin-bottom: 5px;
+}

@@ -1,3 +1,9 @@
+import ShowAnot from "../components/anotaciones/ShowAnot";
+
 export function Anotaciones() {
-  return <div>Anotaciones</div>;
+  return (
+    <>
+      <ShowAnot />
+    </>
+  );
 }

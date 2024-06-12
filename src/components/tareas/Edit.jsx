@@ -18,6 +18,7 @@ export function Edit() {
   const [materias, setMaterias] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
+  console.log(id);
 
   useEffect(() => {
     const getMaterias = async () => {

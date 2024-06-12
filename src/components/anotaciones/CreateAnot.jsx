@@ -2,27 +2,35 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, getDocs, addDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase/config";
-import styles from "./styles/create.module.css";
+import styles from "../tareas/styles/create.module.css";
 
-export function Create() {
+export function CreateAnot() {
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
-  const [fechaEntrega, setFechaEntrega] = useState("");
-  const [materiaId, setMateriaId] = useState("");
-  const [materias, setMaterias] = useState([]);
+  const [id_est, setIdEst] = useState("");
+  const [id_profesor, setIdProfesor] = useState("");
+  const [estudiantes, setEstudiantes] = useState([]);
+  const [profesores, setProfesores] = useState([]);
   const [estado, setEstado] = useState(true);
   const navigate = useNavigate();
 
-  const tareasCollection = collection(db, "tareas");
+  const anotacionesCollection = collection(db, "anotaciones");
 
   useEffect(() => {
-    const getMaterias = async () => {
-      const materiasCollection = collection(db, "materias");
-      const data = await getDocs(materiasCollection);
-      setMaterias(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    const getEstudiantes = async () => {
+      const estudiantesCollection = collection(db, "estudiantes");
+      const data = await getDocs(estudiantesCollection);
+      setEstudiantes(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
 
-    getMaterias();
+    const getProfesores = async () => {
+      const profesoresCollection = collection(db, "profesores");
+      const data = await getDocs(profesoresCollection);
+      setProfesores(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+
+    getEstudiantes();
+    getProfesores();
   }, []);
 
   const getCurrentDate = () => {
@@ -37,16 +45,17 @@ export function Create() {
 
   const create = async (e) => {
     e.preventDefault();
-    const materiaRef = doc(db, "materias", materiaId);
-    await addDoc(tareasCollection, {
+    const estudianteRef = doc(db, "estudiantes", id_est);
+    const profesorRef = doc(db, "profesores", id_profesor);
+    await addDoc(anotacionesCollection, {
       titulo: titulo,
       descripcion: descripcion,
-      fecha_entrega: fechaEntrega,
       fecha_creacion: getCurrentDate(),
-      idmateria: materiaRef,
+      id_est: estudianteRef,
+      id_profesor: profesorRef,
       estado: estado,
     });
-    navigate("/tareas");
+    navigate("/anotaciones");
   };
 
   return (
@@ -54,10 +63,10 @@ export function Create() {
       <div className={styles.row}>
         <div className={styles.col}>
           <div className={styles.header}>
-            <button onClick={() => navigate("/tareas")}>
+            <button onClick={() => navigate("/anotaciones")}>
               <i className="bx bx-arrow-back"></i>
             </button>
-            <h1>Crear Tarea</h1>
+            <h1>Crear Anotación</h1>
           </div>
           <form onSubmit={create}>
             <div className={styles.formGroup}>
@@ -79,40 +88,46 @@ export function Create() {
               />
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Fecha de Entrega</label>
-              <input
-                value={fechaEntrega}
-                onChange={(e) => setFechaEntrega(e.target.value)}
-                type="date"
-                className={styles.formControl}
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Materia</label>
+              <label className={styles.formLabel}>Estudiante</label>
               <select
-                value={materiaId}
-                onChange={(e) => setMateriaId(e.target.value)}
+                value={id_est}
+                onChange={(e) => setIdEst(e.target.value)}
                 className={styles.formControl}
               >
-                <option value="">Seleccione una Materia</option>
-                {materias.map((materia) => (
-                  <option key={materia.id} value={materia.id}>
-                    {materia.nombre}
+                <option value="">Seleccione un Estudiante</option>
+                {estudiantes.map((estudiante) => (
+                  <option key={estudiante.id} value={estudiante.id}>
+                    {estudiante.nombre}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className={styles.formGroup}>
+              <label className={styles.formLabel}>Profesor</label>
+              <select
+                value={id_profesor}
+                onChange={(e) => setIdProfesor(e.target.value)}
+                className={styles.formControl}
+              >
+                <option value="">Seleccione un Profesor</option>
+                {profesores.map((profesor) => (
+                  <option key={profesor.id} value={profesor.id}>
+                    {profesor.nombre}
                   </option>
                 ))}
               </select>
             </div>
             <div className={styles.buttons}>
               <button type="submit" className={styles.btnPrimary}>
-                <i class="bx bxs-save"></i>
+                <i className="bx bxs-save"></i>
                 <span>Guardar</span>
               </button>
               <button
-                onClick={() => navigate("/tareas")}
+                onClick={() => navigate("/anotaciones")}
                 type="button"
                 className={styles.btnSecondary}
               >
-                <i class="bx bx-x-circle"></i>
+                <i className="bx bx-x-circle"></i>
                 <span>Cancelar</span>
               </button>
             </div>
