@@ -8,7 +8,7 @@ export function Sidebar({ isSidebarHidden, logOut }) {
   const location = useLocation();
 
   const items = [
-    { link: "/", icon: "bx bxs-dashboard", text: "Panel de control" },
+    { link: "/", icon: "bx bxs-dashboard", text: "Panel de Control" },
     { link: "/cursos", icon: "bx bxs-shopping-bag-alt", text: "Cursos" },
     { link: "/tareas", icon: "bx bxs-doughnut-chart", text: "Tareas" },
     { link: "/anotaciones", icon: "bx bxs-message-dots", text: "Anotaciones" },
