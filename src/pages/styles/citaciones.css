@@ -1,290 +1,238 @@
-/* Estilos generales */
+/* Estilos para el contenedor principal */
 .citaciones-container {
-    background-color: #aed9e0;
-    background-image: linear-gradient(315deg, #aed9e0 0%, #6d96d0 74%);
-    padding: 40px;
-    border-radius: 10px;
-    width: 100%;
-    box-sizing: border-box;
-    color: #333;
-  }
-  
-  .citaciones-container h2 {
-    font-size: 2.5rem;
-    text-align: center;
-    color: #fff;
-    margin-bottom: 30px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  }
-  
-  .cita-form {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-top: 20px;
-  }
-  
-  .cita-form input[type="text"],
-  .cita-form input[type="datetime-local"],
-  .cita-form input[type="email"],
-  .cita-form select,
-  .cita-form textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ced4da; /* Borde gris */
-    border-radius: 4px;
-    font-size: 16px;
-    margin-bottom: 20px;
-  }
-  
-  .cita-form button {
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
-    padding: 12px 24px;
-    cursor: pointer;
-    border-radius: 25px;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: background-color 0.3s ease;
-  }
-  
-  .cita-form button:hover {
-    background-color: #0056b3;
-  }
-  
-  .cita-form button:focus {
-    outline: none;
-  }
-  
-  .citas-list {
-    margin-top: 20px;
-  }
-  
-  .cita-item {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 10px;
-  }
-  
-  /* Botones de acción */
-  .icon-button {
-    padding: 8px 16px;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-    border-radius: 50px;
-  }
-  
-  .edit-button {
-    background-color: #1085ec; /* Azul */
-    color: #ffffff; /* Texto blanco */
-  }
-  
-  .delete-button {
-    background-color: #dc3545; /* Rojo */
-    color: #ffffff; /* Texto blanco */
-  }
-  
-  .icon-button:hover {
-    opacity: 0.8;
-  }
-  
-  .icon-button i {
-    margin-right: 5px;
-  }
-  
-  .action-column {
-    white-space: nowrap; /* Evita que los botones se dividan en múltiples líneas */
-  }
-  
-  /* Estilos para los títulos de las ventanas flotantes */
-  .modal-content h3 {
-    color: #007bff; /* Azul */
-    border-bottom: 1px solid #dee2e6; /* Línea gris claro */
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    text-align: center; /* Alineación centrada */
-    font-weight: bold; /* Negrita */
-    font-size: 2rem; /* Tamaño del título */
-  }
-  
-  /* Estilos para el modal */
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente oscuro */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .modal-content {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 8px;
-    width: 80%;
-    max-width: 600px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.5); /* Sombra */
-  }
-  
-  .modal-content form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .modal-content form > div {
-    margin-bottom: 20px;
-  }
-  
-  .modal-content form > div label {
-    margin-bottom: 5px;
-    color: #495057; /* Color de texto gris oscuro */
-    font-weight: bold;
-  }
-  
-  .modal-content form input[type="text"],
-  .modal-content form input[type="email"],
-  .modal-content form select,
-  .modal-content form input[type="checkbox"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ced4da; /* Borde gris */
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  .modal-content form select {
-    height: 44px;
-  }
-  
-  .switch-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .switch-label {
-    margin-right: 20px;
-    color: #495057; /* Color de texto gris oscuro */
-  }
-  
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-  }
-  
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
-    border-radius: 34px;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 24px;
-    width: 24px;
-    left: 5px;
-    bottom: 5px;
-    background-color: white;
-    transition: .4s;
-    border-radius: 50%;
-  }
-  
-  input:checked + .slider {
-    background-color: #007bff;
-  }
-  
-  input:checked + .slider:before {
-    transform: translateX(26px);
-  }
-  
-  .button-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 30px;
-  }
-  
-  .button {
-    padding: 14px 28px;
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  
-  .cancelar-button {
-    padding: 14px 28px;
-    background-color: #6c757d;
-    color: #ffffff;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-right: 10px;
-  }
-  
-  .cancelar-button:hover {
-    background-color: #5a6268;
-  }
-  
-  .button:hover {
-    background-color: #0056b3;
-  }
-  
-  .button:focus,
-  .cancelar-button:focus {
-    outline: none;
-  }
-  
-  @media (max-width: 768px) {
-    .citaciones-container h2 {
-      font-size: 2rem;
-    }
-  
-    .cita-form input[type="text"],
-    .cita-form input[type="datetime-local"],
-    .cita-form input[type="email"],
-    .cita-form select,
-    .cita-form textarea {
-      font-size: 14px;
-    }
-  
-    .button,
-    .cancelar-button {
-      font-size: 14px;
-      padding: 10px 20px;
-    }
-  }
-  
+  background-color: #aed9e0;
+  background-image: linear-gradient(315deg, #aed9e0 0%, #6d96d0 74%);
+  padding: 40px;
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+}
+
+.citaciones-container h2 {
+  font-size: 2.2rem;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos para la lista de citas */
+.citas-list-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cita-item {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  position: relative; /* Permitirá posicionar la imagen */
+  display: flex;
+  justify-content: space-between;
+}
+
+.cita-content {
+  flex: 1;
+}
+
+.cita-item h3 {
+  font-size: 1.3rem;
+  color: #007bff;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.cita-item .barra.separadora {
+  margin: 10px -5px;
+  border-bottom: 5px solid #0f5ef1;
+}
+
+.cita-item p {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.cita-item p:last-child {
+  margin-bottom: 0;
+}
+
+/* Estilos para mover la imagen a la derecha */
+.imagen-container {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.imagen-comunicado,
+.imagen-entrevista {
+  width: 250px; /* Ancho deseado */
+  height: 250px; /* Altura automática */
+  max-width: 100%; /* Máximo ancho */
+  max-height: 100%; /* Máxima altura */
+  border-radius: 10px; /* Borde redondeado */
+  margin-left: 15px; /* Espacio entre la imagen y el contenido */
+}
+
+
+button.edit-button {
+  padding: 6px 20px;
+  margin-right: 10px;
+  background-color: #1be614;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+button.delete-button {
+  padding: 6px 20px;
+  margin-right: 10px;
+  background-color: #dd2020;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+/* Estilos para los botones */
+.buttons-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20px;
+}
+
+.buttons-container button {
+  padding: 6px 20px;
+  margin-right: 10px;
+  background-color: #2042dd;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.buttons-container button:hover {
+  background-color: #1a16e7;
+}
+
+.buttons-container button:focus {
+  outline: none;
+}
+
+.cancel-button {
+  background-color: #6c757d;
+  margin-left: 10px;
+}
+
+.cancel-button:hover {
+  background-color: #5a6268;
+}
+
+
+/* Estilos para el formulario */
+.form-container {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
+  margin-top: 20px;
+}
+
+.form-container label {
+  margin-bottom: 10px;
+  color: #495057;
+  font-weight: bold;
+}
+
+.form-container input[type="text"],
+.form-container textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1.2rem; /* Reducimos el tamaño de la fuente */
+  margin-bottom: 10px;
+}
+
+.form-container input[type="text"]:focus,
+.form-container textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.form-container ul {
+  margin-top: 10px;
+  list-style-type: none;
+  padding: 0;
+}
+
+.form-container ul li {
+  margin-bottom: 5px;
+}
+
+.form-container button[type="submit"] {
+  padding: 6px 24px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 25px;
+  font-size: 1rem; /* Reducimos el tamaño de la fuente */
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.form-container button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Estilos para los botones de seleccionar y quitar */
+.form-container .button {
+  display: flex;
+  align-items: center;
+}
+
+.form-container .button button {
+  padding: 6px 16px; /* Reducimos el padding */
+  background-color: #2042dd;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+  font-size: 1rem; /* Reducimos el tamaño de la fuente */
+  transition: background-color 0.3s ease;
+}
+
+.form-container .button.quit {
+  background-color: #dc3545; /* Color de fondo para el botón Quitar */
+}
+
+.form-container .button.selec {
+  background-color: #ffffff; /* Color de fondo para el botón Seleccionar */
+}
+
+.form-container .button button:hover {
+  background-color: #1a16e7;
+}
+
+.form-container .button button:focus {
+  outline: none;
+}
+
+/* Estilos para la barra separadora */
+.barra.separadora {
+  height: 2px;
+  background-color: #007bff; /* Color de la línea separadora */
+  margin: 20px 0; /* Espacio antes y después de la barra */
+}
