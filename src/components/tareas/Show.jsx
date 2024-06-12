@@ -21,47 +21,47 @@ export default function Show() {
 
   const getTareas = async () => {
     const data = await getDocs(tareasCollection);
-    const tareasWithCurso = await Promise.all(
+    const tareasWithMaterias = await Promise.all(
       data.docs.map(async (docSnapshot) => {
         const tareaData = docSnapshot.data();
-        const cursoRef = tareaData.id_curso;
-        let cursoData = null;
+        const tareaRef = tareaData.idmateria;
+        let materiaData = null;
 
-        if (cursoRef) {
-          const cursoDoc = await getDoc(cursoRef);
-          if (cursoDoc.exists()) {
-            cursoData = cursoDoc.data();
+        if (tareaRef) {
+          const materiaDoc = await getDoc(tareaRef);
+          if (materiaDoc.exists()) {
+            materiaData = materiaDoc.data();
           }
         }
 
-        return { ...tareaData, id: docSnapshot.id, id_curso: cursoData };
+        return { ...tareaData, id: docSnapshot.id, idmateria: materiaData };
       })
     );
-    setTareas(tareasWithCurso);
+    setTareas(tareasWithMaterias);
   };
 
-  const toggleTarea = async (id, activo) => {
+  const toggleTarea = async (id, estado) => {
     const tareaDoc = doc(db, "tareas", id);
     await updateDoc(tareaDoc, {
-      activo: !activo,
+      estado: !estado,
     });
     getTareas();
   };
 
-  const confirmToggle = (id, activo) => {
+  const confirmToggle = (id, estado) => {
     MySwal.fire({
-      title: activo ? "¿Desactivar la tarea?" : "¿Activar la tarea?",
+      title: estado ? "¿Desactivar la tarea?" : "¿Activar la tarea?",
       text: "¡Podrás revertir esto!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: activo ? "#d33" : "#5cb85c",
+      confirmButtonColor: estado ? "#d33" : "#5cb85c",
       cancelButtonColor: "#3085d6",
-      confirmButtonText: activo ? "¡Sí, desactivar!" : "¡Sí, activar!",
+      confirmButtonText: estado ? "¡Sí, desactivar!" : "¡Sí, activar!",
     }).then((result) => {
       if (result.isConfirmed) {
-        toggleTarea(id, activo);
+        toggleTarea(id, estado);
         MySwal.fire(
-          activo ? "Desactivado!" : "Activado!",
+          estado ? "Desactivado!" : "Activado!",
           "La tarea ha sido modificada.",
           "success"
         );
@@ -87,8 +87,9 @@ export default function Show() {
           <tr>
             <th>Título</th>
             <th>Descripción</th>
+            <th>Fecha de creación</th>
             <th>Fecha de entrega</th>
-            <th>Cursos</th>
+            <th>Materia</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -96,12 +97,13 @@ export default function Show() {
           {tareas.map((tarea) => (
             <tr
               key={tarea.id}
-              className={tarea.activo ? styles.activeRow : styles.inactiveRow}
+              className={tarea.estado ? styles.activeRow : styles.inactiveRow}
             >
               <td>{tarea.titulo}</td>
               <td>{tarea.descripcion}</td>
+              <td>{tarea.fecha_creacion}</td>
               <td>{tarea.fecha_entrega}</td>
-              <td>{tarea.id_curso && tarea.id_curso.nombre}</td>
+              <td>{tarea.idmateria && tarea.idmateria.nombre}</td>
               <td className="actions">
                 <Link
                   to={`/tareas/edit/${tarea.id}`}
@@ -111,13 +113,13 @@ export default function Show() {
                 </Link>
                 <button
                   onClick={() => {
-                    confirmToggle(tarea.id, tarea.activo);
+                    confirmToggle(tarea.id, tarea.estado);
                   }}
                   className={`${styles.toggleButton} ${
-                    !tarea.activo ? styles.btnActive : ""
+                    !tarea.estado ? styles.btnActive : ""
                   }`}
                 >
-                  {tarea.activo ? (
+                  {tarea.estado ? (
                     <>
                       <i className="bx bxs-toggle-right"></i>
                       <span>Desactivar</span>

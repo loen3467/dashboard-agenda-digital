@@ -5,12 +5,13 @@ import { getFirestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 var firebaseConfig = {
   // Paste Your keys here
-  apiKey: "AIzaSyCF34MaLq1eQ_CysZXYAcZvQP7lx5hmha8",
-  authDomain: "fir-login-react-d903f.firebaseapp.com",
-  projectId: "fir-login-react-d903f",
-  storageBucket: "fir-login-react-d903f.appspot.com",
-  messagingSenderId: "861977673053",
-  appId: "1:861977673053:web:9c0bf721b0051d9de93cb4",
+  apiKey: "AIzaSyBRUsrjreVhvRqmRYEkI9MCIbkqnlwVc_c",
+  authDomain: "agendadigital-54135.firebaseapp.com",
+  projectId: "agendadigital-54135",
+  storageBucket: "agendadigital-54135.appspot.com",
+  messagingSenderId: "937439472826",
+  appId: "1:937439472826:web:81227dbc2e207410526683",
+  measurementId: "G-VPPC33W0WK",
 };
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

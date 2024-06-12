@@ -14,16 +14,16 @@ export function Edit() {
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [fechaEntrega, setFechaEntrega] = useState("");
-  const [cursoId, setCursoId] = useState("");
-  const [cursos, setCursos] = useState([]);
+  const [materiaId, setMateriaId] = useState("");
+  const [materias, setMaterias] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
-    const getCursos = async () => {
-      const cursosCollection = collection(db, "cursos");
-      const data = await getDocs(cursosCollection);
-      setCursos(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    const getMaterias = async () => {
+      const materiasCollection = collection(db, "materias");
+      const data = await getDocs(materiasCollection);
+      setMaterias(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
 
     const getTareaById = async (id) => {
@@ -33,25 +33,25 @@ export function Edit() {
         setTitulo(tarea.titulo);
         setDescripcion(tarea.descripcion);
         setFechaEntrega(tarea.fecha_entrega);
-        setCursoId(tarea.id_curso.id);
+        setMateriaId(tarea.idmateria.id);
       } else {
         console.log("La tarea no existe");
       }
     };
 
-    getCursos();
+    getMaterias();
     getTareaById(id);
   }, [id]);
 
   const update = async (e) => {
     e.preventDefault();
     const tareaRef = doc(db, "tareas", id);
-    const cursoRef = doc(db, "cursos", cursoId);
+    const materiaRef = doc(db, "materias", materiaId);
     const data = {
       titulo,
       descripcion,
       fecha_entrega: fechaEntrega,
-      id_curso: cursoRef,
+      idmateria: materiaRef,
     };
     await updateDoc(tareaRef, data);
     navigate("/tareas");
@@ -96,16 +96,16 @@ export function Edit() {
               />
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Curso</label>
+              <label className={styles.formLabel}>Materia</label>
               <select
-                value={cursoId}
-                onChange={(e) => setCursoId(e.target.value)}
+                value={materiaId}
+                onChange={(e) => setMateriaId(e.target.value)}
                 className={styles.formControl}
               >
-                <option value="">Seleccione un curso</option>
-                {cursos.map((curso) => (
-                  <option key={curso.id} value={curso.id}>
-                    {curso.nombre}
+                <option value="">Seleccione una materia</option>
+                {materias.map((materia) => (
+                  <option key={materia.id} value={materia.id}>
+                    {materia.nombre}
                   </option>
                 ))}
               </select>

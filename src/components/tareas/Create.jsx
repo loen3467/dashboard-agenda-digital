@@ -8,32 +8,44 @@ export function Create() {
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [fechaEntrega, setFechaEntrega] = useState("");
-  const [cursoId, setCursoId] = useState("");
-  const [cursos, setCursos] = useState([]);
-  const [activo, setActivo] = useState(true);
+  const [fechaCreacion, setFechaCreacion] = useState("");
+  const [materiaId, setMateriaId] = useState("");
+  const [materias, setMaterias] = useState([]);
+  const [estado, setEstado] = useState(true);
   const navigate = useNavigate();
 
   const tareasCollection = collection(db, "tareas");
 
   useEffect(() => {
-    const getCursos = async () => {
-      const cursosCollection = collection(db, "cursos");
-      const data = await getDocs(cursosCollection);
-      setCursos(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    const getMaterias = async () => {
+      const materiasCollection = collection(db, "materias");
+      const data = await getDocs(materiasCollection);
+      setMaterias(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
 
-    getCursos();
+    getMaterias();
   }, []);
 
-  const crear = async (e) => {
+  const getCurrentDate = () => {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const day = String(currentDate.getDate()).padStart(2, "0");
+
+    const formattedDate = `${year}/${month}/${day}`;
+    return formattedDate;
+  };
+
+  const create = async (e) => {
     e.preventDefault();
-    const cursoRef = doc(db, "cursos", cursoId);
+    const materiaRef = doc(db, "materias", materiaId);
     await addDoc(tareasCollection, {
       titulo: titulo,
       descripcion: descripcion,
       fecha_entrega: fechaEntrega,
-      id_curso: cursoRef,
-      activo: activo,
+      fecha_creacion: getCurrentDate(),
+      idmateria: materiaRef,
+      estado: estado,
     });
     navigate("/tareas");
   };
@@ -48,7 +60,7 @@ export function Create() {
             </button>
             <h1>Crear Tarea</h1>
           </div>
-          <form onSubmit={crear}>
+          <form onSubmit={create}>
             <div className={styles.formGroup}>
               <label className={styles.formLabel}>Título</label>
               <input
@@ -77,16 +89,16 @@ export function Create() {
               />
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Curso</label>
+              <label className={styles.formLabel}>Materia</label>
               <select
-                value={cursoId}
-                onChange={(e) => setCursoId(e.target.value)}
+                value={materiaId}
+                onChange={(e) => setMateriaId(e.target.value)}
                 className={styles.formControl}
               >
-                <option value="">Seleccione un curso</option>
-                {cursos.map((curso) => (
-                  <option key={curso.id} value={curso.id}>
-                    {curso.nombre}
+                <option value="">Seleccione una Materia</option>
+                {materias.map((materia) => (
+                  <option key={materia.id} value={materia.id}>
+                    {materia.nombre}
                   </option>
                 ))}
               </select>
