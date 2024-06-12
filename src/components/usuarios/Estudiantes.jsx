@@ -276,28 +276,7 @@ export function Estudiantes() {
                   <option value="femenino">Femenino</option>
                 </select>
               </div>
-              <div>
-                <label htmlFor="id_curso">ID Curso</label>
-                <input
-                  type="text"
-                  id="id_curso"
-                  name="id_curso"
-                  value={formData.id_curso}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="id_padre">ID Padre</label>
-                <input
-                  type="text"
-                  id="id_padre"
-                  name="id_padre"
-                  value={formData.id_padre}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+              
               <div>
                 <label htmlFor="carnet">Carnet</label>
                 <input

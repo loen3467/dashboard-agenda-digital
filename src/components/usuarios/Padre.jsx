@@ -265,16 +265,7 @@ export function Padres() {
                   onChange={handleChange}
                 />
               </div>
-              <div>
-                <label htmlFor="id_est">ID Estudiante</label>
-                <input
-                  type="text"
-                  id="id_est"
-                  name="id_est"
-                  value={formData.id_est}
-                  onChange={handleChange}
-                />
-              </div>
+
               <div>
                 <label htmlFor="carnet">Carnet</label>
                 <input
