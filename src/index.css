@@ -15,8 +15,8 @@ li {
 }
 
 :root {
-  --montserrat: "Montserrat", sans-serif;
   --poppins: "Poppins", sans-serif;
+  --montserrat: "Montserrat", sans-serif;
   --lato: "Lato", sans-serif;
   --light: #f9f9f9;
   --blue: #3c91e6;

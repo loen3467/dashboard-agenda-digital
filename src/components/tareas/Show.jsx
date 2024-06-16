@@ -8,9 +8,9 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase/config";
+import styles from "./styles/show.module.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import styles from "./styles/show.module.css";
 
 const MySwal = withReactContent(Swal);
 

@@ -10,7 +10,7 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { db } from "../../firebase/config";
-import styles from "./styles/show.module.css";
+import styles from "./styles/create.module.css";
 
 export function CreateCourses() {
   const [nombre, setNombre] = useState("");
@@ -59,7 +59,7 @@ export function CreateCourses() {
       grado: parseInt(grado),
       paralelo: paralelo,
       estudiantes: estudiantesRefs,
-      materias: materiasRefs,
+      id_materias: materiasRefs,
     });
     navigate("/cursos");
   };
@@ -114,7 +114,7 @@ export function CreateCourses() {
                 multiple
               >
                 {estudiantes.map((estudiante) => (
-                  <option key={estudiante.id} value={estudiante.id}>
+                  <option key={estudiante.id} value={estudiante.nombre}>
                     {estudiante.nombre}
                   </option>
                 ))}

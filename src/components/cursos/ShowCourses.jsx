@@ -15,20 +15,20 @@ export function ShowCourses() {
 
       for (const docSnap of data.docs) {
         const cursoData = docSnap.data();
-        const estudiantesRefs = cursoData.estudiantes;
-        const materiasRefs = cursoData.id_materias;
+        const estudiantesRefs = cursoData.estudiantes ?? [];
+        const materiasRefs = cursoData.id_materias ?? [];
 
         const estudiantesData = await Promise.all(
           estudiantesRefs.map(async (estudianteRef) => {
             const estudianteDoc = await getDoc(estudianteRef);
-            return estudianteDoc.data();
+            return estudianteDoc.exists() ? estudianteDoc.data() : null;
           })
         );
 
         const materiasData = await Promise.all(
           materiasRefs.map(async (materiaRef) => {
             const materiaDoc = await getDoc(materiaRef);
-            return materiaDoc.data();
+            return materiaDoc.exists() ? materiaDoc.data() : null;
           })
         );
 
@@ -36,8 +36,10 @@ export function ShowCourses() {
           nombre: cursoData.nombre,
           grado: cursoData.grado,
           paralelo: cursoData.paralelo,
-          estudiantes: estudiantesData,
-          materias: materiasData,
+          estudiantes: estudiantesData.filter(
+            (estudiante) => estudiante !== null
+          ),
+          materias: materiasData.filter((materia) => materia !== null),
         };
 
         cursosList.push(curso);

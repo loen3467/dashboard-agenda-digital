@@ -1,8 +1,11 @@
+.container * {
+  font-family: var(--poppins);
+}
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
   font-family: var(--poppins);
+  padding: 20px;
   font-size: 1rem;
 }
 

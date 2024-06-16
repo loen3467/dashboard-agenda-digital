@@ -1,3 +1,7 @@
+.swal2-container * {
+  font-family: var(--poppins);
+}
+
 /* CONTENT */
 #content {
   position: relative;

@@ -23,7 +23,6 @@ export function MyRoutes() {
           <Route path="/cursos" element={<Cursos />}></Route>
           <Route path="/cursos/create" element={<CreateCourses />}></Route>
           <Route path="/cursos/edit/:id" element={<EditCourses />}></Route>
-
           <Route path="/tareas" element={<Tareas />}></Route>
           <Route path="/tareas/create" element={<Create />}></Route>
           <Route path="/tareas/edit/:id" element={<Edit />}></Route>

@@ -3,7 +3,7 @@ import "./styles/sidebar.css";
 import { SidebarItem } from "./SidebarItem";
 import { useEffect, useState } from "react";
 
-export function Sidebar({ isSidebarHidden, logOut }) {
+export function Sidebar({ isSidebarHidden, onLogout }) {
   const [activeItem, setActiveItem] = useState(0);
   const location = useLocation();
 
@@ -57,7 +57,7 @@ export function Sidebar({ isSidebarHidden, logOut }) {
             text: "Cerrar Sesión",
           }}
           isActive={false}
-          onClick={logOut}
+          onClick={onLogout}
         />
       </ul>
     </section>
