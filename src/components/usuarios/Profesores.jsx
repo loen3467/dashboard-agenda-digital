@@ -4,7 +4,7 @@ import { collection, getDocs, addDoc, updateDoc, doc } from 'firebase/firestore'
 import ProfesorItem from '../header/ProfesorItem';
 import CryptoJS from 'crypto-js';
 import './styles/profesores.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 export function Profesores() {
   const [profesores, setProfesores] = useState([]);
