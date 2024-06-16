@@ -3,7 +3,6 @@ import { Cursos } from "../pages/Cursos";
 import { Tareas } from "../pages/Tareas";
 import { Anotaciones } from "../pages/Anotaciones";
 import { Citaciones } from "../pages/Citaciones";
-import { Usuarios } from "../pages/Usuarios";
 import { Dashboard } from "../pages/Dashboard";
 import { Estudiantes } from "../components/usuarios/Estudiantes";
 import { Padres } from "../components/usuarios/Padre";

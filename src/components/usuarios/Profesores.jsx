@@ -56,9 +56,10 @@ export function Profesores() {
     try {
       const userDoc = doc(db, 'profesores', id);
       await updateDoc(userDoc, { estado: !currentState });
+      // eslint-disable-next-line no-undef
       setPadres((prevProfesores) =>
         prevProfesores.map((prof) =>
-          prof.id === id ? { ...profesor, estado: !currentState } : profesor
+          prof.id === id ? { ...profesores, estado: !currentState } : profesores
         )
       );
     } catch (error) {
