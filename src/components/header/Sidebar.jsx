@@ -9,9 +9,19 @@ export function Sidebar({ isSidebarHidden }) {
   const items = [
     { link: "/", icon: "bx bxs-dashboard", text: "Panel de control" },
     {
-      link: "/Usuarios",
+      link: "/Estudiantes",
       icon: "bx bxs-group",
-      text: "Gestion de Usuarios",
+      text: "Gestion de Estudiantes",
+    },
+    {
+      link: "/Padres",
+      icon: "bx bxs-group",
+      text: "Gestion de Padres",
+    },
+    {
+      link: "/Profesores",
+      icon: "bx bxs-group",
+      text: "Gestion de Profesores",
     },
     {
       link: "/Cursos",
