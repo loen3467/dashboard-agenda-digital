@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { db } from '../../firebaseConfig';
+import { db } from '../../firebase/config';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import PadreItem from '../header/PadreItem'; // Asegúrate de que la ruta sea correcta
 import CryptoJS from 'crypto-js';
 import './styles/padres.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
 
 export function Padres() {
   const [padres, setPadres] = useState([]);

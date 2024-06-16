@@ -3,7 +3,6 @@ import { Cursos } from "../pages/Cursos";
 import { Tareas } from "../pages/Tareas";
 import { Anotaciones } from "../pages/Anotaciones";
 import { Citaciones } from "../pages/Citaciones";
-import { Usuarios } from "../pages/Usuarios";
 import { Dashboard } from "../pages/Dashboard";
 import { Layout } from "../components/header/Layout";
 import { Create } from "../components/tareas/Create";
@@ -13,6 +12,10 @@ import { CreateAnot } from "../components/anotaciones/CreateAnot";
 import { EditAnot } from "../components/anotaciones/EditAnot";
 import { CreateCourses } from "../components/cursos/CreateCourses";
 import { EditCourses } from "../components/cursos/EditCourses";
+import { Estudiantes } from "../components/usuarios/Estudiante";
+import { Padres } from "../components/usuarios/Padre";
+import { Profesores} from "../components/usuarios/Profesores";
+
 export function MyRoutes() {
   return (
     <BrowserRouter>
@@ -30,7 +33,9 @@ export function MyRoutes() {
           <Route path="/anotaciones/create" element={<CreateAnot />}></Route>
           <Route path="/anotaciones/edit/:id" element={<EditAnot />}></Route>
           <Route path="/citaciones" element={<Citaciones />}></Route>
-          <Route path="/usuarios" element={<Usuarios />}></Route>
+          <Route path="/Estudiantes" element={<Estudiantes />}></Route>
+          <Route path="/Padres" element={<Padres />}></Route>
+          <Route path="/Profesores" element={<Profesores />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

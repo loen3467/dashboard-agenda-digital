@@ -14,7 +14,10 @@ export function Sidebar({ isSidebarHidden, onLogout }) {
     { link: "/tareas", icon: "bx bxs-doughnut-chart", text: "Tareas" },
     { link: "/anotaciones", icon: "bx bxs-message-dots", text: "Anotaciones" },
     { link: "/citaciones", icon: "bx bxs-group", text: "Citaciones" },
-    { link: "/usuarios", icon: "bx bxs-group", text: "Usuarios" },
+    { link: "/", icon: "bx bxs-dashboard", text: "Panel de control" },
+    { link: "/Estudiantes", icon: "bx bxs-group", text: "Gestion de Estudiantes",},
+    { link: "/Padres", icon: "bx bxs-group", text: "Gestion de Padres",},
+    { link: "/Profesores", icon: "bx bxs-group", text: "Gestion de Profesores",},
   ];
 
   const handleItemClick = (index) => {

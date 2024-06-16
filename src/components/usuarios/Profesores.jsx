@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { db } from '../../firebaseConfig';
+import { db } from '../../firebase/config';
 import { collection, getDocs, addDoc, updateDoc, doc } from 'firebase/firestore';
 import ProfesorItem from '../header/ProfesorItem';
 import CryptoJS from 'crypto-js';
 import './styles/profesores.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
 
 export function Profesores() {
   const [profesores, setProfesores] = useState([]);
@@ -56,9 +55,10 @@ export function Profesores() {
     try {
       const userDoc = doc(db, 'profesores', id);
       await updateDoc(userDoc, { estado: !currentState });
+      // eslint-disable-next-line no-undef
       setPadres((prevProfesores) =>
         prevProfesores.map((prof) =>
-          prof.id === id ? { ...profesor, estado: !currentState } : profesor
+          prof.id === id ? { ...profesores, estado: !currentState } : profesores
         )
       );
     } catch (error) {
