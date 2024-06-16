@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 export function SidebarItem({ item, isActive, onClick }) {
   return (
@@ -10,3 +11,13 @@ export function SidebarItem({ item, isActive, onClick }) {
     </li>
   );
 }
+
+SidebarItem.propTypes = {
+  item: PropTypes.shape({
+    link: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired
+  }).isRequired,
+  isActive: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired
+};

@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import PropTypes from "prop-types"; // Importa PropTypes
 import "./styles/sidebar.css";
 import { SidebarItem } from "./SidebarItem";
 import { useEffect, useState } from "react";
@@ -63,3 +64,9 @@ export function Sidebar({ isSidebarHidden, onLogout }) {
     </section>
   );
 }
+
+// Define PropTypes para Sidebar
+Sidebar.propTypes = {
+  isSidebarHidden: PropTypes.bool.isRequired, // Asegura que isSidebarHidden sea un booleano requerido
+  onLogout: PropTypes.func.isRequired, // Asegura que onLogout sea una función requerida
+};

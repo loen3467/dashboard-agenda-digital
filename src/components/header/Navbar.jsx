@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./styles/navbar.css";
 import { Link } from "react-router-dom";
+// eslint-disable-next-line react/prop-types
 export function Navbar({ toogleSidebar }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
