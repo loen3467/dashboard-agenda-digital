@@ -330,9 +330,10 @@ button.delete-button:focus,
 }
 
 .form-container input,
-.form-container textarea {
+.form-container textarea,
+.form-wrapper.active form textarea {
   width: 100%;
-  padding: 8px; /* Tamaño más pequeño para los inputs */
+  padding: 20px; /* Tamaño más pequeño para los inputs */
   border: 1px solid #ced4da;
   border-radius: 4px;
   box-sizing: border-box;
@@ -340,6 +341,7 @@ button.delete-button:focus,
   font-size: 0.9rem; /* Tamaño más pequeño para los inputs */
   color: #333;
   margin-top: 5px;
+  min-height: 500px; /* Aumentar la altura mínima del textarea */
 }
 
 .form-container input[type="checkbox"] {
