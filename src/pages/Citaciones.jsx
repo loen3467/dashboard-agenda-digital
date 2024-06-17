@@ -122,15 +122,33 @@ export function Citaciones() {
   };
 
   const handleEdit = (cita) => {
-    setTitulo(cita.titulo);
-    setDescripcion(cita.descripcion);
-    setFormType(cita.tipo);
-    setFecha(cita.fecha);
-    setComunicadoFecha(cita.tipo === 'comunicado' ? cita.fecha : '');
-    setSelectedEstudiantes(estudiantes.filter((est) => cita.id_est.includes(est.id)));
-    setSelectedCursos(cita.idcurso.map((curso) => curso.replace('/cursos/', '')));
     setEditingCita(cita);
-    setFormVisible(true);
+    openFormForEditing(cita);
+  };
+
+  const openFormForEditing = (cita) => {
+    const { tipo, titulo, descripcion, fecha, id_est, idcurso } = cita;
+  
+    if (tipo === 'comunicado') {
+      setFormType('comunicado');
+      setTitulo(titulo);
+      setDescripcion(descripcion);
+      setComunicadoFecha(fecha);
+      setFormVisible(true);
+    } else if (tipo === 'cursos') {
+      setFormType('cursos');
+      setTitulo(titulo);
+      setDescripcion(descripcion);
+      setSelectedCursos(idcurso.map((curso) => curso.replace('/cursos/', '')));
+      setFormVisible(true);
+    } else if (tipo === 'entrevista') {
+      setFormType('entrevista');
+      setTitulo(titulo);
+      setDescripcion(descripcion);
+      setFecha(fecha);
+      setSelectedEstudiantes(estudiantes.filter((est) => id_est.includes(est.id)));
+      setFormVisible(true);
+    }
   };
 
   const getParentData = (parentId) => {
@@ -141,6 +159,12 @@ export function Citaciones() {
     estudiante.nombre.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const openFormForCreation = (type) => {
+    resetForm();
+    setFormType(type);
+    setFormVisible(true);
+  };
+
   return (
     <div className="citaciones-container">
       <h2>Comunicados y Citaciones</h2>
@@ -149,54 +173,56 @@ export function Citaciones() {
           {citas.map((cita, index) => (
             <div key={index} className="cita-item">
               <div className="cita-content">
-        <h3>{cita.titulo}</h3>
-        <div className="barra separadora"></div>
-        <p>{cita.descripcion}</p>
-        <p>Fecha: {cita.fecha}</p>
-        <p>Tipo: {cita.tipo === 'comunicado' ? 'Comunicado' : cita.tipo === 'entrevista' ? 'Entrevista' : 'Cursos'}</p>
-        {cita.tipo === 'entrevista' && (
-          <>
-            {cita.id_est.map((id_est, idx) => {
-              const estudiante = estudiantes.find((est) => est.id === id_est);
-              if (!estudiante) return null;
+                <h3>{cita.titulo}</h3>
+                <div className="barra separadora"></div>
+                <p>{cita.descripcion}</p>
+                <p>Fecha: {cita.fecha}</p>
+                <p>Tipo: {cita.tipo === 'comunicado' ? 'Comunicado' : cita.tipo === 'entrevista' ? 'Entrevista' : 'Cursos'}</p>
+                {cita.tipo === 'entrevista' && (
+                  <>
+                    {cita.id_est.map((id_est, idx) => {
+                      const estudiante = estudiantes.find((est) => est.id === id_est);
+                      if (!estudiante) return null;
 
-              const padre = padres.find((padre) => padre.id === estudiante.id_padre);
-              const nombrePadre = padre ? padre.nombre : 'No encontrado';
-              const apellidoPadre = padre ? padre.apellido : 'No encontrado';
+                      const padre = padres.find((padre) => padre.id === estudiante.id_padre);
+                      const nombrePadre = padre ? padre.nombre : 'No encontrado';
+                      const apellidoPadre = padre ? padre.apellido : 'No encontrado';
 
-              return (
-                <div key={idx}>
-                  <p>Estudiante: {estudiante.nombre} {estudiante.apellido}</p>
+                      return (
+                        <div key={idx}>
+                          <p>Estudiante: {estudiante.nombre} {estudiante.apellido}</p>
+                          <div>
+                            <p>Nombre del Padre: {nombrePadre}</p>
+                            <p>Apellido del Padre: {apellidoPadre}</p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                )}
+                {cita.tipo === 'cursos' && (
                   <div>
-                    <p>Nombre del Padre: {nombrePadre}</p>
-                    <p>Apellido del Padre: {apellidoPadre}</p>
+                    <p>Cursos:</p>
+                    <ul>
+                      {cita.idcurso.map((idCurso, idx) => {
+                        const curso = cursos.find((curso) => `/cursos/${curso.id}` === idCurso);
+                        return curso ? <li key={idx}>{curso.nombre}</li> : null;
+                      })}
+                    </ul>
                   </div>
-                </div>
-              );
-            })}
-          </>
-        )}
-        {cita.tipo === 'cursos' && (
-          <div>
-            <p>Cursos:</p>
-            <ul>
-              {cita.idcurso.map((idCurso, idx) => {
-                const curso = cursos.find((curso) => `/cursos/${curso.id}` === idCurso);
-                return curso ? <li key={idx}>{curso.nombre}</li> : null;
-              })}
-            </ul>
-          </div>
-        )}
-      </div>
+                )}
+              </div>
               <div className="imagen-container">
                 {cita.tipo === 'comunicado' ? (
                   <img src={comunicadoImg} alt="Comunicado" className="imagen-comunicado" />
-                ) : (
+                ) : cita.tipo === 'entrevista' ? (
                   <img src={entrevistaImg} alt="Entrevista" className="imagen-entrevista" />
+                ) : (
+                  <img src={entrevistaImg} alt="Citacion a Cursos" className="imagen-entrevista" />
                 )}
               </div>
               <div className="buttons edits">
-                <button className="edit-button" onClick={() => handleEdit(cita)}>Editar</button>
+              <button className="edit-button" onClick={() => handleEdit(cita)}>Editar</button>
                 <button className="delete-button" onClick={() => handleDelete(cita.id)}>Eliminar</button>
               </div>
             </div>
@@ -204,9 +230,9 @@ export function Citaciones() {
         </div>
       </div>
       <div className="buttons-container">
-        <button onClick={() => { setFormType('comunicado'); setFormVisible(true); }}>Nuevo Comunicado</button>
-        <button onClick={() => { setFormType('entrevista'); setFormVisible(true); }}>Entrevista a Estudiante(s)</button>
-        <button onClick={() => { setFormType('cursos'); setFormVisible(true); }}>Citación a Cursos</button>
+        <button onClick={() => openFormForCreation('comunicado')}>Nuevo Comunicado</button>
+        <button onClick={() => openFormForCreation('entrevista')}>Entrevista a Estudiante(s)</button>
+        <button onClick={() => openFormForCreation('cursos')}>Citación a Cursos</button>
       </div>
       {formVisible && (
         <>
@@ -214,7 +240,7 @@ export function Citaciones() {
           <div className="form-container">
             <div className="form-wrapper active">
               <div>
-                <h2>{formType === 'COMUNICADO' ? 'CITACION A UN ESTUDIANTE' : 'CITACION CURSOS'}</h2>
+                <h2>{formType === 'comunicado' ? 'Nuevo Comunicado' : formType === 'entrevista' ? 'Entrevista a Estudiante(s)' : 'Citación a Cursos'}</h2>
               </div>
               <form onSubmit={handleSubmit}>
                 <div>
@@ -262,7 +288,7 @@ export function Citaciones() {
                         type="text"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                      />  
+                      />
                     </div>
                     <div className='busca-est'>
                       <ul>
@@ -270,28 +296,24 @@ export function Citaciones() {
                           <li key={index}>
                             {estudiante.nombre}
                             {selectedEstudiantes.find((e) => e.id === estudiante.id) ? (
-                              <div className="button quit">
-                                <button
-                                  type="button"
-                                  onClick={() => handleRemoveEstudiante(estudiante)}
-                                >
-                                  Quitar
-                                </button>
-                              </div>
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveEstudiante(estudiante)}
+                              >
+                                Quitar
+                              </button>
                             ) : (
-                              <div className="button selec">
-                                <button
-                                  type="button"
-                                  onClick={() => handleSelectEstudiante(estudiante)}
-                                >
-                                  Seleccionar
-                                </button>
-                              </div>
+                              <button
+                                type="button"
+                                onClick={() => handleSelectEstudiante(estudiante)}
+                              >
+                                Seleccionar
+                              </button>
                             )}
                           </li>
                         ))}
                       </ul>
-                      </div>
+                    </div>
                     {selectedEstudiantes.map((estudiante, index) => (
                       <div key={index}>
                         <p>Nombre: {estudiante.nombre} {estudiante.apellido}</p>
@@ -314,24 +336,23 @@ export function Citaciones() {
                 {formType === 'cursos' && (
                   <div>
                     <label>Seleccionar Cursos:</label>
-                    {cursos.map((curso) => (
-                      <div key={curso.id}>
-                        <input
-                          type="checkbox"
-                          id={`curso-${curso.id}`}
-                          checked={selectedCursos.includes(curso.id)}
-                          onChange={() => handleSelectCurso(curso.id)}
-                        />
-                        <label htmlFor={`curso-${curso.id}`}>{curso.nombre}</label>
-                      </div>
-                    ))}
+                    <div className='busc-cursos'>
+                      {cursos.map((curso) => (
+                        <div key={curso.id}>
+                          <input
+                            type="checkbox"
+                            id={`curso-${curso.id}`}
+                            checked={selectedCursos.includes(curso.id)}
+                            onChange={() => handleSelectCurso(curso.id)} />
+                          <label htmlFor={`curso-${curso.id}`}>{curso.nombre}</label>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
                 <div className="button-container">
-                  <button type="submit">Crear Citación</button>
-                  <button type="button" className="cancel-button" onClick={() => setFormVisible(false)}>
-                    Cancelar
-                  </button>
+                  <button type="submit">{editingCita ? 'Guardar Cambios' : 'Crear Citación'}</button>
+                  <button type="button" className="cancel-button" onClick={() => setFormVisible(false)}>Cancelar</button>
                 </div>
               </form>
             </div>

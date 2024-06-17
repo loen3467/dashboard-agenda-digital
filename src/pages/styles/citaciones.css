@@ -8,12 +8,25 @@
   box-sizing: border-box;
   color: #333;
   font-family: 'Arial', sans-serif;
+  font-size: 14px; /* Reducimos el tamaño de fuente general */
+}
+
+.form-wrapper.active {
+  background-color: #2c8de7;
+}
+
+/* Estilos para el formulario dentro de .form-wrapper */
+.form-wrapper.active form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 5px;
+  font-size: 14px; /* Reducimos el tamaño de fuente */
 }
 
 .citaciones-container h2 {
-  font-size: 2.2rem;
+  font-size: 1.8rem; /* Reducimos el tamaño de fuente */
   text-align: center;
-  color: #fff;
+  color: #dddada;
   margin-bottom: 30px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -32,7 +45,7 @@
   padding: 15px;
   margin-top: 10px;
   margin-bottom: 10px;
-  position: relative; /* Permitirá posicionar la imagen */
+  position: relative;
   display: flex;
   justify-content: space-between;
 }
@@ -42,7 +55,7 @@
 }
 
 .cita-item h3 {
-  font-size: 1.3rem;
+  font-size: 1.2rem; /* Reducimos el tamaño de fuente */
   color: #007bff;
   font-weight: bold;
   margin-bottom: 10px;
@@ -54,8 +67,11 @@
 }
 
 .cita-item p {
-  font-size: 1rem;
+  font-size: 0.9rem; /* Reducimos el tamaño de fuente */
   margin-bottom: 10px;
+  font-family: 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .cita-item p:last-child {
@@ -71,195 +87,72 @@
 
 .imagen-comunicado,
 .imagen-entrevista {
-  width: 250px; /* Ancho deseado */
-  height: 250px; /* Altura automática */
-  max-width: 100%; /* Máximo ancho */
-  max-height: 100%; /* Máxima altura */
-  border-radius: 10px; /* Borde redondeado */
-  margin-left: 15px; /* Espacio entre la imagen y el contenido */
-}
-
-button.edit-button {
-  padding: 6px 20px;
-  margin-right: 10px;
-  background-color: #1be614;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 20px;
-  transition: background-color 0.3s ease;
-}
-
-button.delete-button {
-  padding: 6px 20px;
-  margin-right: 10px;
-  background-color: #dd2020;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 20px;
-  transition: background-color 0.3s ease;
+  width: 250px;
+  height: auto;
+  max-width: 100%;
+  border-radius: 10px;
+  margin-left: 15px;
 }
 
 /* Estilos para los botones */
-.buttons-container {
-  display: flex;
-  justify-content: flex-start;
-  margin-top: 20px;
-}
-
-.buttons-container button {
-  padding: 6px 20px;
-  margin-right: 10px;
-  background-color: #2042dd;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 20px;
-  transition: background-color 0.3s ease;
-}
-
-.buttons-container button:hover {
-  background-color: #1a16e7;
-}
-
-.buttons-container button:focus {
-  outline: none;
-}
-
-.cancel-button {
-  background-color: #dc3545; /* Cambiado a rojo */
-  margin-left: 10px;
-}
-
-.cancel-button:hover {
-  background-color: #c82333; /* Cambiado a un tono más oscuro de rojo */
-}
-
-/* Estilos para el formulario */
-.form-container {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
-  margin: 20px auto; /* Centrar vertical y horizontalmente */
-  box-sizing: border-box;
-  max-height: calc(100vh - 80px); /* Máxima altura del formulario contenido */
-  overflow-y: auto; /* Añadir scroll vertical si es necesario */
-}
-
-.form-wrapper {
-  width: 100%;
-}
-
-/* Estilo para los títulos de las secciones */
-.form-wrapper h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-/* Estilo para los contenedores de etiqueta e input */
-.form-container div {
-  margin-bottom: 10px;
-  display: inline-flex;
-  align-items: center;
-}
-/* Estilo para los labels */
-.form-container label {
-  flex: 1; /* El label ocupará 1/3 del espacio */
-  text-align: left;
-  margin-right: 10px;
-  color: #495057;
-  font-weight: bold;
-}
-/* Estilo para los inputs */
-.form-container input,
-.form-container textarea {
-  flex: 2; /* El input ocupará 2/3 del espacio */
-  padding: 10px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-
-.form-container input[type="text"]:focus,
-.form-container textarea:focus {
-  border-color: #007bff;
-  outline: none;
-}
-.form-container ul {
-  margin-top: 10px;
-  list-style-type: none;
-  padding: 0;
-}
-
-.form-container ul li {
-  margin-bottom: 5px;
-}
-
+button.edit-button,
+.buttons-container button,
 .form-container button[type="submit"],
-.form-container button.cancel-button {
-  padding: 6px 24px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 25px;
-  font-size: 1rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-top: 10px;
-  transition: background-color 0.3s ease;
-}
-
-.form-container button[type="submit"]:hover,
-.form-container button.cancel-button:hover {
-  background-color: #0056b3;
-}
-
-/* Estilos para los botones de seleccionar y quitar */
-.form-container .button {
-  display: flex;
-  align-items: center;
-}
-
 .form-container .button button {
-  padding: 6px 16px; /* Reducimos el padding */
-  background-color: #2042dd;
+  padding: 8px 16px; /* Reducimos el padding de los botones */
+  margin-right: 10px;
+  background-color: #14bce6;
   color: white;
   border: none;
   cursor: pointer;
   border-radius: 20px;
-  font-size: 1rem; /* Reducimos el tamaño de la fuente */
   transition: background-color 0.3s ease;
+  font-size: 0.9rem; /* Reducimos el tamaño de fuente de los botones */
 }
 
-.form-container .button.quit {
-  background-color: #ffffff; /* Color de fondo para el botón Quitar */
+button.delete-button,
+.cancel-button,
+.form-container button.cancel-button,
+.form-container .button.quit button {
+  padding: 8px 16px; /* Reducimos el padding de los botones */
+  margin-right: 10px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+  font-size: 0.9rem; /* Reducimos el tamaño de fuente de los botones */
 }
 
-.form-container .button.selec {
-  background-color: #ffffff; /* Color de fondo para el botón Seleccionar */
-  
-}
-
+button.edit-button:hover,
+.buttons-container button:hover,
+.form-container button[type="submit"]:hover,
 .form-container .button button:hover {
-  background-color: #1a16e7;
+  background-color: #530ff1;
 }
 
+button.delete-button:hover,
+.cancel-button:hover,
+.form-container button.cancel-button:hover,
+.form-container .button.quit button:hover {
+  background-color: #c82333;
+}
+
+button.edit-button:focus,
+.buttons-container button:focus,
+.form-container button[type="submit"]:focus,
 .form-container .button button:focus {
   outline: none;
 }
 
-/* Estilos para la barra separadora */
-.barra.separadora {
-  height: 2px;
-  background-color: #007bff; /* Color de la línea separadora */
-  margin: 20px 0; /* Espacio antes y después de la barra */
+button.delete-button:focus,
+.cancel-button:focus,
+.form-container button.cancel-button:focus,
+.form-container .button.quit button:focus {
+  outline: none;
 }
 
-/* Estilos para formularios flotantes */
 /* Estilos para el formulario flotante */
 .form-wrapper {
   position: fixed;
@@ -268,18 +161,19 @@ button.delete-button {
   transform: translate(-50%, -50%);
   z-index: 1000;
   background: white;
-  padding: 20px; /* Ajustar padding del formulario flotante */
+  padding: 10px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: none; /* Ocultar por defecto */
-  width: 100%; /* Ancho del formulario flotante */
-  max-width: 600px; /* Máximo ancho del formulario flotante */
-  max-height: calc(100vh - 40px); /* Máxima altura del formulario flotante */
-  overflow-y: auto; /* Añadir scroll si es necesario */
+  display: none;
+  width: 90%;
+  max-width: 600px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
 }
 
-.form-wrapper.active {
-  display: block; /* Mostrar cuando esté activo */
+.form-wrapper.active,
+.overlay.active {
+  display: block;
 }
 
 .overlay {
@@ -290,9 +184,321 @@ button.delete-button {
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
-  display: none; /* Ocultar por defecto */
+  display: none;
 }
 
-.overlay.active {
-  display: block; /* Mostrar cuando esté activo */
+.form-container .button {
+  display: flex;
+  align-items: center;
+}
+
+.form-container .button button {
+  padding: 6px 15px;
+  background-color: #2042dd;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+  font-size: 0.9rem; /* Reducimos el tamaño de la fuente */
+  transition: background-color 0.3s ease;
+}
+
+.form-wrapper.active button {
+  padding: 6px 15px;
+  background-color: #14bce6;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+  font-size: 0.9rem; /* Reducimos el tamaño de fuente */
+}
+
+.form-wrapper.active button.quitar {
+  background-color: #dc3545;
+}
+
+.form-wrapper.active button:hover {
+  background-color: #530ff1;
+}
+
+.form-wrapper.active button.quitar:hover {
+  background-color: #c82333;
+}
+
+.form-container .button button:focus {
+  outline: none;
+}
+
+.form-container .cursos-list .curso-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3px; /* Reducir el margen inferior */
+  font-size: 0.9rem; /* Reducir el tamaño de fuente */
+}
+
+.form-container .cursos-list .curso-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3px; /* Reducir el margen inferior */
+  font-size: 0.9rem; /* Reducir el tamaño de fuente */
+}
+
+.form-container .cursos-list .curso-item label {
+  margin-right: 3px; /* Reducir el margen derecho */
+}
+
+.form-container .cursos-list .curso-item .curso-description {
+  width: 100%;
+  margin-top: 3px; /* Reducir el margen superior */
+}
+
+
+
+/* Estilos para el formulario de Citación a Cursos */
+.form-container .cursos-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form-container .cursos-list .curso-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px; /* Reducir el margen inferior */
+  font-size: 0.9rem; /* Reducir el tamaño de fuente */
+}
+
+.form-container .cursos-list .curso-item label {
+  margin-right: 5px; /* Reducir el margen derecho */
+}
+
+/* Ajustes para los checkbox */
+.form-wrapper.active .cursos-list .curso-item input[type="checkbox"] {
+  width: 20px; /* Ajustar el ancho del checkbox */
+  height: 20px; /* Ajustar la altura del checkbox */
+  margin-right: 5px; /* Espacio entre el checkbox y el label */
+}
+
+.form-wrapper.active .cursos-list .curso-item label {
+  font-size: 0.9rem; /* Ajustar el tamaño del texto del label */
+  margin-right: 5px; /* Espacio entre el checkbox y el label */
+  vertical-align: middle; /* Alinear el texto verticalmente con el checkbox */
+}
+
+.form-container .cursos-list .curso-item .curso-description {
+  width: 100%;
+  margin-top: 5px;
+}
+
+/* Estilos para el formulario de Entrevista a Estudiante(s) */
+.form-container .busca-est li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px; /* Reducir el padding */
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-container .busca-est li .student-info .student-name {
+  font-weight: bold;
+  font-size: 0.9rem; /* Tamaño más pequeño para el nombre del estudiante */
+  margin-right: 5px;
+}
+
+.form-container .busca-est li .button {
+  margin-left: 5px; /* Reducir el margen izquierdo */
+}
+
+.form-container .busca-est li .button button {
+  padding: 4px 8px; /* Reducir el padding */
+  font-size: 0.8rem; /* Tamaño más pequeño para los botones */
+}
+
+.form-container .busca-est li:last-child {
+  border-bottom: none; /* Eliminar el borde inferior del último elemento */
+}
+
+/* Estilos generales */
+.form-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 0.9rem; /* Tamaño más pequeño para los labels */
+}
+
+.form-container input,
+.form-container textarea {
+  width: 100%;
+  padding: 8px; /* Tamaño más pequeño para los inputs */
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+  font-size: 0.9rem; /* Tamaño más pequeño para los inputs */
+  color: #333;
+  margin-top: 5px;
+}
+
+.form-container input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* Ajustes adicionales */
+.form-container .cursos-list .curso-item input[type="checkbox"],
+.form-container .busca-est li .button button {
+  margin-left: 10px;
+}
+
+.form-container .cursos-list .curso-item .curso-description,
+.form-container .busca-est li .student-info {
+  width: 100%;
+  margin-top: 5px;
+}
+/* Estilos para el formulario flotante */
+.form-wrapper form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form-wrapper form div {
+  margin-bottom: 10px;
+  width: 100%; /* Ajuste de ancho */
+  display: flex;
+  flex-direction: column;
+}
+
+.form-wrapper form label {
+  flex: 1; /* El label ocupará 1/3 del espacio */
+  text-align: left;
+  margin-right: 10px;
+  color: #495057;
+  font-weight: bold;
+}
+
+.form-wrapper form input,
+.form-wrapper form textarea {
+  flex: 2; /* El input ocupará 2/3 del espacio */
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif; /* Ajuste de fuente */
+  font-size: 1rem; /* Ajuste de tamaño de fuente */
+  color: #333; /* Ajuste de color de fuente */
+}
+
+.form-wrapper form input[type="text"]:focus,
+.form-wrapper form textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Estilos para los botones en línea */
+.form-wrapper form .button-container {
+  display: flex;
+  flex-direction: row; /* Cambia a 'column' para alinearlos uno encima del otro */
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.form-wrapper form .button-container button {
+  padding: 8px 16px; /* Reducimos el padding para botones */
+  background-color: #14bce6; /* Verde */
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+  font-size: 0.9rem; /* Tamaño de fuente */
+  margin-right: 10px; /* Espacio entre botones */
+  min-width: fit-content; /* Ajuste para que el ancho sea según el contenido */
+}
+
+.form-wrapper form .button-container button.cancel-button {
+  background-color: #dc3545; /* Rojo */
+  padding: 8px 12px; /* Reducimos el padding para el botón de cancelar */
+  font-size: 0.9rem; /* Tamaño de fuente */
+}
+
+.form-wrapper form .button-container button:hover {
+  background-color: #530ff1; /* Verde más oscuro */
+}
+
+.form-wrapper form .button-container button.cancel-button:hover {
+  background-color: #b90416; /* Rojo más oscuro */
+}
+
+.form-wrapper form .button-container button:focus {
+  outline: none;
+}
+/* Ajustes generales */
+.form-container,
+.form-wrapper {
+  font-size: 14px; /* Reducimos el tamaño de fuente general */
+}
+
+.form-wrapper.active label {
+  font-weight: bold; /* Ponemos las etiquetas en negrita */
+}
+
+.form-wrapper.active input,
+.form-wrapper.active textarea {
+  font-size: 0.9rem; /* Reducimos el tamaño de fuente de los inputs */
+  padding: 6px; /* Reducimos el padding de los inputs */
+}
+
+/* Ajustes para los botones */
+button.edit-button,
+.buttons-container button,
+.form-container button[type="submit"],
+.form-container .button button,
+.form-wrapper.active button,
+.form-wrapper form .button-container button {
+  padding: 8px 16px; /* Reducimos el padding de los botones */
+  font-size: 0.9rem; /* Reducimos el tamaño de fuente de los botones */
+}
+
+/* Ajustes para los inputs y textarea dentro de .form-wrapper */
+.form-wrapper.active form input,
+.form-wrapper.active form textarea {
+  font-size: 0.9rem; /* Reducimos el tamaño de fuente */
+  padding: 6px; /* Reducimos el padding */
+}
+
+/* Ajustes para evitar que los inputs se vean borrosos */
+.form-wrapper.active form input,
+.form-wrapper.active form textarea {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ajustes para el contenedor principal de los cursos */
+.busc-cursos {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Ajustes para cada elemento de curso */
+.busc-cursos > div {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 5px; /* Ajustar el margen inferior entre los elementos */
+}
+
+/* Ajustes para los checkbox */
+.busc-cursos input[type="checkbox"] {
+  width: 50px; /* Ajustar el ancho del checkbox */
+  height: 50px; /* Ajustar la altura del checkbox */
+  margin-right: 10px; /* Espacio entre el checkbox y el label */
+}
+
+/* Ajustes para los labels */
+.busc-cursos label {
+  font-size: 1.2rem; /* Ajustar el tamaño del texto del label */
 }
