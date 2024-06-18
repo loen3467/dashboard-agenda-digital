@@ -8,6 +8,7 @@ import {
   getDocs,
   doc,
   serverTimestamp,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import styles from "./styles/create.module.css";
@@ -47,6 +48,20 @@ export default function CreateCourses() {
     getMaterias();
   }, []);
 
+  const updateEstudiantes = async (cursoId) => {
+    const cursoRef = doc(db, "cursos", cursoId);
+    const estudiantesRefs = selectedEstudiantes.map((id) =>
+      doc(db, "estudiantes", id)
+    );
+    await Promise.all(
+      estudiantesRefs.map(async (estudianteRef) => {
+        await updateDoc(estudianteRef, {
+          id_curso: cursoRef,
+        });
+      })
+    );
+  };
+
   const create = async (e) => {
     e.preventDefault();
     const cursoRef = collection(db, "cursos");
@@ -54,13 +69,14 @@ export default function CreateCourses() {
       doc(db, "estudiantes", id)
     );
     const materiasRefs = selectedMaterias.map((id) => doc(db, "materias", id));
-    await addDoc(cursoRef, {
+    const newCursoRef = await addDoc(cursoRef, {
       nombre: nombre,
       grado: parseInt(grado),
       paralelo: paralelo,
       estudiantes: estudiantesRefs,
       id_materias: materiasRefs,
     });
+    await updateEstudiantes(newCursoRef.id); // Actualizar estudiantes con la referencia al curso
     navigate("/cursos");
   };
 
@@ -114,7 +130,7 @@ export default function CreateCourses() {
                 multiple
               >
                 {estudiantes.map((estudiante) => (
-                  <option key={estudiante.id} value={estudiante.nombre}>
+                  <option key={estudiante.id} value={estudiante.id}>
                     {estudiante.nombre}
                   </option>
                 ))}

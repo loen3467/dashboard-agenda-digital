@@ -3,9 +3,10 @@ import {
   doc,
   getDoc,
   getDocs,
+  addDoc,
   updateDoc,
 } from "firebase/firestore";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { db } from "../firebase/config";
 
 const AnotacionesContext = createContext();
@@ -14,22 +15,19 @@ export function AnotacionesProvider({ children }) {
   const [anotaciones, setAnotaciones] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const createAnotacion = (newAnotacion) => {
-    setAnotaciones((prevAnotaciones) => [...prevAnotaciones, newAnotacion]);
+  const createAnotacion = async (newAnotacion) => {
+    await addDoc(collection(db, "anotaciones"), newAnotacion);
     getAnotaciones();
   };
 
-  const editAnotacion = (updatedAnotacion) => {
-    setAnotaciones((prevAnotaciones) =>
-      prevAnotaciones.map((anotacion) =>
-        anotacion.id === updatedAnotacion.id ? updatedAnotacion : anotacion
-      )
-    );
+  const editAnotacion = async (id, updatedAnotacion) => {
+    const anotacionRef = doc(db, "anotaciones", id);
+    await updateDoc(anotacionRef, updatedAnotacion);
     getAnotaciones();
   };
 
   const getAnotaciones = async () => {
-    setLoading(true); // Iniciar loader
+    setLoading(true);
     try {
       const data = await getDocs(collection(db, "anotaciones"));
       const anotacionesWithEstudiantesProfesores = await Promise.all(
@@ -66,25 +64,27 @@ export function AnotacionesProvider({ children }) {
     } catch (error) {
       console.error("Error fetching annotations:", error);
     } finally {
-      setLoading(false); // Finalizar loader
+      setLoading(false);
     }
   };
 
   const toggleAnotacion = async (id, estado) => {
-    const anotacionDoc = doc(db, "anotaciones", id);
-    await updateDoc(anotacionDoc, {
+    const anotacionRef = doc(db, "anotaciones", id);
+    await updateDoc(anotacionRef, {
       estado: !estado,
     });
     getAnotaciones();
   };
 
+  useEffect(() => {
+    getAnotaciones();
+  }, []);
+
   return (
     <AnotacionesContext.Provider
       value={{
         anotaciones,
-        setAnotaciones,
         loading,
-        setLoading,
         createAnotacion,
         editAnotacion,
         getAnotaciones,
