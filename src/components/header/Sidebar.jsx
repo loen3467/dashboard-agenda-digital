@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import PropTypes from "prop-types"; // Importa PropTypes
+import PropTypes from "prop-types";
 import "./styles/sidebar.css";
 import { SidebarItem } from "./SidebarItem";
 import { useEffect, useState } from "react";
@@ -43,12 +43,8 @@ export function Sidebar({ isSidebarHidden, onLogout }) {
   return (
     <section id="sidebar" className={isSidebarHidden ? "hide" : ""}>
       <Link to="/" className="brand">
-        <img
-          src={logoImage}
-          alt="MobiQuick Logo"
-          className="logo-image"
-          width={80}
-        />
+        <img src={logoImage} alt="MobiQuick Logo" className="logo-image" />
+        <span className="text">MobiQuick</span>
       </Link>
       <ul className="side-menu top">
         {items.map((item, index) => (
