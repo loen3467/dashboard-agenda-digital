@@ -4,6 +4,7 @@ import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase
 import PadreItem from '../header/PadreItem'; // Asegúrate de que la ruta sea correcta
 import CryptoJS from 'crypto-js';
 import './styles/padres.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 export function Padres() {
   const [padres, setPadres] = useState([]);
@@ -15,7 +16,7 @@ export function Padres() {
     direccion: '',
     fecha_nacimiento: '',
     genero: '',
-    id_est: '',
+    id_est: null,
     nombre: '',
     carnet: '',
     telefono: '',
@@ -66,7 +67,11 @@ export function Padres() {
     try {
       if (editUserId) {
         const userDoc = doc(db, 'padres', editUserId);
-        await updateDoc(userDoc, padreData);
+        const padreDataEdit = {
+          ...formData,
+          password: formData.password,
+        };
+        await updateDoc(userDoc, padreDataEdit);
       } else {
         await addDoc(collection(db, 'padres'), padreData);
       }
@@ -76,7 +81,7 @@ export function Padres() {
         direccion: '',
         fecha_nacimiento: '',
         genero: '',
-        id_est: '',
+        id_est: null,
         nombre: '',
         carnet: '',
         telefono: '',
@@ -132,7 +137,7 @@ export function Padres() {
       direccion: '',
       fecha_nacimiento: '',
       genero: '',
-      id_est: '',
+      id_est: null,
       nombre: '',
       carnet: '',
       telefono: '',
@@ -147,9 +152,17 @@ export function Padres() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loading-container">
+        <div className="loading-dots">
+          <span>Loading</span>
+          <span>.</span>
+          <span>.</span>
+          <span>.</span>
+        </div>
+      </div>
+    );
   }
-
   return (
     <div className="padres-container">
       <h2>Lista de Padres</h2>
@@ -256,13 +269,16 @@ export function Padres() {
               </div>
               <div>
                 <label htmlFor="genero">Género</label>
-                <input
-                  type="text"
+                <select
                   id="genero"
                   name="genero"
                   value={formData.genero}
                   onChange={handleChange}
-                />
+                  required
+                >
+                  <option value="masculino">Masculino</option>
+                  <option value="femenino">Femenino</option>
+                </select>
               </div>
 
               <div>
@@ -295,7 +311,7 @@ export function Padres() {
                   onChange={handleChange}
                 />
               </div>
-              <div>
+              <div style={{ display: editUserId ? 'none' : 'block' }}>
                 <label htmlFor="password">Contraseña</label>
                 <input
                   type="password"
@@ -306,8 +322,8 @@ export function Padres() {
                 />
               </div>
               <div className="modal-buttons">
-                <button type="submit">{editUserId ? 'Guardar Cambios' : 'Agregar'}</button>
-                <button type="button" onClick={handleCancelar}>Cancelar</button>
+                <button type="submit" className="button">{editUserId ? 'Guardar Cambios' : 'Agregar'}</button>
+                <button type="button" className="cancelar-button" onClick={handleCancelar}>Cancelar</button>
               </div>
             </form>
           </div>

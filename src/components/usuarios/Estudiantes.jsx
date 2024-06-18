@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { db } from '../../firebase/config';
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
+import { collection, getDocs,getDoc, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import EstudianteItem from '../header/EstudianteItem';
 import CryptoJS from 'crypto-js';
 import './styles/estudiantes.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 export function Estudiantes() {
   const [estudiantes, setEstudiantes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,19 +16,22 @@ export function Estudiantes() {
     direccion: '',
     fecha_nacimiento: '',
     genero: '',
-    id_curso: '',
-    id_padre: '',
+    id_curso: null,
+    id_padre: null,
     nombre: '',
     carnet: '',
     telefono: '',
     alergias: [],
-    password: '' // Añadir el campo de contraseña
+    password: ''
   });
   const [editUserId, setEditUserId] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [padres, setPadres] = useState([]);
+  const [selectedPadre, setSelectedPadre] = useState(null);
 
   useEffect(() => {
     fetchEstudiantes();
+    fetchPadres();
   }, []);
 
   const fetchEstudiantes = async () => {
@@ -44,6 +49,20 @@ export function Estudiantes() {
     }
   };
 
+  const fetchPadres = async () => {
+    try {
+      const padresCollection = collection(db, 'padres');
+      const padresSnapshot = await getDocs(padresCollection);
+      const padresList = padresSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setPadres(padresList);
+    } catch (error) {
+      console.error('Error fetching padres: ', error);
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -55,18 +74,35 @@ export function Estudiantes() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Hashear la contraseña antes de enviarla a Firebase
     const hashedPassword = CryptoJS.SHA256(formData.password).toString(CryptoJS.enc.Hex);
 
     const estudianteData = {
       ...formData,
-      password: hashedPassword
+      password: hashedPassword,
+      id_padre: selectedPadre ? doc(db, 'padres', selectedPadre.id) : null,
     };
 
     try {
+    // Si hay un id_padre seleccionado, actualizar el id_est del padre
+
+    if (selectedPadre ) {
+
+        const padreDoc = doc(db, 'padres', selectedPadre.id);
+      // Obtener el documento del padre nuevo
+      
+        // Actualizar el campo id_est del padre con el id del estudiante
+        await updateDoc(padreDoc, {
+          id_est:  doc(db, 'estudiantes', editUserId)|| doc(db, 'estudiantes', estudianteData.id) // Usar editUserId si existe (edición) o estudianteData.id (creación)
+        });
+      
+    }
       if (editUserId) {
         const userDoc = doc(db, 'estudiantes', editUserId);
-        await updateDoc(userDoc, estudianteData);
+        const estudianteDataEdit = {
+        ...formData,
+        id_padre: selectedPadre ? doc(db, 'padres', selectedPadre.id) : null,
+        };
+        await updateDoc(userDoc, estudianteDataEdit);
       } else {
         await addDoc(collection(db, 'estudiantes'), estudianteData);
       }
@@ -76,14 +112,15 @@ export function Estudiantes() {
         direccion: '',
         fecha_nacimiento: '',
         genero: '',
-        id_curso: '',
-        id_padre: '',
+        id_curso: null,
+        id_padre: null,
         nombre: '',
         carnet: '',
         telefono: '',
         alergias: [],
-        password: '' // Resetear el campo de contraseña
+        password: ''
       });
+      setSelectedPadre(null);
       setShowModal(false);
       setEditUserId(null);
       fetchEstudiantes();
@@ -110,6 +147,7 @@ export function Estudiantes() {
     setFormData(estudiante);
     setShowModal(true);
     setEditUserId(estudiante.id);
+    
   };
 
   const handleDelete = async (id) => {
@@ -133,29 +171,42 @@ export function Estudiantes() {
       direccion: '',
       fecha_nacimiento: '',
       genero: '',
-      id_curso: '',
-      id_padre: '',
+      id_curso: null,
+      id_padre: null,
       nombre: '',
       carnet: '',
       telefono: '',
       alergias: [],
-      password: '' // Resetear el campo de contraseña
+      password: ''
     });
   };
 
-  const handleSearch = () => {
-    // Implementa la lógica de búsqueda aquí si es necesario
-    console.log('Implementa la lógica de búsqueda aquí');
+  const handleAssignPadre = async (estudianteId) => {
+    setShowModal(true);
+    setEditUserId(estudianteId);
+  };
+
+  const handlePadreSelect = (padreId) => {
+    setSelectedPadre(padreId);
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loading-container">
+        <div className="loading-dots">
+          <span>Loading</span>
+          <span>.</span>
+          <span>.</span>
+          <span>.</span>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="estudiantes-container">
       <h2>Lista de Estudiantes</h2>
-      <div className='container linea'></div>
+      <div className="container linea"></div>
       <div className="lista-estudiantes">
         <div className="search-container">
           <input
@@ -165,7 +216,7 @@ export function Estudiantes() {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="search-input"
           />
-          <button className="icon-search" onClick={handleSearch}>
+          <button className="icon-search">
             <i className="fas fa-search"></i>
           </button>
         </div>
@@ -177,6 +228,7 @@ export function Estudiantes() {
               <th>Correo</th>
               <th>Carnet</th>
               <th>Teléfono</th>
+              <th>Padre Asignado</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -192,6 +244,7 @@ export function Estudiantes() {
                   toggleEstado={toggleEstado}
                   handleEdit={() => handleEdit(estudiante)}
                   handleDelete={() => handleDelete(estudiante.id)}
+                  handleAssignPadre={() => handleAssignPadre(estudiante.id)}
                 />
               ))}
           </tbody>
@@ -260,8 +313,8 @@ export function Estudiantes() {
                   onChange={handleChange}
                   required
                 />
-              </div>
-              <div>
+             </div>
+                           <div>
                 <label htmlFor="genero">Género</label>
                 <select
                   id="genero"
@@ -274,7 +327,6 @@ export function Estudiantes() {
                   <option value="femenino">Femenino</option>
                 </select>
               </div>
-              
               <div>
                 <label htmlFor="carnet">Carnet</label>
                 <input
@@ -308,7 +360,7 @@ export function Estudiantes() {
                   }
                 />
               </div>
-              <div>
+              <div style={{ display: editUserId ? 'none' : 'block' }}>
                 <label htmlFor="password">Contraseña</label>
                 <input
                   type="password"
@@ -319,6 +371,25 @@ export function Estudiantes() {
                   required
                 />
               </div>
+
+              {/* Selección de Padre */}
+              <div>
+                <label htmlFor="id_padre">Padre</label>
+                <select
+                  id="id_padre"
+                  name="id_padre"
+                  //value={formData.id_padre!=null ? formData.id_padre.id  : ''}
+                  onChange={(e) => handlePadreSelect(padres.find(p => p.id === e.target.value))}
+                >
+                  <option value="">Selecciona un padre...</option>
+                  {padres.map((padre) => (
+                    <option key={padre.id} value={padre.id}>
+                      {padre.nombre} {padre.apellido}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <div className="button-container">
                 <button type="submit" className="button">
                   {editUserId ? 'Actualizar Estudiante' : 'Agregar Estudiante'}

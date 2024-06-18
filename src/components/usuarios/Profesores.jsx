@@ -4,6 +4,7 @@ import { collection, getDocs, addDoc, updateDoc, doc } from 'firebase/firestore'
 import ProfesorItem from '../header/ProfesorItem';
 import CryptoJS from 'crypto-js';
 import './styles/profesores.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 export function Profesores() {
   const [profesores, setProfesores] = useState([]);
@@ -144,9 +145,17 @@ export function Profesores() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loading-container">
+        <div className="loading-dots">
+          <span>Loading</span>
+          <span>.</span>
+          <span>.</span>
+          <span>.</span>
+        </div>
+      </div>
+    );
   }
-
   return (
     <div className="profesores-container">
       <h2>Lista de Profesores</h2>

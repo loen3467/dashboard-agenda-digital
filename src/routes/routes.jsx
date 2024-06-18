@@ -12,7 +12,7 @@ import { CreateAnot } from "../components/anotaciones/CreateAnot";
 import { EditAnot } from "../components/anotaciones/EditAnot";
 import { CreateCourses } from "../components/cursos/CreateCourses";
 import { EditCourses } from "../components/cursos/EditCourses";
-import { Estudiantes } from "../components/usuarios/Estudiante";
+import { Estudiantes } from "../components/usuarios/Estudiantes";
 import { Padres } from "../components/usuarios/Padre";
 import { Profesores} from "../components/usuarios/Profesores";
 
