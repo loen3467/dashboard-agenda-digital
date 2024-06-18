@@ -1,8 +1,9 @@
 import "../styles/createEdit.scss";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { collection, getDocs, addDoc, doc } from "firebase/firestore";
+import { collection, getDocs, doc } from "firebase/firestore";
 import { db } from "../../firebase/config";
+import { useAnotaciones } from "../../context/AnotacionesContext";
 
 export default function CreateAnot() {
   const [titulo, setTitulo] = useState("");
@@ -13,8 +14,7 @@ export default function CreateAnot() {
   const [profesores, setProfesores] = useState([]);
   const [estado, setEstado] = useState(true);
   const navigate = useNavigate();
-
-  const anotacionesCollection = collection(db, "anotaciones");
+  const { createAnotacion } = useAnotaciones();
 
   useEffect(() => {
     const getEstudiantes = async () => {
@@ -39,21 +39,20 @@ export default function CreateAnot() {
     const month = String(currentDate.getMonth() + 1).padStart(2, "0");
     const day = String(currentDate.getDate()).padStart(2, "0");
 
-    const formattedDate = `${year}/${month}/${day}`;
-    return formattedDate;
+    return `${year}/${month}/${day}`;
   };
 
   const create = async (e) => {
     e.preventDefault();
     const estudianteRef = doc(db, "estudiantes", id_est);
     const profesorRef = doc(db, "profesores", id_profesor);
-    await addDoc(anotacionesCollection, {
-      titulo: titulo,
-      descripcion: descripcion,
+    await createAnotacion({
+      titulo,
+      descripcion,
       fecha_creacion: getCurrentDate(),
       id_est: estudianteRef,
       id_profesor: profesorRef,
-      estado: estado,
+      estado,
     });
     navigate("/anotaciones");
   };

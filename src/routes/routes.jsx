@@ -1,6 +1,7 @@
 import React, { Suspense, useMemo } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "../components/header/Layout";
+import { Loader } from "../utils/Loader";
 
 const Cursos = React.lazy(() => import("../pages/Cursos"));
 const Tareas = React.lazy(() => import("../pages/Tareas"));
@@ -50,7 +51,7 @@ export function MyRoutes() {
 
   return (
     <BrowserRouter>
-      <Suspense fallback={<div>Loading...</div>}>{routes}</Suspense>
+      <Suspense fallback={<Loader />}>{routes}</Suspense>
     </BrowserRouter>
   );
 }

@@ -1,64 +1,20 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { Loader } from "../../utils/Loader";
 import { Link } from "react-router-dom";
-import {
-  collection,
-  getDocs,
-  updateDoc,
-  doc,
-  getDoc,
-} from "firebase/firestore";
-import { db } from "../../firebase/config";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-
+import { useAnotaciones } from "../../context/AnotacionesContext";
 const MySwal = withReactContent(Swal);
 
 export default function ShowAnot() {
-  const [anotaciones, setAnotaciones] = useState([]);
+  const { anotaciones, loading, getAnotaciones, toggleAnotacion } =
+    useAnotaciones();
 
-  const anotacionesCollection = collection(db, "anotaciones");
-  const getAnotaciones = async () => {
-    const data = await getDocs(anotacionesCollection);
-    const anotacionesWithEstudiantesProfesores = await Promise.all(
-      data.docs.map(async (docSnapshot) => {
-        const anotacionData = docSnapshot.data();
-        const estudianteRef = anotacionData.id_est;
-        const profesorRef = anotacionData.id_profesor;
-        let estudianteData = null;
-        let profesorData = null;
-
-        if (estudianteRef) {
-          const estudianteDoc = await getDoc(estudianteRef);
-          if (estudianteDoc.exists()) {
-            estudianteData = estudianteDoc.data();
-          }
-        }
-
-        if (profesorRef) {
-          const profesorDoc = await getDoc(profesorRef);
-          if (profesorDoc.exists()) {
-            profesorData = profesorDoc.data();
-          }
-        }
-
-        return {
-          ...anotacionData,
-          id: docSnapshot.id,
-          estudiante: estudianteData,
-          profesor: profesorData,
-        };
-      })
-    );
-    setAnotaciones(anotacionesWithEstudiantesProfesores);
-  };
-
-  const toggleAnotacion = async (id, estado) => {
-    const anotacionDoc = doc(db, "anotaciones", id);
-    await updateDoc(anotacionDoc, {
-      estado: !estado,
-    });
-    getAnotaciones();
-  };
+  useEffect(() => {
+    if (anotaciones.length === 0) {
+      getAnotaciones();
+    }
+  }, []);
 
   const confirmToggle = (id, estado) => {
     MySwal.fire({
@@ -81,9 +37,9 @@ export default function ShowAnot() {
     });
   };
 
-  useEffect(() => {
-    getAnotaciones();
-  }, []);
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <table className="table">
