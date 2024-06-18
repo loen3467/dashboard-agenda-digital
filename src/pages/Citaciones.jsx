@@ -58,7 +58,7 @@ export function Citaciones() {
   const fetchPadres = async () => {
     const padresSnapshot = await getDocs(collection(db, 'padres'));
     const padresList = padresSnapshot.docs.map((doc) => ({
-      id: doc.id,
+      id: doc.ids,
       ...doc.data(),
     }));
     setPadres(padresList);
