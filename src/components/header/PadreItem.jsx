@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-function PadreItem({ padre, handleEdit, handleDelete }) {
+function PadreItem({ padre, toggleEstado, handleEdit, handleDelete }) {
   const handleEliminarClick = () => {
     if (window.confirm(`¿Estás seguro de eliminar a ${padre.nombre} ${padre.apellido}?`)) {
       handleDelete(padre.id);

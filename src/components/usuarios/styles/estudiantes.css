@@ -1,440 +1,450 @@
 /* Estilos generales */
 .estudiantes-container {
-    background-color: #aed9e0;
-    background-image: linear-gradient(315deg, #aed9e0 0%, #6d96d0 74%);
-    padding: 40px;
-    border-radius: 10px;
-    width: 100%;
-    box-sizing: border-box;
-    color: #333;
-  }
-  
-  .estudiantes-container h2 {
-    font-size: 2.5rem;
-    text-align: center;
-    color: #fff;
-    margin-bottom: 30px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  }
-  
-  .lista-estudiantes {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-top: 20px;
-  }
-  
-  .estudiantes-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
+  background-color: #aed9e0;
+  background-image: linear-gradient(315deg, #aed9e0 0%, #6d96d0 74%);
+  padding: 40px;
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #333;
+}
+
+.estudiantes-container h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.lista-estudiantes {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.estudiantes-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.estudiantes-table th,
+.estudiantes-table td {
+  padding: 10px;
+  border: 1px solid #aaa;
+  text-align: center;
+}
+
+.estudiantes-container {
+  font-family: "Arial", sans-serif;
+}
+
+.lista-estudiantes {
+  margin-top: 20px;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+}
+
+.estudiantes-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.estudiantes-table th {
+  background-color: #007bff;
+  color: #ffffff;
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.estudiantes-table th,
+.estudiantes-table td {
+  border-bottom: 1px solid #dee2e6;
+  padding: 12px;
+}
+
+.estudiantes-table td {
+  vertical-align: middle;
+}
+
+.estudiantes-table tbody tr:hover {
+  background-color: #f2f2f2;
+}
+
+.agregar-estudiante-button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #28a745;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.agregar-estudiante-button:hover {
+  background-color: #218838;
+}
+
+.agregar-estudiante-button:focus {
+  outline: none;
+}
+
+@media (max-width: 768px) {
   .estudiantes-table th,
   .estudiantes-table td {
-    padding: 10px;
-    border: 1px solid #aaa;
-    text-align: center;
-  }
-  
-  .estudiantes-container {
-    font-family: 'Arial', sans-serif;
-  }
-  
-  .lista-estudiantes {
-    margin-top: 20px;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
-  }
-  
-  .estudiantes-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .estudiantes-table th {
-    background-color: #007bff;
-    color: #ffffff;
-    padding: 12px;
-    text-align: left;
-    font-weight: bold;
-  }
-  
-  .estudiantes-table th,
-  .estudiantes-table td {
-    border-bottom: 1px solid #dee2e6;
-    padding: 12px;
-  }
-  
-  .estudiantes-table td {
-    vertical-align: middle;
-  }
-  
-  .estudiantes-table tbody tr:hover {
-    background-color: #f2f2f2;
-  }
-  
-  .agregar-estudiante-button {
-    margin-top: 20px;
-    padding: 12px 24px;
-    background-color: #28a745;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  
-  .agregar-estudiante-button:hover {
-    background-color: #218838;
-  }
-  
-  .agregar-estudiante-button:focus {
-    outline: none;
-  }
-  
-  @media (max-width: 768px) {
-    .estudiantes-table th,
-    .estudiantes-table td {
-      padding: 8px;
-      font-size: 14px;
-    }
-  }
-  
-  .agregar-estudiante-button {
-    background-color: #2042dd;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 25px;
-    margin-top: 20px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .agregar-estudiante-button:hover {
-    background-color: #1a16e7;
-  }
-  
-  /* Estilos para el modal */
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    overflow-y: auto; /* Habilita el desplazamiento vertical */
-  }
-  
-  .modal-content {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 8px;
-    width: 80%;
-    max-width: 600px;
-    max-height: 90vh; /* Limita la altura máxima del modal */
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
-    overflow-y: auto; /* Habilita el desplazamiento vertical */
-  }
-  
-  .modal-content h3 {
-    color: #007bff;
-    border-bottom: 1px solid #dee2e6;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .modal-content form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .modal-content form > div {
-    margin-bottom: 20px;
-  }
-  
-  .modal-content form > div label {
-    margin-bottom: 5px;
-    color: #495057;
-    font-weight: bold;
-  }
-  
-  .modal-content form input[type="text"],
-  .modal-content form input[type="email"],
-  .modal-content form select,
-  .modal-content form input[type="checkbox"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  .modal-content form select {
-    height: 44px;
-  }
-  
-  .switch-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .switch-label {
-    margin-right: 20px;
-    color: #495057;
-  }
-  
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-  }
-  
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
-    border-radius: 34px;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 24px;
-    width: 24px;
-    left: 5px;
-    bottom: 5px;
-    background-color: white;
-    transition: .4s;
-    border-radius: 50%;
-  }
-  
-  input:checked + .slider {
-    background-color: #007bff;
-  }
-  
-  input:checked + .slider:before {
-    transform: translateX(26px);
-  }
-  
-  .button-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 30px;
-  }
-  
-  .button {
-    padding: 14px 28px;
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  
-  .cancelar-button {
-    padding: 14px 28px;
-    background-color: #6c757d;
-    color: #ffffff;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-right: 10px;
-  }
-  
-  .cancelar-button:hover {
-    background-color: #5a6268;
-  }
-  
-  .button:hover {
-    background-color: #0056b3;
-  }
-  
-  .button:focus,
-  .cancelar-button:focus {
-    outline: none;
-  }
-  
-  /* Estilos para los botones eliminar y editar */
-  .icon-button {
-    padding: 8px 16px;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-    border-radius: 50px;
-  }
-  
-  .edit-button {
-    background-color: #1085ec;
-    color: #ffffff;
-    border-radius: 50px;
-  }
-  
-  .delete-button {
-    background-color: #dc3545;
-    color: #ffffff;
-    border-radius: 50px;
-  }
-  
-  .icon-button:hover {
-    opacity: 0.8;
-  }
-  
-  .icon-button i {
-    margin-right: 5px;
-  }
-  
-  .action-column {
-    white-space: nowrap;
-  }
-  
-  /* Estilos para los títulos de las ventanas flotantes */
-  .modal-content h3 {
-    color: #007bff;
-    border-bottom: 1px solid #dee2e6;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 2rem;
-  }
-  
-  /* Estilos adicionales para los botones */
-  .button {
-    padding: 14px 28px;
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  
-  .cancelar-button {
-    padding: 14px 28px;
-    background-color: #6c757d;
-    color: #ffffff;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-right: 10px;
-  }
-  
-  .cancelar-button:hover {
-    background-color: #5a6268;
-  }
-  
-  .button:hover {
-    background-color: #0056b3;
-  }
-  
-  .button:focus,
-  .cancelar-button:focus {
-    outline: none;
-  }
-  
-  /* Estilos para el campo de búsqueda */
-  .search-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-bottom: 10px;
-    position: relative;
-  }
-  
-  .search-input {
-    padding: 8px 30px 8px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 8px;
     font-size: 14px;
-    flex: 0 0 auto;
-    width: 250px;
   }
-  
-  .search-input::placeholder {
-    color: #aaa;
+}
+
+.agregar-estudiante-button {
+  background-color: #2042dd;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 25px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.agregar-estudiante-button:hover {
+  background-color: #1a16e7;
+}
+
+/* Estilos para el modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: auto; /* Habilita el desplazamiento vertical */
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+  max-height: 90vh; /* Limita la altura máxima del modal */
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
+  overflow-y: auto; /* Habilita el desplazamiento vertical */
+}
+
+.modal-content h3 {
+  color: #007bff;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content form > div {
+  margin-bottom: 20px;
+}
+
+.modal-content form > div label {
+  margin-bottom: 5px;
+  color: #495057;
+  font-weight: bold;
+}
+
+.modal-content form input[type="text"],
+.modal-content form input[type="email"],
+.modal-content form select,
+.modal-content form input[type="checkbox"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.modal-content form select {
+  height: 44px;
+}
+
+.switch-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.switch-label {
+  margin-right: 20px;
+  color: #495057;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 24px;
+  width: 24px;
+  left: 5px;
+  bottom: 5px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #007bff;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.button {
+  padding: 14px 28px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.cancelar-button {
+  padding: 14px 28px;
+  background-color: #6c757d;
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-right: 10px;
+}
+
+.cancelar-button:hover {
+  background-color: #5a6268;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.button:focus,
+.cancelar-button:focus {
+  outline: none;
+}
+
+/* Estilos para los botones eliminar y editar */
+.icon-button {
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  border-radius: 50px;
+}
+
+.edit-button {
+  background-color: #1085ec;
+  color: #ffffff;
+  border-radius: 50px;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: #ffffff;
+  border-radius: 50px;
+}
+
+.icon-button:hover {
+  opacity: 0.8;
+}
+
+.icon-button i {
+  margin-right: 5px;
+}
+
+.action-column {
+  white-space: nowrap;
+}
+
+/* Estilos para los títulos de las ventanas flotantes */
+.modal-content h3 {
+  color: #007bff;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+/* Estilos adicionales para los botones */
+.button {
+  padding: 14px 28px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.cancelar-button {
+  padding: 14px 28px;
+  background-color: #6c757d;
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-right: 10px;
+}
+
+.cancelar-button:hover {
+  background-color: #5a6268;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.button:focus,
+.cancelar-button:focus {
+  outline: none;
+}
+
+/* Estilos para el campo de búsqueda */
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.search-input {
+  padding: 8px 30px 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  flex: 0 0 auto;
+  width: 250px;
+}
+
+.search-input::placeholder {
+  color: #aaa;
+}
+
+.icon-search {
+  cursor: pointer;
+  color: #007bff;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+}
+
+.icon-search i {
+  font-size: 18px;
+}
+
+.search-button {
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+.search-button:hover {
+  background-color: #0056b3;
+}
+
+.modal-content form input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.modal-content form input[type="password"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.linea {
+  border-bottom: 20px solid #ffffff;
+  margin: 10px 0;
+  border-radius: 50px;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
   }
-  
-  .icon-search {
-    cursor: pointer;
-    color: #007bff;
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: transparent;
-    border: none;
+  50% {
+    opacity: 0;
   }
-  
-  .icon-search i {
-    font-size: 18px;
-  }
-  
-  .search-button {
-    cursor: pointer;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 4px;
-    margin-left: 10px;
-  }
-  
-  .search-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .modal-content form input[type="password"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    font-size: 16px;
-    margin-bottom: 20px;
-  }
-  
-  .modal-content form input[type="password"]:focus {
-    border-color: #007bff;
-    outline: none;
-  }
-  
-  .linea {
-    border-bottom: 20px solid #ffffff;
-    margin: 10px 0;
-    border-radius: 50px;
-  }
+}

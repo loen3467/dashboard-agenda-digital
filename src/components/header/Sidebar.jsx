@@ -10,14 +10,22 @@ export function Sidebar({ isSidebarHidden, onLogout }) {
   const location = useLocation();
 
   const items = [
-    { link: "/Dashboard", icon: "bx bxs-dashboard", text: "Panel de Control" },
+    { link: "/", icon: "bx bxs-dashboard", text: "Panel de Control" },
     { link: "/cursos", icon: "bx bxs-shopping-bag-alt", text: "Cursos" },
     { link: "/tareas", icon: "bx bxs-doughnut-chart", text: "Tareas" },
     { link: "/anotaciones", icon: "bx bxs-message-dots", text: "Anotaciones" },
     { link: "/citaciones", icon: "bx bxs-group", text: "Citaciones" },
-    { link: "/Estudiantes", icon: "bx bxs-group", text: "Gestion de Estudiantes",},
-    { link: "/Padres", icon: "bx bxs-group", text: "Gestion de Padres",},
-    { link: "/Profesores", icon: "bx bxs-group", text: "Gestion de Profesores",},
+    {
+      link: "/Estudiantes",
+      icon: "bx bxs-group",
+      text: "Gestion de Estudiantes",
+    },
+    { link: "/Padres", icon: "bx bxs-group", text: "Gestion de Padres" },
+    {
+      link: "/Profesores",
+      icon: "bx bxs-group",
+      text: "Gestion de Profesores",
+    },
   ];
 
   const handleItemClick = (index) => {
@@ -35,7 +43,12 @@ export function Sidebar({ isSidebarHidden, onLogout }) {
   return (
     <section id="sidebar" className={isSidebarHidden ? "hide" : ""}>
       <Link to="/" className="brand">
-        <img src={logoImage} alt="MobiQuick Logo" className="logo-image" />
+        <img
+          src={logoImage}
+          alt="MobiQuick Logo"
+          className="logo-image"
+          width={80}
+        />
       </Link>
       <ul className="side-menu top">
         {items.map((item, index) => (

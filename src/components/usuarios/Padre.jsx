@@ -1,29 +1,38 @@
-import { useState, useEffect } from 'react';
-import { db } from '../../firebase/config';
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
-import PadreItem from '../header/PadreItem'; // Asegúrate de que la ruta sea correcta
-import CryptoJS from 'crypto-js';
-import './styles/padres.css';
+import { useState, useEffect } from "react";
+import { db } from "../../firebase/config";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+import PadreItem from "../header/PadreItem"; // Asegúrate de que la ruta sea correcta
+import CryptoJS from "crypto-js";
+import "./styles/padres.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import { Loader } from "../../utils/Loader";
 
 export function Padres() {
   const [padres, setPadres] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
-    apellido: '',
-    correo: '',
-    direccion: '',
-    fecha_nacimiento: '',
-    genero: '',
-    id_est: '',
-    nombre: '',
-    carnet: '',
-    telefono: '',
-    ocupacion: '',
-    password: '' // Añadir el campo de contraseña
+    apellido: "",
+    correo: "",
+    direccion: "",
+    fecha_nacimiento: "",
+    genero: "",
+    id_est: null,
+    nombre: "",
+    carnet: "",
+    telefono: "",
+    ocupacion: "",
+    password: "", // Añadir el campo de contraseña
   });
   const [editUserId, setEditUserId] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetchPadres();
@@ -31,7 +40,7 @@ export function Padres() {
 
   const fetchPadres = async () => {
     try {
-      const padresCollection = collection(db, 'padres');
+      const padresCollection = collection(db, "padres");
       const padresSnapshot = await getDocs(padresCollection);
       const padresList = padresSnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -40,7 +49,7 @@ export function Padres() {
       setPadres(padresList);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching padres: ', error);
+      console.error("Error fetching padres: ", error);
     }
   };
 
@@ -48,7 +57,7 @@ export function Padres() {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
@@ -56,44 +65,50 @@ export function Padres() {
     e.preventDefault();
 
     // Hashear la contraseña antes de enviarla a Firebase
-    const hashedPassword = CryptoJS.SHA256(formData.password).toString(CryptoJS.enc.Hex);
+    const hashedPassword = CryptoJS.SHA256(formData.password).toString(
+      CryptoJS.enc.Hex
+    );
 
     const padreData = {
       ...formData,
-      password: hashedPassword
+      password: hashedPassword,
     };
 
     try {
       if (editUserId) {
-        const userDoc = doc(db, 'padres', editUserId);
-        await updateDoc(userDoc, padreData);
+        const userDoc = doc(db, "padres", editUserId);
+        const padreDataEdit = {
+          ...formData,
+          password: formData.password,
+        };
+        await updateDoc(userDoc, padreDataEdit);
       } else {
-        await addDoc(collection(db, 'padres'), padreData);
+        await addDoc(collection(db, "padres"), padreData);
       }
       setFormData({
-        apellido: '',
-        correo: '',
-        direccion: '',
-        fecha_nacimiento: '',
-        genero: '',
-        id_est: '',
-        nombre: '',
-        carnet: '',
-        telefono: '',
-        ocupacion: '',
-        password: '' // Resetear el campo de contraseña
+        apellido: "",
+        correo: "",
+        direccion: "",
+        fecha_nacimiento: "",
+        genero: "",
+        id_est: null,
+        nombre: "",
+        carnet: "",
+        telefono: "",
+        ocupacion: "",
+        password: "", // Resetear el campo de contraseña
       });
       setShowModal(false);
       setEditUserId(null);
       fetchPadres();
     } catch (error) {
-      console.error('Error adding/updating padre: ', error);
+      console.error("Error adding/updating padre: ", error);
     }
   };
 
   const toggleEstado = async (id, currentState) => {
     try {
-      const userDoc = doc(db, 'padres', id);
+      const userDoc = doc(db, "padres", id);
       await updateDoc(userDoc, { estado: !currentState });
       setPadres((prevPadres) =>
         prevPadres.map((padre) =>
@@ -101,7 +116,7 @@ export function Padres() {
         )
       );
     } catch (error) {
-      console.error('Error updating padre state: ', error);
+      console.error("Error updating padre state: ", error);
     }
   };
 
@@ -114,11 +129,11 @@ export function Padres() {
   const handleDelete = async (id) => {
     if (window.confirm(`¿Estás seguro de eliminar a este padre?`)) {
       try {
-        const userDoc = doc(db, 'padres', id);
+        const userDoc = doc(db, "padres", id);
         await deleteDoc(userDoc);
         fetchPadres();
       } catch (error) {
-        console.error('Error removing padre: ', error);
+        console.error("Error removing padre: ", error);
       }
     }
   };
@@ -127,33 +142,32 @@ export function Padres() {
     setShowModal(false);
     setEditUserId(null);
     setFormData({
-      apellido: '',
-      correo: '',
-      direccion: '',
-      fecha_nacimiento: '',
-      genero: '',
-      id_est: '',
-      nombre: '',
-      carnet: '',
-      telefono: '',
-      ocupacion: '',
-      password: '' // Resetear el campo de contraseña
+      apellido: "",
+      correo: "",
+      direccion: "",
+      fecha_nacimiento: "",
+      genero: "",
+      id_est: null,
+      nombre: "",
+      carnet: "",
+      telefono: "",
+      ocupacion: "",
+      password: "", // Resetear el campo de contraseña
     });
   };
 
   const handleSearch = () => {
     // Implementa la lógica de búsqueda aquí si es necesario
-    console.log('Implementa la lógica de búsqueda aquí');
+    console.log("Implementa la lógica de búsqueda aquí");
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
-
   return (
     <div className="padres-container">
       <h2>Lista de Padres</h2>
-      <div className='container linea'></div>
+      <div className="container linea"></div>
       <div className="lista-padres">
         <div className="search-container">
           <input
@@ -195,14 +209,17 @@ export function Padres() {
           </tbody>
         </table>
       </div>
-      <button className="agregar-padre-button" onClick={() => setShowModal(true)}>
+      <button
+        className="agregar-padre-button"
+        onClick={() => setShowModal(true)}
+      >
         Agregar Nuevo Padre
       </button>
 
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h3>{editUserId ? 'Editar Padre' : 'Agregar Padre'}</h3>
+            <h3>{editUserId ? "Editar Padre" : "Agregar Padre"}</h3>
             <form onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="nombre">Nombre</label>
@@ -256,13 +273,16 @@ export function Padres() {
               </div>
               <div>
                 <label htmlFor="genero">Género</label>
-                <input
-                  type="text"
+                <select
                   id="genero"
                   name="genero"
                   value={formData.genero}
                   onChange={handleChange}
-                />
+                  required
+                >
+                  <option value="masculino">Masculino</option>
+                  <option value="femenino">Femenino</option>
+                </select>
               </div>
 
               <div>
@@ -295,7 +315,7 @@ export function Padres() {
                   onChange={handleChange}
                 />
               </div>
-              <div>
+              <div style={{ display: editUserId ? "none" : "block" }}>
                 <label htmlFor="password">Contraseña</label>
                 <input
                   type="password"
@@ -306,8 +326,16 @@ export function Padres() {
                 />
               </div>
               <div className="modal-buttons">
-                <button type="submit">{editUserId ? 'Guardar Cambios' : 'Agregar'}</button>
-                <button type="button" onClick={handleCancelar}>Cancelar</button>
+                <button type="submit" className="button">
+                  {editUserId ? "Guardar Cambios" : "Agregar"}
+                </button>
+                <button
+                  type="button"
+                  className="cancelar-button"
+                  onClick={handleCancelar}
+                >
+                  Cancelar
+                </button>
               </div>
             </form>
           </div>

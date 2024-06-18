@@ -91,6 +91,18 @@ export function Layout() {
       case "/citaciones/create":
         setLabel("Crear Citación");
         break;
+      case "/Estudiantes":
+        setTitle("Gestión de Estudiantes");
+        setLabel("Estudiantes");
+        break;
+      case "/Padres":
+        setTitle("Gestión de Padres");
+        setLabel("Padres");
+        break;
+      case "/Profesores":
+        setTitle("Gestión de Profesores");
+        setLabel("Profesores");
+        break;
 
       default:
         setLabel("Editar");

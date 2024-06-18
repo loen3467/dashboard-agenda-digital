@@ -82,12 +82,11 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 /* Estilos para el cuerpo y la fuente */
 body {
   font-size: 1rem;
   line-height: 1.6;
-  background-color: #f4f7fc;
 }

@@ -1,29 +1,37 @@
-import { useState, useEffect } from 'react';
-import { db } from '../../firebase/config';
-import { collection, getDocs, addDoc, updateDoc, doc } from 'firebase/firestore';
-import ProfesorItem from '../header/ProfesorItem';
-import CryptoJS from 'crypto-js';
-import './styles/profesores.css';
+import { useState, useEffect } from "react";
+import { db } from "../../firebase/config";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
+import ProfesorItem from "../header/ProfesorItem";
+import CryptoJS from "crypto-js";
+import "./styles/profesores.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import { Loader } from "../../utils/Loader";
 
 export function Profesores() {
   const [profesores, setProfesores] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
-    apellido: '',
-    carnet: '',
-    correo: '',
-    direccion: '',
-    especialidad: '',
-    fecha_nacimiento: '',
-    genero: '',
-    id_materia: '',
-    nombre: '',
-    password: '',
-    telefono: ''
+    apellido: "",
+    carnet: "",
+    correo: "",
+    direccion: "",
+    especialidad: "",
+    fecha_nacimiento: "",
+    genero: "",
+    id_materia: "",
+    nombre: "",
+    password: "",
+    telefono: "",
   });
   const [editProfesorId, setEditProfesorId] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetchProfesores();
@@ -31,7 +39,7 @@ export function Profesores() {
 
   const fetchProfesores = async () => {
     try {
-      const profesoresCollection = collection(db, 'profesores');
+      const profesoresCollection = collection(db, "profesores");
       const profesoresSnapshot = await getDocs(profesoresCollection);
       const profesoresList = profesoresSnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -40,7 +48,7 @@ export function Profesores() {
       setProfesores(profesoresList);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching profesores: ', error);
+      console.error("Error fetching profesores: ", error);
     }
   };
 
@@ -48,12 +56,12 @@ export function Profesores() {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
   const toggleEstado = async (id, currentState) => {
     try {
-      const userDoc = doc(db, 'profesores', id);
+      const userDoc = doc(db, "profesores", id);
       await updateDoc(userDoc, { estado: !currentState });
       // eslint-disable-next-line no-undef
       setPadres((prevProfesores) =>
@@ -62,45 +70,47 @@ export function Profesores() {
         )
       );
     } catch (error) {
-      console.error('Error updating padre state: ', error);
+      console.error("Error updating padre state: ", error);
     }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Hash the password before sending it to Firebase
-    const hashedPassword = CryptoJS.SHA256(formData.password).toString(CryptoJS.enc.Hex);
+    const hashedPassword = CryptoJS.SHA256(formData.password).toString(
+      CryptoJS.enc.Hex
+    );
 
     const profesorData = {
       ...formData,
-      password: hashedPassword
+      password: hashedPassword,
     };
 
     try {
       if (editProfesorId) {
-        const profesorDoc = doc(db, 'profesores', editProfesorId);
+        const profesorDoc = doc(db, "profesores", editProfesorId);
         await updateDoc(profesorDoc, profesorData);
       } else {
-        await addDoc(collection(db, 'profesores'), profesorData);
+        await addDoc(collection(db, "profesores"), profesorData);
       }
       setFormData({
-        apellido: '',
-        carnet: '',
-        correo: '',
-        direccion: '',
-        especialidad: '',
-        fecha_nacimiento: '',
-        genero: '',
-        id_materia: '',
-        nombre: '',
-        password: '',
-        telefono: ''
+        apellido: "",
+        carnet: "",
+        correo: "",
+        direccion: "",
+        especialidad: "",
+        fecha_nacimiento: "",
+        genero: "",
+        id_materia: "",
+        nombre: "",
+        password: "",
+        telefono: "",
       });
       setShowModal(false);
       setEditProfesorId(null);
       fetchProfesores();
     } catch (error) {
-      console.error('Error adding/updating profesor: ', error);
+      console.error("Error adding/updating profesor: ", error);
     }
   };
 
@@ -113,10 +123,10 @@ export function Profesores() {
   const handleDelete = async (id) => {
     if (window.confirm(`¿Estás seguro de eliminar a este profesor?`)) {
       try {
-        await db.collection('profesores').doc(id).delete();
+        await db.collection("profesores").doc(id).delete();
         fetchProfesores();
       } catch (error) {
-        console.error('Error removing profesor: ', error);
+        console.error("Error removing profesor: ", error);
       }
     }
   };
@@ -125,32 +135,31 @@ export function Profesores() {
     setShowModal(false);
     setEditProfesorId(null);
     setFormData({
-      apellido: '',
-      carnet: '',
-      correo: '',
-      direccion: '',
-      especialidad: '',
-      fecha_nacimiento: '',
-      genero: '',
-      id_materia: '',
-      nombre: '',
-      password: '',
-      telefono: ''
+      apellido: "",
+      carnet: "",
+      correo: "",
+      direccion: "",
+      especialidad: "",
+      fecha_nacimiento: "",
+      genero: "",
+      id_materia: "",
+      nombre: "",
+      password: "",
+      telefono: "",
     });
   };
 
   const handleSearch = () => {
-    console.log('Implementa la lógica de búsqueda aquí');
+    console.log("Implementa la lógica de búsqueda aquí");
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
-
   return (
     <div className="profesores-container">
       <h2>Lista de Profesores</h2>
-      <div className='container linea'></div>
+      <div className="container linea"></div>
       <div className="lista-profesores">
         <div className="search-container">
           <input
@@ -194,14 +203,17 @@ export function Profesores() {
           </tbody>
         </table>
       </div>
-      <button className="agregar-profesor-button" onClick={() => setShowModal(true)}>
+      <button
+        className="agregar-profesor-button"
+        onClick={() => setShowModal(true)}
+      >
         Agregar Nuevo Profesor
       </button>
 
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h3>{editProfesorId ? 'Editar Profesor' : 'Agregar Profesor'}</h3>
+            <h3>{editProfesorId ? "Editar Profesor" : "Agregar Profesor"}</h3>
             <form onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="nombre">Nombre</label>
@@ -319,9 +331,13 @@ export function Profesores() {
               </div>
               <div className="button-container">
                 <button type="submit" className="button">
-                  {editProfesorId ? 'Actualizar Profesor' : 'Agregar Profesor'}
+                  {editProfesorId ? "Actualizar Profesor" : "Agregar Profesor"}
                 </button>
-                <button type="button" className="cancelar-button" onClick={handleCancelar}>
+                <button
+                  type="button"
+                  className="cancelar-button"
+                  onClick={handleCancelar}
+                >
                   Cancelar
                 </button>
               </div>

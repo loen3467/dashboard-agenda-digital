@@ -2,6 +2,8 @@ import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
 import { useState } from "react";
 import "./styles/loginContainer.scss";
+import logoAgenda from "../../assets/images/logo_agenda_dig1.png";
+
 export function LoginContainer() {
   const [rightPanel, setRightPanel] = useState(false);
   const handleRightPanel = () => {
@@ -19,11 +21,7 @@ export function LoginContainer() {
           <div className="overlay">
             <div className="overlay-panel overlay-left">
               <div className={`${rightPanel ? "slide-in-right" : ""}`}>
-                <img
-                  src="/src/assets/images/logo_agenda_dig.png"
-                  alt=""
-                  height={180}
-                />
+                <img src={logoAgenda} alt="logo de la agenda" height={180} />
               </div>
               <h1 className={`${rightPanel ? "bounce" : ""}`}>
                 ¡Bienvenido de Nuevo!
@@ -42,11 +40,7 @@ export function LoginContainer() {
             </div>
             <div className="overlay-panel overlay-right">
               <div className={`${rightPanel ? "" : "slide-in-left"}`}>
-                <img
-                  src="/src/assets/images/logo_agenda_dig.png"
-                  alt=""
-                  height={180}
-                />
+                <img src={logoAgenda} alt="logo de la agenda" height={180} />
               </div>
               <h1 className={`${rightPanel ? "" : "bounce"}`}>¡Hola, Amigo!</h1>
               <p className={`${rightPanel ? "" : "slide-in-right"}`}>

@@ -2,9 +2,9 @@ import React, { Suspense, useMemo } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "../components/header/Layout";
 import { Loader } from "../utils/Loader";
-import { Estudiantes } from "../components/usuarios/Estudiante";
+import { Estudiantes } from "../components/usuarios/Estudiantes";
 import { Padres } from "../components/usuarios/Padre";
-import {Profesores} from "../components/usuarios/Profesores";
+import { Profesores } from "../components/usuarios/Profesores";
 
 const Cursos = React.lazy(() => import("../pages/Cursos"));
 const Tareas = React.lazy(() => import("../pages/Tareas"));
@@ -13,7 +13,6 @@ const Citaciones = React.lazy(() => import("../pages/Citaciones"));
 const Usuarios = React.lazy(() => import("../pages/Usuarios"));
 const Dashboard = React.lazy(() => import("../pages/Dashboard"));
 const Login = React.lazy(() => import("../pages/Login"));
-
 
 const CreateTareas = React.lazy(() =>
   import("../components/tareas/CreateTareas")
