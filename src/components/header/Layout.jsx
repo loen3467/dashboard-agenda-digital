@@ -1,15 +1,17 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { Navbar } from "./Navbar";
 import { Sidebar } from "./Sidebar";
 import { useEffect, useState } from "react";
 import { auth } from "../../firebase/config";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { PageHeader } from "./PageHeader";
 
 const MySwal = withReactContent(Swal);
 
 export function Layout() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [userName, setUserName] = useState("");
   useEffect(
     () =>
@@ -51,12 +53,58 @@ export function Layout() {
   const toogleSidebar = () => {
     setIsSidebarHidden(!isSidebarHidden);
   };
+
+  const [title, setTitle] = useState("Panel De Control");
+  const [label, setLabel] = useState("Inicio");
+  useEffect(() => {
+    switch (location.pathname) {
+      case "/":
+        setTitle("Panel De Control");
+        setLabel("Inicio");
+        break;
+      case "/cursos":
+        setTitle("Cursos");
+        setLabel("Ver Cursos");
+        break;
+      case "/cursos/create":
+        setLabel("Crear Curso");
+        break;
+
+      case "/tareas":
+        setTitle("Tareas");
+        setLabel("Ver Tareas");
+        break;
+      case "/tareas/create":
+        setLabel("Crear Tarea");
+        break;
+      case "/anotaciones":
+        setTitle("Anotaciones");
+        setLabel("Ver Anotaciones");
+        break;
+      case "/anotaciones/create":
+        setLabel("Crear Anotación");
+        break;
+      case "/citaciones":
+        setTitle("Citaciones");
+        setLabel("Ver Citaciones");
+        break;
+      case "/citaciones/create":
+        setLabel("Crear Citación");
+        break;
+
+      default:
+        setLabel("Editar");
+    }
+  }, [location.pathname]);
   return (
     <>
       <Sidebar isSidebarHidden={isSidebarHidden} onLogout={handleLogout} />
       <section id="content">
         <Navbar toogleSidebar={toogleSidebar} />
-        <Outlet />
+        <main>
+          <PageHeader title={title} label={label} />
+          <Outlet />
+        </main>
       </section>
     </>
   );

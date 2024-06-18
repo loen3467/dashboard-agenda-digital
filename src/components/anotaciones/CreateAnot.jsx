@@ -1,10 +1,11 @@
+import "../styles/createEdit.scss";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { collection, getDocs, addDoc, doc } from "firebase/firestore";
+import { collection, getDocs, doc } from "firebase/firestore";
 import { db } from "../../firebase/config";
-import styles from "../tareas/styles/create.module.css";
+import { useAnotaciones } from "../../context/AnotacionesContext";
 
-export function CreateAnot() {
+export default function CreateAnot() {
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [id_est, setIdEst] = useState("");
@@ -13,8 +14,7 @@ export function CreateAnot() {
   const [profesores, setProfesores] = useState([]);
   const [estado, setEstado] = useState(true);
   const navigate = useNavigate();
-
-  const anotacionesCollection = collection(db, "anotaciones");
+  const { createAnotacion } = useAnotaciones();
 
   useEffect(() => {
     const getEstudiantes = async () => {
@@ -39,60 +39,56 @@ export function CreateAnot() {
     const month = String(currentDate.getMonth() + 1).padStart(2, "0");
     const day = String(currentDate.getDate()).padStart(2, "0");
 
-    const formattedDate = `${year}/${month}/${day}`;
-    return formattedDate;
+    return `${year}/${month}/${day}`;
   };
 
   const create = async (e) => {
     e.preventDefault();
     const estudianteRef = doc(db, "estudiantes", id_est);
     const profesorRef = doc(db, "profesores", id_profesor);
-    await addDoc(anotacionesCollection, {
-      titulo: titulo,
-      descripcion: descripcion,
+    await createAnotacion({
+      titulo,
+      descripcion,
       fecha_creacion: getCurrentDate(),
       id_est: estudianteRef,
       id_profesor: profesorRef,
-      estado: estado,
+      estado,
     });
     navigate("/anotaciones");
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.row}>
-        <div className={styles.col}>
-          <div className={styles.header}>
-            <button onClick={() => navigate("/anotaciones")}>
-              <i className="bx bx-arrow-back"></i>
-            </button>
-            <h1>Crear Anotación</h1>
-          </div>
+    <div className="create-container">
+      <div className="row">
+        <div className="col">
           <form onSubmit={create}>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Título</label>
+            <div className="formGroup">
+              <label className="formLabel">Título</label>
               <input
                 value={titulo}
                 onChange={(e) => setTitulo(e.target.value)}
                 type="text"
-                className={styles.formControl}
+                className="formControl"
+                required
               />
             </div>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Descripción</label>
+            <div className="formGroup">
+              <label className="formLabel">Descripción</label>
               <input
                 value={descripcion}
                 onChange={(e) => setDescripcion(e.target.value)}
                 type="text"
-                className={styles.formControl}
+                className="formControl"
+                required
               />
             </div>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Estudiante</label>
+            <div className="formGroup">
+              <label className="formLabel">Estudiante</label>
               <select
                 value={id_est}
                 onChange={(e) => setIdEst(e.target.value)}
-                className={styles.formControl}
+                className="formControl"
+                required
               >
                 <option value="">Seleccione un Estudiante</option>
                 {estudiantes.map((estudiante) => (
@@ -102,12 +98,13 @@ export function CreateAnot() {
                 ))}
               </select>
             </div>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Profesor</label>
+            <div className="formGroup">
+              <label className="formLabel">Profesor</label>
               <select
                 value={id_profesor}
                 onChange={(e) => setIdProfesor(e.target.value)}
-                className={styles.formControl}
+                className="formControl"
+                required
               >
                 <option value="">Seleccione un Profesor</option>
                 {profesores.map((profesor) => (
@@ -117,15 +114,15 @@ export function CreateAnot() {
                 ))}
               </select>
             </div>
-            <div className={styles.buttons}>
-              <button type="submit" className={styles.btnPrimary}>
+            <div className="buttons">
+              <button type="submit" className="btnPrimary">
                 <i className="bx bxs-save"></i>
                 <span>Guardar</span>
               </button>
               <button
-                onClick={() => navigate("/anotaciones")}
                 type="button"
-                className={styles.btnSecondary}
+                className="btnSecondary"
+                onClick={() => navigate(-1)}
               >
                 <i className="bx bx-x-circle"></i>
                 <span>Cancelar</span>

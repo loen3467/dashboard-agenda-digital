@@ -1,5 +1,5 @@
 import { LoginContainer } from "../components/login/LoginContainer";
-export function Login() {
+export default function Login() {
   return (
     <>
       <LoginContainer />

@@ -12,7 +12,7 @@ import {
 import { db } from "../../firebase/config";
 import styles from "./styles/create.module.css";
 
-export function CreateCourses() {
+export default function CreateCourses() {
   const [nombre, setNombre] = useState("");
   const [grado, setGrado] = useState("");
   const [paralelo, setParalelo] = useState("");

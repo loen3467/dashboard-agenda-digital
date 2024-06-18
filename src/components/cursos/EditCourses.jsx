@@ -1,3 +1,3 @@
-export function EditCourses() {
+export default function EditCourses() {
   return <div>EditCourses</div>;
 }

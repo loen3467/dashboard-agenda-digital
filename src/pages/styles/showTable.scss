@@ -1,0 +1,90 @@
+.table-container {
+  margin: 0 auto;
+  max-width: 1800px;
+  font-size: 1rem;
+
+  .show-header {
+    display: flex;
+    margin-bottom: 1rem;
+
+    .createButton {
+      background-color: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+
+      &:hover {
+        opacity: 0.8;
+      }
+      &:active {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+      padding: 10px;
+      border: 1px solid var(--dark-grey);
+    }
+
+    th {
+      background-color: var(--dark-grey);
+      color: #fff;
+    }
+
+    tbody tr:hover {
+      background-color: var(--grey);
+    }
+  }
+
+  .activeRow {
+    background-color: var(--light-green);
+  }
+
+  .inactiveRow {
+    background-color: var(--light-orange);
+  }
+
+  .editButton,
+  .toggleButton {
+    background-color: transparent;
+    color: var(--blue);
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 1.3rem;
+    transition: color 0.3s ease;
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+
+  .toggleButton {
+    color: var(--red);
+    display: flex;
+    align-items: center;
+
+    i,
+    span {
+      margin-right: 5px;
+    }
+  }
+
+  .btnActive {
+    color: var(--dark-green);
+  }
+}
