@@ -1,9 +1,17 @@
-import { useState, useEffect } from 'react';
-import '../pages/styles/citaciones.css'; // Importar los estilos
-import { collection, getDocs, addDoc, doc, deleteDoc, updateDoc } from 'firebase/firestore';
-import { db } from '../firebase/config';
-import comunicadoImg from '../assets/images/reunion_general.png'; // Ruta a la imagen de comunicado
-import entrevistaImg from '../assets/images/entrevista_reunion.png'; // Ruta a la imagen de entrevista
+import { useState, useEffect } from "react";
+import "../pages/styles/citaciones.css"; // Importar los estilos
+import {
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
+import { db } from "../firebase/config";
+import comunicadoImg from "../assets/images/reunion_general.png"; // Ruta a la imagen de comunicado
+import entrevistaImg from "../assets/images/entrevista_reunion.png"; // Ruta a la imagen de entrevista
+import { Loader } from "../utils/Loader";
 
 export default function Citaciones() {
   const [citas, setCitas] = useState([]);
@@ -11,15 +19,16 @@ export default function Citaciones() {
   const [estudiantes, setEstudiantes] = useState([]);
   const [padres, setPadres] = useState([]);
   const [formVisible, setFormVisible] = useState(false);
-  const [formType, setFormType] = useState('comunicado');
-  const [comunicadoFecha, setComunicadoFecha] = useState('');
-  const [titulo, setTitulo] = useState('');
-  const [descripcion, setDescripcion] = useState('');
-  const [fecha, setFecha] = useState('');
+  const [formType, setFormType] = useState("comunicado");
+  const [comunicadoFecha, setComunicadoFecha] = useState("");
+  const [titulo, setTitulo] = useState("");
+  const [descripcion, setDescripcion] = useState("");
+  const [fecha, setFecha] = useState("");
   const [selectedEstudiantes, setSelectedEstudiantes] = useState([]);
   const [selectedCursos, setSelectedCursos] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [editingCita, setEditingCita] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchCitas();
@@ -29,16 +38,18 @@ export default function Citaciones() {
   }, []);
 
   const fetchCitas = async () => {
-    const citasSnapshot = await getDocs(collection(db, 'citaciones'));
+    setLoading(true);
+    const citasSnapshot = await getDocs(collection(db, "citaciones"));
     const citasList = citasSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
     setCitas(citasList);
+    setLoading(false);
   };
 
   const fetchCursos = async () => {
-    const cursosSnapshot = await getDocs(collection(db, 'cursos'));
+    const cursosSnapshot = await getDocs(collection(db, "cursos"));
     const cursosList = cursosSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -47,7 +58,7 @@ export default function Citaciones() {
   };
 
   const fetchEstudiantes = async () => {
-    const estudiantesSnapshot = await getDocs(collection(db, 'estudiantes'));
+    const estudiantesSnapshot = await getDocs(collection(db, "estudiantes"));
     const estudiantesList = estudiantesSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -56,7 +67,7 @@ export default function Citaciones() {
   };
 
   const fetchPadres = async () => {
-    const padresSnapshot = await getDocs(collection(db, 'padres'));
+    const padresSnapshot = await getDocs(collection(db, "padres"));
     const padresList = padresSnapshot.docs.map((doc) => ({
       id: doc.ids,
       ...doc.data(),
@@ -69,29 +80,35 @@ export default function Citaciones() {
       titulo,
       descripcion,
       tipo: formType,
-      fecha: formType === 'comunicado' ? comunicadoFecha : fecha,
-      id_admin: '/administrativo/adm001',
-      id_est: formType === 'entrevista' ? selectedEstudiantes.map((est) => est.id) : [],
-      idcurso: formType === 'cursos' ? selectedCursos.map((curso) => `/cursos/${curso}`) : [],
-      idprofesor: '/profesores/prof001',
+      fecha: formType === "comunicado" ? comunicadoFecha : fecha,
+      id_admin: "/administrativo/adm001",
+      id_est:
+        formType === "entrevista"
+          ? selectedEstudiantes.map((est) => est.id)
+          : [],
+      idcurso:
+        formType === "cursos"
+          ? selectedCursos.map((curso) => `/cursos/${curso}`)
+          : [],
+      idprofesor: "/profesores/prof001",
       estado: true,
     };
-  
+
     if (editingCita) {
-      await updateDoc(doc(db, 'citaciones', editingCita.id), newCita);
+      await updateDoc(doc(db, "citaciones", editingCita.id), newCita);
     } else {
-      await addDoc(collection(db, 'citaciones'), newCita);
+      await addDoc(collection(db, "citaciones"), newCita);
     }
     fetchCitas();
     setFormVisible(false);
     resetForm();
   };
-  
+
   const resetForm = () => {
-    setTitulo('');
-    setDescripcion('');
-    setFecha('');
-    setComunicadoFecha('');
+    setTitulo("");
+    setDescripcion("");
+    setFecha("");
+    setComunicadoFecha("");
     setSelectedEstudiantes([]);
     setSelectedCursos([]);
     setEditingCita(null);
@@ -107,7 +124,9 @@ export default function Citaciones() {
   };
 
   const handleRemoveEstudiante = (estudiante) => {
-    setSelectedEstudiantes((prev) => prev.filter((e) => e.id !== estudiante.id));
+    setSelectedEstudiantes((prev) =>
+      prev.filter((e) => e.id !== estudiante.id)
+    );
   };
 
   const handleSelectCurso = (curso) => {
@@ -117,7 +136,7 @@ export default function Citaciones() {
   };
 
   const handleDelete = async (id) => {
-    await deleteDoc(doc(db, 'citaciones', id));
+    await deleteDoc(doc(db, "citaciones", id));
     fetchCitas();
   };
 
@@ -128,36 +147,37 @@ export default function Citaciones() {
 
   const openFormForEditing = (cita) => {
     const { tipo, titulo, descripcion, fecha, id_est, idcurso } = cita;
-  
-    if (tipo === 'comunicado') {
-      setFormType('comunicado');
-      setTitulo(titulo || ''); // Aseguramos que el título no sea undefined o null
-      setDescripcion(descripcion || ''); // Aseguramos que la descripción no sea undefined o null
-      setComunicadoFecha(fecha || ''); // Aseguramos que la fecha no sea undefined o null
+
+    if (tipo === "comunicado") {
+      setFormType("comunicado");
+      setTitulo(titulo || ""); // Aseguramos que el título no sea undefined o null
+      setDescripcion(descripcion || ""); // Aseguramos que la descripción no sea undefined o null
+      setComunicadoFecha(fecha || ""); // Aseguramos que la fecha no sea undefined o null
       setFormVisible(true);
-    } else if (tipo === 'cursos') {
-      setFormType('cursos');
-      setTitulo(titulo || ''); // Aseguramos que el título no sea undefined o null
-      setDescripcion(descripcion || ''); // Aseguramos que la descripción no sea undefined o null
-      setSelectedCursos(idcurso.map((curso) => curso.replace('/cursos/', '')) || []); // Aseguramos que idcurso sea un array antes de mapearlo
+    } else if (tipo === "cursos") {
+      setFormType("cursos");
+      setTitulo(titulo || ""); // Aseguramos que el título no sea undefined o null
+      setDescripcion(descripcion || ""); // Aseguramos que la descripción no sea undefined o null
+      setSelectedCursos(
+        idcurso.map((curso) => curso.replace("/cursos/", "")) || []
+      ); // Aseguramos que idcurso sea un array antes de mapearlo
       setFormVisible(true);
-    } else if (tipo === 'entrevista') {
-      setFormType('entrevista');
-      setTitulo(titulo || ''); // Aseguramos que el título no sea undefined o null
-      setDescripcion(descripcion || ''); // Aseguramos que la descripción no sea undefined o null
-      setFecha(fecha || ''); // Aseguramos que la fecha no sea undefined o null
-      setSelectedEstudiantes(estudiantes.filter((est) => id_est.includes(est.id)) || []); // Aseguramos que id_est sea un array antes de usarlo
+    } else if (tipo === "entrevista") {
+      setFormType("entrevista");
+      setTitulo(titulo || ""); // Aseguramos que el título no sea undefined o null
+      setDescripcion(descripcion || ""); // Aseguramos que la descripción no sea undefined o null
+      setFecha(fecha || ""); // Aseguramos que la fecha no sea undefined o null
+      setSelectedEstudiantes(
+        estudiantes.filter((est) => id_est.includes(est.id)) || []
+      ); // Aseguramos que id_est sea un array antes de usarlo
       setFormVisible(true);
     }
   };
-  
-  
 
   const getParentData = (parentId) => {
     const padre = padres.find((padre) => padre.id === parentId);
     return padre;
   };
-  
 
   const filteredEstudiantes = estudiantes.filter((estudiante) =>
     estudiante.nombre.toLowerCase().includes(searchQuery.toLowerCase())
@@ -168,6 +188,10 @@ export default function Citaciones() {
     setFormType(type);
     setFormVisible(true);
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="citaciones-container">
@@ -181,20 +205,38 @@ export default function Citaciones() {
                 <div className="barra separadora"></div>
                 <p>{cita.descripcion}</p>
                 <p>Fecha: {cita.fecha}</p>
-                <p>Tipo: {cita.tipo === 'comunicado' ? 'Comunicado' : cita.tipo === 'entrevista' ? 'Entrevista' : 'Cursos'}</p>
-                {cita.tipo === 'entrevista' && (
+                <p>
+                  Tipo:{" "}
+                  {cita.tipo === "comunicado"
+                    ? "Comunicado"
+                    : cita.tipo === "entrevista"
+                    ? "Entrevista"
+                    : "Cursos"}
+                </p>
+                {cita.tipo === "entrevista" && (
                   <>
                     {cita.id_est.map((id_est, idx) => {
-                      const estudiante = estudiantes.find((est) => est.id === id_est);
+                      const estudiante = estudiantes.find(
+                        (est) => est.id === id_est
+                      );
                       if (!estudiante) return null;
-  
-                      const padre = padres.find((padre) => padre.id === estudiante.id_padre);
-                      const nombrePadre = padre ? padre.nombre : 'No encontrado';
-                      const apellidoPadre = padre ? padre.apellido : 'No encontrado';
-  
+
+                      const padre = padres.find(
+                        (padre) => padre.id === estudiante.id_padre
+                      );
+                      const nombrePadre = padre
+                        ? padre.nombre
+                        : "No encontrado";
+                      const apellidoPadre = padre
+                        ? padre.apellido
+                        : "No encontrado";
+
                       return (
                         <div key={idx}>
-                          <p>Estudiante: {estudiante.nombre} {estudiante.apellido}</p>
+                          <p>
+                            Estudiante: {estudiante.nombre}{" "}
+                            {estudiante.apellido}
+                          </p>
                           <div>
                             <p>Nombre del Padre: {nombrePadre}</p>
                             <p>Apellido del Padre: {apellidoPadre}</p>
@@ -204,47 +246,90 @@ export default function Citaciones() {
                     })}
                   </>
                 )}
-                {cita.tipo === 'cursos' && (
+                {cita.tipo === "cursos" && (
                   <div>
                     <p>Cursos:</p>
                     <ul>
                       {cita.idcurso.map((idCurso, idx) => {
-                        const curso = cursos.find((curso) => `/cursos/${curso.id}` === idCurso);
-                        return curso ? <li key={idx}>{curso.nombre} - Paralelo: {curso.paralelo}</li> : null;
+                        const curso = cursos.find(
+                          (curso) => `/cursos/${curso.id}` === idCurso
+                        );
+                        return curso ? (
+                          <li key={idx}>
+                            {curso.nombre} - Paralelo: {curso.paralelo}
+                          </li>
+                        ) : null;
                       })}
                     </ul>
                   </div>
                 )}
               </div>
               <div className="imagen-container">
-                {cita.tipo === 'comunicado' ? (
-                  <img src={comunicadoImg} alt="Comunicado" className="imagen-comunicado" />
-                ) : cita.tipo === 'entrevista' ? (
-                  <img src={entrevistaImg} alt="Entrevista" className="imagen-entrevista" />
+                {cita.tipo === "comunicado" ? (
+                  <img
+                    src={comunicadoImg}
+                    alt="Comunicado"
+                    className="imagen-comunicado"
+                  />
+                ) : cita.tipo === "entrevista" ? (
+                  <img
+                    src={entrevistaImg}
+                    alt="Entrevista"
+                    className="imagen-entrevista"
+                  />
                 ) : (
-                  <img src={entrevistaImg} alt="Citacion a Cursos" className="imagen-entrevista" />
+                  <img
+                    src={entrevistaImg}
+                    alt="Citacion a Cursos"
+                    className="imagen-entrevista"
+                  />
                 )}
               </div>
               <div className="buttons edits">
-                <button className="edit-button" onClick={() => handleEdit(cita)}>Editar</button>
-                <button className="delete-button" onClick={() => handleDelete(cita.id)}>Eliminar</button>
+                <button
+                  className="edit-button"
+                  onClick={() => handleEdit(cita)}
+                >
+                  Editar
+                </button>
+                <button
+                  className="delete-button"
+                  onClick={() => handleDelete(cita.id)}
+                >
+                  Eliminar
+                </button>
               </div>
             </div>
           ))}
         </div>
       </div>
       <div className="buttons-container">
-        <button onClick={() => openFormForCreation('comunicado')}>Nuevo Comunicado</button>
-        <button onClick={() => openFormForCreation('entrevista')}>Entrevista a Estudiante(s)</button>
-        <button onClick={() => openFormForCreation('cursos')}>Citación a Cursos</button>
+        <button onClick={() => openFormForCreation("comunicado")}>
+          Nuevo Comunicado
+        </button>
+        <button onClick={() => openFormForCreation("entrevista")}>
+          Entrevista a Estudiante(s)
+        </button>
+        <button onClick={() => openFormForCreation("cursos")}>
+          Citación a Cursos
+        </button>
       </div>
       {formVisible && (
         <>
-          <div className="overlay-citas active" onClick={() => setFormVisible(false)}></div>
+          <div
+            className="overlay-citas active"
+            onClick={() => setFormVisible(false)}
+          ></div>
           <div className="form-container-citas">
             <div className="form-wrapper active">
               <div>
-                <h2>{formType === 'comunicado' ? 'Nuevo Comunicado' : formType === 'entrevista' ? 'Entrevista a Estudiante(s)' : 'Citación a Cursos'}</h2>
+                <h2>
+                  {formType === "comunicado"
+                    ? "Nuevo Comunicado"
+                    : formType === "entrevista"
+                    ? "Entrevista a Estudiante(s)"
+                    : "Citación a Cursos"}
+                </h2>
               </div>
               <form onSubmit={handleSubmit}>
                 <div>
@@ -264,7 +349,7 @@ export default function Citaciones() {
                     required
                   ></textarea>
                 </div>
-                {formType === 'comunicado' && (
+                {formType === "comunicado" && (
                   <div>
                     <label>Fecha:</label>
                     <input
@@ -275,7 +360,7 @@ export default function Citaciones() {
                     />
                   </div>
                 )}
-                {formType === 'entrevista' && (
+                {formType === "entrevista" && (
                   <>
                     <div>
                       <label>Fecha:</label>
@@ -294,22 +379,28 @@ export default function Citaciones() {
                         onChange={(e) => setSearchQuery(e.target.value)}
                       />
                     </div>
-                    <div className='busca-est'>
+                    <div className="busca-est">
                       <ul>
                         {filteredEstudiantes.map((estudiante, index) => (
                           <li key={index}>
                             {estudiante.nombre} {estudiante.apellido}
-                            {selectedEstudiantes.find((e) => e.id === estudiante.id) ? (
+                            {selectedEstudiantes.find(
+                              (e) => e.id === estudiante.id
+                            ) ? (
                               <button
                                 type="button"
-                                onClick={() => handleRemoveEstudiante(estudiante)}
+                                onClick={() =>
+                                  handleRemoveEstudiante(estudiante)
+                                }
                               >
                                 Quitar
                               </button>
                             ) : (
                               <button
                                 type="button"
-                                onClick={() => handleSelectEstudiante(estudiante)}
+                                onClick={() =>
+                                  handleSelectEstudiante(estudiante)
+                                }
                               >
                                 Seleccionar
                               </button>
@@ -320,12 +411,20 @@ export default function Citaciones() {
                     </div>
                     {selectedEstudiantes.map((estudiante, index) => (
                       <div key={index}>
-                        <p>Nombre: {estudiante.nombre} {estudiante.apellido}</p>
+                        <p>
+                          Nombre: {estudiante.nombre} {estudiante.apellido}
+                        </p>
                         {estudiante.id_padre && (
                           <div>
                             <p>Padre:</p>
-                            <p>Nombre: {getParentData(estudiante.id_padre)?.nombre}</p>
-                            <p>Apellido: {getParentData(estudiante.id_padre)?.apellido}</p>
+                            <p>
+                              Nombre:{" "}
+                              {getParentData(estudiante.id_padre)?.nombre}
+                            </p>
+                            <p>
+                              Apellido:{" "}
+                              {getParentData(estudiante.id_padre)?.apellido}
+                            </p>
                             {/* Agrega otros campos del padre aquí si es necesario */}
                           </div>
                         )}
@@ -333,16 +432,18 @@ export default function Citaciones() {
                     ))}
                   </>
                 )}
-                {formType === 'cursos' && (
+                {formType === "cursos" && (
                   <div>
                     <label>Seleccionar Cursos:</label>
-                    <div className='busc-cursos'>
+                    <div className="busc-cursos">
                       {cursos.map((curso) => (
-                        <div className='curso-item' key={curso.id}>
-                          <div className='curso-label'>
-                            <label htmlFor={`curso-${curso.id}`}>{curso.nombre} - Paralelo: {curso.paralelo}</label>
+                        <div className="curso-item" key={curso.id}>
+                          <div className="curso-label">
+                            <label htmlFor={`curso-${curso.id}`}>
+                              {curso.nombre} - Paralelo: {curso.paralelo}
+                            </label>
                           </div>
-                          <div className='curso-checkbox'>
+                          <div className="curso-checkbox">
                             <input
                               type="checkbox"
                               id={`curso-${curso.id}`}
@@ -356,8 +457,16 @@ export default function Citaciones() {
                   </div>
                 )}
                 <div className="button-container">
-                  <button type="submit">{editingCita ? 'Guardar Cambios' : 'Crear Citación'}</button>
-                  <button type="button" className="cancel-button" onClick={() => setFormVisible(false)}>Cancelar</button>
+                  <button type="submit">
+                    {editingCita ? "Guardar Cambios" : "Crear Citación"}
+                  </button>
+                  <button
+                    type="button"
+                    className="cancel-button"
+                    onClick={() => setFormVisible(false)}
+                  >
+                    Cancelar
+                  </button>
                 </div>
               </form>
             </div>
@@ -365,5 +474,5 @@ export default function Citaciones() {
         </>
       )}
     </div>
-  );  
-  }
+  );
+}

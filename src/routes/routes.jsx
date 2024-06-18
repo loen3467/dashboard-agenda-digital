@@ -1,36 +1,26 @@
-import React, { Suspense, useMemo } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "../components/header/Layout";
-import { Loader } from "../utils/Loader";
 import { Estudiantes } from "../components/usuarios/Estudiantes";
-import { Padres } from "../components/usuarios/Padre";
+import { Padres } from "../components/usuarios/Padres";
 import { Profesores } from "../components/usuarios/Profesores";
+import Cursos from "../pages/Cursos";
+import Tareas from "../pages/Tareas";
+import Anotaciones from "../pages/Anotaciones";
+import Citaciones from "../pages/Citaciones";
+import Usuarios from "../pages/Usuarios";
+import Dashboard from "../pages/Dashboard";
+import Login from "../pages/Login";
+import CreateTareas from "../components/tareas/CreateTareas";
+import EditTareas from "../components/tareas/EditTareas";
+import CreateAnot from "../components/anotaciones/CreateAnot";
+import EditAnot from "../components/anotaciones/EditAnot";
+import CreateCourses from "../components/cursos/CreateCourses";
+import EditCourses from "../components/cursos/EditCourses";
 
-const Cursos = React.lazy(() => import("../pages/Cursos"));
-const Tareas = React.lazy(() => import("../pages/Tareas"));
-const Anotaciones = React.lazy(() => import("../pages/Anotaciones"));
-const Citaciones = React.lazy(() => import("../pages/Citaciones"));
-const Usuarios = React.lazy(() => import("../pages/Usuarios"));
-const Dashboard = React.lazy(() => import("../pages/Dashboard"));
-const Login = React.lazy(() => import("../pages/Login"));
-
-const CreateTareas = React.lazy(() =>
-  import("../components/tareas/CreateTareas")
-);
-const EditTareas = React.lazy(() => import("../components/tareas/EditTareas"));
-const CreateAnot = React.lazy(() =>
-  import("../components/anotaciones/CreateAnot")
-);
-const EditAnot = React.lazy(() => import("../components/anotaciones/EditAnot"));
-const CreateCourses = React.lazy(() =>
-  import("../components/cursos/CreateCourses")
-);
-const EditCourses = React.lazy(() =>
-  import("../components/cursos/EditCourses")
-);
 export function MyRoutes() {
-  const routes = useMemo(
-    () => (
+  return (
+    <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Layout />}>
@@ -41,24 +31,16 @@ export function MyRoutes() {
           <Route path="/tareas" element={<Tareas />} />
           <Route path="/tareas/create" element={<CreateTareas />} />
           <Route path="/tareas/edit/:id" element={<EditTareas />} />
-
           <Route path="/anotaciones" element={<Anotaciones />} />
           <Route path="/anotaciones/create" element={<CreateAnot />} />
           <Route path="/anotaciones/edit/:id" element={<EditAnot />} />
           <Route path="/citaciones" element={<Citaciones />} />
           <Route path="/usuarios" element={<Usuarios />} />
-          <Route path="/Estudiantes" element={<Estudiantes />}></Route>
-          <Route path="/Padres" element={<Padres />}></Route>
-          <Route path="/Profesores" element={<Profesores />}></Route>
+          <Route path="/Estudiantes" element={<Estudiantes />} />
+          <Route path="/Padres" element={<Padres />} />
+          <Route path="/Profesores" element={<Profesores />} />
         </Route>
       </Routes>
-    ),
-    []
-  );
-
-  return (
-    <BrowserRouter>
-      <Suspense fallback={<Loader />}>{routes}</Suspense>
     </BrowserRouter>
   );
 }
