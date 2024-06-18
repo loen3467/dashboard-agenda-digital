@@ -71,12 +71,12 @@ export function Citaciones() {
       tipo: formType,
       fecha: formType === 'comunicado' ? comunicadoFecha : fecha,
       id_admin: '/administrativo/adm001',
-      id_est: formType === 'entrevista' ? selectedEstudiantes.map((est) => est.id) : null,
+      id_est: formType === 'entrevista' ? selectedEstudiantes.map((est) => est.id) : [],
       idcurso: formType === 'cursos' ? selectedCursos.map((curso) => `/cursos/${curso}`) : [],
       idprofesor: '/profesores/prof001',
       estado: true,
     };
-
+  
     if (editingCita) {
       await updateDoc(doc(db, 'citaciones', editingCita.id), newCita);
     } else {
@@ -86,7 +86,7 @@ export function Citaciones() {
     setFormVisible(false);
     resetForm();
   };
-
+  
   const resetForm = () => {
     setTitulo('');
     setDescripcion('');
@@ -146,14 +146,19 @@ export function Citaciones() {
       setTitulo(titulo);
       setDescripcion(descripcion);
       setFecha(fecha);
+      // Convertir el array de IDs de estudiantes a objetos de estudiantes
       setSelectedEstudiantes(estudiantes.filter((est) => id_est.includes(est.id)));
       setFormVisible(true);
     }
   };
+  
+  
 
   const getParentData = (parentId) => {
-    return padres.find((padre) => padre.id === parentId);
+    const padre = padres.find((padre) => padre.id === parentId);
+    return padre;
   };
+  
 
   const filteredEstudiantes = estudiantes.filter((estudiante) =>
     estudiante.nombre.toLowerCase().includes(searchQuery.toLowerCase())
@@ -183,11 +188,11 @@ export function Citaciones() {
                     {cita.id_est.map((id_est, idx) => {
                       const estudiante = estudiantes.find((est) => est.id === id_est);
                       if (!estudiante) return null;
-
+  
                       const padre = padres.find((padre) => padre.id === estudiante.id_padre);
                       const nombrePadre = padre ? padre.nombre : 'No encontrado';
                       const apellidoPadre = padre ? padre.apellido : 'No encontrado';
-
+  
                       return (
                         <div key={idx}>
                           <p>Estudiante: {estudiante.nombre} {estudiante.apellido}</p>
@@ -206,7 +211,7 @@ export function Citaciones() {
                     <ul>
                       {cita.idcurso.map((idCurso, idx) => {
                         const curso = cursos.find((curso) => `/cursos/${curso.id}` === idCurso);
-                        return curso ? <li key={idx}>{curso.nombre}</li> : null;
+                        return curso ? <li key={idx}>{curso.nombre} - Paralelo: {curso.paralelo}</li> : null;
                       })}
                     </ul>
                   </div>
@@ -222,7 +227,7 @@ export function Citaciones() {
                 )}
               </div>
               <div className="buttons edits">
-              <button className="edit-button" onClick={() => handleEdit(cita)}>Editar</button>
+                <button className="edit-button" onClick={() => handleEdit(cita)}>Editar</button>
                 <button className="delete-button" onClick={() => handleDelete(cita.id)}>Eliminar</button>
               </div>
             </div>
@@ -294,7 +299,7 @@ export function Citaciones() {
                       <ul>
                         {filteredEstudiantes.map((estudiante, index) => (
                           <li key={index}>
-                            {estudiante.nombre}
+                            {estudiante.nombre} {estudiante.apellido}
                             {selectedEstudiantes.find((e) => e.id === estudiante.id) ? (
                               <button
                                 type="button"
@@ -319,14 +324,10 @@ export function Citaciones() {
                         <p>Nombre: {estudiante.nombre} {estudiante.apellido}</p>
                         {estudiante.id_padre && (
                           <div>
-                            {getParentData(estudiante.id_padre) ? (
-                              <>
-                                <p>Nombre del Padre: {getParentData(estudiante.id_padre).nombre}</p>
-                                <p>Apellido del Padre: {getParentData(estudiante.id_padre).apellido}</p>
-                              </>
-                            ) : (
-                              <p>No se encontraron datos del padre</p>
-                            )}
+                            <p>Padre:</p>
+                            <p>Nombre: {getParentData(estudiante.id_padre)?.nombre}</p>
+                            <p>Apellido: {getParentData(estudiante.id_padre)?.apellido}</p>
+                            {/* Agrega otros campos del padre aquí si es necesario */}
                           </div>
                         )}
                       </div>
@@ -338,13 +339,18 @@ export function Citaciones() {
                     <label>Seleccionar Cursos:</label>
                     <div className='busc-cursos'>
                       {cursos.map((curso) => (
-                        <div key={curso.id}>
-                          <input
-                            type="checkbox"
-                            id={`curso-${curso.id}`}
-                            checked={selectedCursos.includes(curso.id)}
-                            onChange={() => handleSelectCurso(curso.id)} />
-                          <label htmlFor={`curso-${curso.id}`}>{curso.nombre}</label>
+                        <div className='curso-item' key={curso.id}>
+                          <div className='curso-label'>
+                            <label htmlFor={`curso-${curso.id}`}>{curso.nombre} - Paralelo: {curso.paralelo}</label>
+                          </div>
+                          <div className='curso-checkbox'>
+                            <input
+                              type="checkbox"
+                              id={`curso-${curso.id}`}
+                              checked={selectedCursos.includes(curso.id)}
+                              onChange={() => handleSelectCurso(curso.id)}
+                            />
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -360,5 +366,5 @@ export function Citaciones() {
         </>
       )}
     </div>
-  );
-}
+  );  
+  }

@@ -204,14 +204,14 @@ button.delete-button:focus,
 }
 
 .form-wrapper.active button {
-  padding: 6px 15px;
+  padding: 6px 12px;
   background-color: #14bce6;
   color: white;
   border: none;
   cursor: pointer;
   border-radius: 20px;
   transition: background-color 0.3s ease;
-  font-size: 0.9rem; /* Reducimos el tamaño de fuente */
+  font-size: 0.8rem; /* Reducimos el tamaño de fuente */
 }
 
 .form-wrapper.active button.quitar {
@@ -231,27 +231,24 @@ button.delete-button:focus,
 }
 
 .form-container .cursos-list .curso-item {
-  display: flex;
-  align-items: center;
+  font-size: 0.8rem; /* Reducir el tamaño de fuente */
   margin-bottom: 3px; /* Reducir el margen inferior */
-  font-size: 0.9rem; /* Reducir el tamaño de fuente */
 }
+
 
 .form-container .cursos-list .curso-item {
   display: flex;
   align-items: center;
-  margin-bottom: 3px; /* Reducir el margen inferior */
-  font-size: 0.9rem; /* Reducir el tamaño de fuente */
+  justify-content: space-between; /* Alinea los elementos en los extremos */
+  margin-bottom: 5px; /* Margen entre los elementos */
+  font-size: 0.8rem; /* Reducir el tamaño de fuente */
 }
+
 
 .form-container .cursos-list .curso-item label {
-  margin-right: 3px; /* Reducir el margen derecho */
+  margin-right: 5px; /* Espacio entre el label y el checkbox */
 }
 
-.form-container .cursos-list .curso-item .curso-description {
-  width: 100%;
-  margin-top: 3px; /* Reducir el margen superior */
-}
 
 
 
@@ -259,7 +256,6 @@ button.delete-button:focus,
 .form-container .cursos-list {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 }
 
 .form-container .cursos-list .curso-item {
@@ -270,25 +266,21 @@ button.delete-button:focus,
 }
 
 .form-container .cursos-list .curso-item label {
-  margin-right: 5px; /* Reducir el margen derecho */
+  margin-right: 10px; /* Espacio entre el label y el checkbox */
 }
 
-/* Ajustes para los checkbox */
-.form-wrapper.active .cursos-list .curso-item input[type="checkbox"] {
-  width: 20px; /* Ajustar el ancho del checkbox */
-  height: 20px; /* Ajustar la altura del checkbox */
-  margin-right: 5px; /* Espacio entre el checkbox y el label */
-}
 
 .form-wrapper.active .cursos-list .curso-item label {
-  font-size: 0.9rem; /* Ajustar el tamaño del texto del label */
+  font-size: 1rem; /* Ajustar el tamaño del texto del label */
   margin-right: 5px; /* Espacio entre el checkbox y el label */
-  vertical-align: middle; /* Alinear el texto verticalmente con el checkbox */
+  vertical-align: text-top; /* Alinear el texto verticalmente con el checkbox */
 }
 
-.form-container .cursos-list .curso-item .curso-description {
-  width: 100%;
-  margin-top: 5px;
+/* Estilo para el checkbox */
+.form-wrapper.active .cursos-list .curso-item input[type="checkbox"] {
+  width: 18px; /* Reducir el ancho del checkbox */
+  height: 18px; /* Reducir la altura del checkbox */
+  margin-right: 5px; /* Espacio entre el checkbox y el texto */
 }
 
 /* Estilos para el formulario de Entrevista a Estudiante(s) */
@@ -330,17 +322,14 @@ button.delete-button:focus,
 }
 
 .form-container input,
-.form-container textarea {
-  width: 100%;
-  padding: 8px; /* Tamaño más pequeño para los inputs */
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
-  font-size: 0.9rem; /* Tamaño más pequeño para los inputs */
-  color: #333;
-  margin-top: 5px;
+.form-container textarea,
+.form-wrapper.active form textarea {
+  padding: 10px; /* Reducir el padding de los inputs */
+  font-size: 0.8rem; /* Reducir el tamaño de fuente de los inputs */
+  min-height: 150px; /* Reducir la altura mínima del textarea */
 }
+
+
 
 .form-container input[type="checkbox"] {
   margin-right: 5px;
@@ -381,16 +370,11 @@ button.delete-button:focus,
 
 .form-wrapper form input,
 .form-wrapper form textarea {
-  flex: 2; /* El input ocupará 2/3 del espacio */
-  padding: 10px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  width: 100%;
-  box-sizing: border-box;
-  font-family: 'Arial', sans-serif; /* Ajuste de fuente */
-  font-size: 1rem; /* Ajuste de tamaño de fuente */
-  color: #333; /* Ajuste de color de fuente */
+  font-size: 0.8rem; /* Reducir el tamaño de fuente */
+  padding: 4px; /* Reducir el padding */
 }
+
+
 
 .form-wrapper form input[type="text"]:focus,
 .form-wrapper form textarea:focus {
@@ -448,9 +432,11 @@ button.delete-button:focus,
 
 .form-wrapper.active input,
 .form-wrapper.active textarea {
-  font-size: 0.9rem; /* Reducimos el tamaño de fuente de los inputs */
-  padding: 6px; /* Reducimos el padding de los inputs */
+  font-size: 0.8rem; /* Reducir el tamaño de fuente */
+  padding: 4px; /* Reducir el padding */
+  min-height: 50px; /* Reducir la altura mínima del textarea */
 }
+
 
 /* Ajustes para los botones */
 button.edit-button,
@@ -478,27 +464,8 @@ button.edit-button,
 }
 
 /* Ajustes para el contenedor principal de los cursos */
-.busc-cursos {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
+/* Contenedor principal de los cursos */
 
-/* Ajustes para cada elemento de curso */
-.busc-cursos > div {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 5px; /* Ajustar el margen inferior entre los elementos */
-}
 
-/* Ajustes para los checkbox */
-.busc-cursos input[type="checkbox"] {
-  width: 50px; /* Ajustar el ancho del checkbox */
-  height: 50px; /* Ajustar la altura del checkbox */
-  margin-right: 10px; /* Espacio entre el checkbox y el label */
-}
 
-/* Ajustes para los labels */
-.busc-cursos label {
-  font-size: 1.2rem; /* Ajustar el tamaño del texto del label */
-}
+
