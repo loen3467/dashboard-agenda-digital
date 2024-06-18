@@ -3,17 +3,18 @@ import PropTypes from "prop-types"; // Importa PropTypes
 import "./styles/sidebar.css";
 import { SidebarItem } from "./SidebarItem";
 import { useEffect, useState } from "react";
+import logoImage from "../.././assets/images/logo_agenda_dig1.png"; // Asegúrate de ajustar la ruta según donde tengas la imagen
 
 export function Sidebar({ isSidebarHidden, onLogout }) {
   const [activeItem, setActiveItem] = useState(0);
   const location = useLocation();
 
   const items = [
-    { link: "/", icon: "bx bxs-dashboard", text: "Panel de Control" },
+    { link: "/Dashboard", icon: "bx bxs-dashboard", text: "Panel de Control" },
     { link: "/cursos", icon: "bx bxs-shopping-bag-alt", text: "Cursos" },
     { link: "/tareas", icon: "bx bxs-doughnut-chart", text: "Tareas" },
     { link: "/anotaciones", icon: "bx bxs-message-dots", text: "Anotaciones" },
-    { link: "/Citaciones", icon: "bx bxs-group", text: "Citaciones" },
+    { link: "/citaciones", icon: "bx bxs-group", text: "Citaciones" },
     { link: "/Estudiantes", icon: "bx bxs-group", text: "Gestion de Estudiantes",},
     { link: "/Padres", icon: "bx bxs-group", text: "Gestion de Padres",},
     { link: "/Profesores", icon: "bx bxs-group", text: "Gestion de Profesores",},
@@ -34,8 +35,7 @@ export function Sidebar({ isSidebarHidden, onLogout }) {
   return (
     <section id="sidebar" className={isSidebarHidden ? "hide" : ""}>
       <Link to="/" className="brand">
-        <i className="bx bxs-smile"></i>
-        <span className="text">Agenda Digital</span>
+        <img src={logoImage} alt="MobiQuick Logo" className="logo-image" />
       </Link>
       <ul className="side-menu top">
         {items.map((item, index) => (

@@ -5,7 +5,7 @@ import { db } from '../firebase/config';
 import comunicadoImg from '../assets/images/reunion_general.png'; // Ruta a la imagen de comunicado
 import entrevistaImg from '../assets/images/entrevista_reunion.png'; // Ruta a la imagen de entrevista
 
-export function Citaciones() {
+export default function Citaciones() {
   const [citas, setCitas] = useState([]);
   const [cursos, setCursos] = useState([]);
   const [estudiantes, setEstudiantes] = useState([]);
@@ -131,23 +131,22 @@ export function Citaciones() {
   
     if (tipo === 'comunicado') {
       setFormType('comunicado');
-      setTitulo(titulo);
-      setDescripcion(descripcion);
-      setComunicadoFecha(fecha);
+      setTitulo(titulo || ''); // Aseguramos que el título no sea undefined o null
+      setDescripcion(descripcion || ''); // Aseguramos que la descripción no sea undefined o null
+      setComunicadoFecha(fecha || ''); // Aseguramos que la fecha no sea undefined o null
       setFormVisible(true);
     } else if (tipo === 'cursos') {
       setFormType('cursos');
-      setTitulo(titulo);
-      setDescripcion(descripcion);
-      setSelectedCursos(idcurso.map((curso) => curso.replace('/cursos/', '')));
+      setTitulo(titulo || ''); // Aseguramos que el título no sea undefined o null
+      setDescripcion(descripcion || ''); // Aseguramos que la descripción no sea undefined o null
+      setSelectedCursos(idcurso.map((curso) => curso.replace('/cursos/', '')) || []); // Aseguramos que idcurso sea un array antes de mapearlo
       setFormVisible(true);
     } else if (tipo === 'entrevista') {
       setFormType('entrevista');
-      setTitulo(titulo);
-      setDescripcion(descripcion);
-      setFecha(fecha);
-      // Convertir el array de IDs de estudiantes a objetos de estudiantes
-      setSelectedEstudiantes(estudiantes.filter((est) => id_est.includes(est.id)));
+      setTitulo(titulo || ''); // Aseguramos que el título no sea undefined o null
+      setDescripcion(descripcion || ''); // Aseguramos que la descripción no sea undefined o null
+      setFecha(fecha || ''); // Aseguramos que la fecha no sea undefined o null
+      setSelectedEstudiantes(estudiantes.filter((est) => id_est.includes(est.id)) || []); // Aseguramos que id_est sea un array antes de usarlo
       setFormVisible(true);
     }
   };

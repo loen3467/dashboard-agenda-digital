@@ -5,7 +5,7 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore";
-import React, { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { db } from "../firebase/config";
 
 const TareasContext = createContext();
