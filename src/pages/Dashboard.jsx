@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./styles/dashboard.css";
 
+// eslint-disable-next-line no-unused-vars
 import { SidebarItem } from "../components/header/SidebarItem";
 
 // eslint-disable-next-line no-unused-vars
 export default function Dashboard({ isSidebarHidden, onLogout }) {
   const items = [
-    { link: "/", icon: "bx bxs-dashboard", text: "Panel de Control" },
     { link: "/cursos", icon: "bx bxs-shopping-bag-alt", text: "Cursos" },
     { link: "/tareas", icon: "bx bxs-doughnut-chart", text: "Tareas" },
     { link: "/anotaciones", icon: "bx bxs-message-dots", text: "Anotaciones" },
