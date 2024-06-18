@@ -241,8 +241,8 @@ export function Citaciones() {
       </div>
       {formVisible && (
         <>
-          <div className="overlay active" onClick={() => setFormVisible(false)}></div>
-          <div className="form-container">
+          <div className="overlay-citas active" onClick={() => setFormVisible(false)}></div>
+          <div className="form-container-citas">
             <div className="form-wrapper active">
               <div>
                 <h2>{formType === 'comunicado' ? 'Nuevo Comunicado' : formType === 'entrevista' ? 'Entrevista a Estudiante(s)' : 'Citación a Cursos'}</h2>

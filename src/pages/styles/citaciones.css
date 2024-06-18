@@ -97,8 +97,8 @@
 /* Estilos para los botones */
 button.edit-button,
 .buttons-container button,
-.form-container button[type="submit"],
-.form-container .button button {
+.form-container-citas button[type="submit"],
+.form-container-citas .button button {
   padding: 8px 16px; /* Reducimos el padding de los botones */
   margin-right: 10px;
   background-color: #14bce6;
@@ -112,8 +112,8 @@ button.edit-button,
 
 button.delete-button,
 .cancel-button,
-.form-container button.cancel-button,
-.form-container .button.quit button {
+.form-container-citas button.cancel-button,
+.form-container-citas .button.quit button {
   padding: 8px 16px; /* Reducimos el padding de los botones */
   margin-right: 10px;
   background-color: #dc3545;
@@ -127,29 +127,29 @@ button.delete-button,
 
 button.edit-button:hover,
 .buttons-container button:hover,
-.form-container button[type="submit"]:hover,
-.form-container .button button:hover {
+.form-container-citas button[type="submit"]:hover,
+.form-container-citas .button button:hover {
   background-color: #530ff1;
 }
 
 button.delete-button:hover,
 .cancel-button:hover,
-.form-container button.cancel-button:hover,
-.form-container .button.quit button:hover {
+.form-container-citas button.cancel-button:hover,
+.form-container-citas .button.quit button:hover {
   background-color: #c82333;
 }
 
 button.edit-button:focus,
 .buttons-container button:focus,
-.form-container button[type="submit"]:focus,
-.form-container .button button:focus {
+.form-container-citas button[type="submit"]:focus,
+.form-container-citas .button button:focus {
   outline: none;
 }
 
 button.delete-button:focus,
 .cancel-button:focus,
-.form-container button.cancel-button:focus,
-.form-container .button.quit button:focus {
+.form-container-citas button.cancel-button:focus,
+.form-container-citas .button.quit button:focus {
   outline: none;
 }
 
@@ -172,11 +172,11 @@ button.delete-button:focus,
 }
 
 .form-wrapper.active,
-.overlay.active {
+.overlay-citas.active {
   display: block;
 }
 
-.overlay {
+.overlay-citas {
   position: fixed;
   top: 0;
   left: 0;
@@ -187,12 +187,12 @@ button.delete-button:focus,
   display: none;
 }
 
-.form-container .button {
+.form-container-citas .button {
   display: flex;
   align-items: center;
 }
 
-.form-container .button button {
+.form-container-citas .button button {
   padding: 6px 15px;
   background-color: #2042dd;
   color: white;
@@ -226,17 +226,17 @@ button.delete-button:focus,
   background-color: #c82333;
 }
 
-.form-container .button button:focus {
+.form-container-citas .button button:focus {
   outline: none;
 }
 
-.form-container .cursos-list .curso-item {
+.form-container-citas .cursos-list .curso-item {
   font-size: 0.8rem; /* Reducir el tamaño de fuente */
   margin-bottom: 3px; /* Reducir el margen inferior */
 }
 
 
-.form-container .cursos-list .curso-item {
+.form-container-citas .cursos-list .curso-item {
   display: flex;
   align-items: center;
   justify-content: space-between; /* Alinea los elementos en los extremos */
@@ -245,7 +245,7 @@ button.delete-button:focus,
 }
 
 
-.form-container .cursos-list .curso-item label {
+.form-container-citas .cursos-list .curso-item label {
   margin-right: 5px; /* Espacio entre el label y el checkbox */
 }
 
@@ -253,19 +253,19 @@ button.delete-button:focus,
 
 
 /* Estilos para el formulario de Citación a Cursos */
-.form-container .cursos-list {
+.form-container-citas .cursos-list {
   display: flex;
   flex-direction: column;
 }
 
-.form-container .cursos-list .curso-item {
+.form-container-citas .cursos-list .curso-item {
   display: flex;
   align-items: center;
   margin-bottom: 5px; /* Reducir el margen inferior */
   font-size: 0.9rem; /* Reducir el tamaño de fuente */
 }
 
-.form-container .cursos-list .curso-item label {
+.form-container-citas .cursos-list .curso-item label {
   margin-right: 10px; /* Espacio entre el label y el checkbox */
 }
 
@@ -284,7 +284,7 @@ button.delete-button:focus,
 }
 
 /* Estilos para el formulario de Entrevista a Estudiante(s) */
-.form-container .busca-est li {
+.form-container-citas .busca-est li {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -294,35 +294,35 @@ button.delete-button:focus,
   box-sizing: border-box;
 }
 
-.form-container .busca-est li .student-info .student-name {
+.form-container-citas .busca-est li .student-info .student-name {
   font-weight: bold;
   font-size: 0.9rem; /* Tamaño más pequeño para el nombre del estudiante */
   margin-right: 5px;
 }
 
-.form-container .busca-est li .button {
+.form-container-citas .busca-est li .button {
   margin-left: 5px; /* Reducir el margen izquierdo */
 }
 
-.form-container .busca-est li .button button {
+.form-container-citas .busca-est li .button button {
   padding: 4px 8px; /* Reducir el padding */
   font-size: 0.8rem; /* Tamaño más pequeño para los botones */
 }
 
-.form-container .busca-est li:last-child {
+.form-container-citas .busca-est li:last-child {
   border-bottom: none; /* Eliminar el borde inferior del último elemento */
 }
 
 /* Estilos generales */
-.form-container label {
+.form-container-citas label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
   font-size: 0.9rem; /* Tamaño más pequeño para los labels */
 }
 
-.form-container input,
-.form-container textarea,
+.form-container-citas input,
+.form-container-citas textarea,
 .form-wrapper.active form textarea {
   padding: 10px; /* Reducir el padding de los inputs */
   font-size: 0.8rem; /* Reducir el tamaño de fuente de los inputs */
@@ -331,18 +331,18 @@ button.delete-button:focus,
 
 
 
-.form-container input[type="checkbox"] {
+.form-container-citas input[type="checkbox"] {
   margin-right: 5px;
 }
 
 /* Ajustes adicionales */
-.form-container .cursos-list .curso-item input[type="checkbox"],
-.form-container .busca-est li .button button {
+.form-container-citas .cursos-list .curso-item input[type="checkbox"],
+.form-container-citas .busca-est li .button button {
   margin-left: 10px;
 }
 
-.form-container .cursos-list .curso-item .curso-description,
-.form-container .busca-est li .student-info {
+.form-container-citas .cursos-list .curso-item .curso-description,
+.form-container-citas .busca-est li .student-info {
   width: 100%;
   margin-top: 5px;
 }
@@ -421,7 +421,7 @@ button.delete-button:focus,
   outline: none;
 }
 /* Ajustes generales */
-.form-container,
+.form-container-citas,
 .form-wrapper {
   font-size: 14px; /* Reducimos el tamaño de fuente general */
 }
@@ -441,8 +441,8 @@ button.delete-button:focus,
 /* Ajustes para los botones */
 button.edit-button,
 .buttons-container button,
-.form-container button[type="submit"],
-.form-container .button button,
+.form-container-citas button[type="submit"],
+.form-container-citas .button button,
 .form-wrapper.active button,
 .form-wrapper form .button-container button {
   padding: 8px 16px; /* Reducimos el padding de los botones */

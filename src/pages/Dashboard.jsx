@@ -13,7 +13,7 @@ export function Dashboard() {
               <i className="bx bx-chevron-right"></i>
             </li>
             <li>
-              <a className="active" href="#">
+              <a className="active-citas" href="#">
                 Home
               </a>
             </li>
