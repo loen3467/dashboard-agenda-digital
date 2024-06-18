@@ -10,7 +10,7 @@ import {
 import { db } from "../../firebase/config";
 import styles from "../tareas/styles/edit.module.css";
 
-export function EditAnot() {
+export default function EditAnot() {
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [id_est, setIdEst] = useState("");

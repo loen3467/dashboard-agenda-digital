@@ -1,8 +1,9 @@
 import "./styles/dashboard.css";
-export function Dashboard() {
+
+export default function Dashboard() {
   return (
     <main>
-      <div className="head-title">
+      {/* <div className="head-title">
         <div className="left">
           <h1>Dashboard</h1>
           <ul className="breadcrumb">
@@ -23,7 +24,7 @@ export function Dashboard() {
           <i className="bx bxs-cloud-download"></i>
           <span className="text">Download PDF</span>
         </a>
-      </div>
+      </div> */}
 
       <ul className="box-info">
         <li>

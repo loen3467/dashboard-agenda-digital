@@ -1,38 +1,56 @@
-import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { Cursos } from "../pages/Cursos";
-import { Tareas } from "../pages/Tareas";
-import { Anotaciones } from "../pages/Anotaciones";
-import { Citaciones } from "../pages/Citaciones";
-import { Usuarios } from "../pages/Usuarios";
-import { Dashboard } from "../pages/Dashboard";
+import React, { Suspense, useMemo } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "../components/header/Layout";
-import { Create } from "../components/tareas/Create";
-import { Edit } from "../components/tareas/Edit";
-import { Login } from "../pages/Login";
-import { CreateAnot } from "../components/anotaciones/CreateAnot";
-import { EditAnot } from "../components/anotaciones/EditAnot";
-import { CreateCourses } from "../components/cursos/CreateCourses";
-import { EditCourses } from "../components/cursos/EditCourses";
+
+const Cursos = React.lazy(() => import("../pages/Cursos"));
+const Tareas = React.lazy(() => import("../pages/Tareas"));
+const Anotaciones = React.lazy(() => import("../pages/Anotaciones"));
+const Citaciones = React.lazy(() => import("../pages/Citaciones"));
+const Usuarios = React.lazy(() => import("../pages/Usuarios"));
+const Dashboard = React.lazy(() => import("../pages/Dashboard"));
+const Login = React.lazy(() => import("../pages/Login"));
+const CreateTareas = React.lazy(() =>
+  import("../components/tareas/CreateTareas")
+);
+const EditTareas = React.lazy(() => import("../components/tareas/EditTareas"));
+const CreateAnot = React.lazy(() =>
+  import("../components/anotaciones/CreateAnot")
+);
+const EditAnot = React.lazy(() => import("../components/anotaciones/EditAnot"));
+const CreateCourses = React.lazy(() =>
+  import("../components/cursos/CreateCourses")
+);
+const EditCourses = React.lazy(() =>
+  import("../components/cursos/EditCourses")
+);
 export function MyRoutes() {
-  return (
-    <BrowserRouter>
+  const routes = useMemo(
+    () => (
       <Routes>
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/login" element={<Login />} />
         <Route path="/" element={<Layout />}>
-          <Route path="/" element={<Dashboard />}></Route>
-          <Route path="/cursos" element={<Cursos />}></Route>
-          <Route path="/cursos/create" element={<CreateCourses />}></Route>
-          <Route path="/cursos/edit/:id" element={<EditCourses />}></Route>
-          <Route path="/tareas" element={<Tareas />}></Route>
-          <Route path="/tareas/create" element={<Create />}></Route>
-          <Route path="/tareas/edit/:id" element={<Edit />}></Route>
-          <Route path="/anotaciones" element={<Anotaciones />}></Route>
-          <Route path="/anotaciones/create" element={<CreateAnot />}></Route>
-          <Route path="/anotaciones/edit/:id" element={<EditAnot />}></Route>
-          <Route path="/citaciones" element={<Citaciones />}></Route>
-          <Route path="/usuarios" element={<Usuarios />}></Route>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/cursos" element={<Cursos />} />
+          <Route path="/cursos/create" element={<CreateCourses />} />
+          <Route path="/cursos/edit/:id" element={<EditCourses />} />
+          <Route path="/tareas" element={<Tareas />} />
+          <Route path="/tareas/create" element={<CreateTareas />} />
+          <Route path="/tareas/edit/:id" element={<EditTareas />} />
+
+          <Route path="/anotaciones" element={<Anotaciones />} />
+          <Route path="/anotaciones/create" element={<CreateAnot />} />
+          <Route path="/anotaciones/edit/:id" element={<EditAnot />} />
+          <Route path="/citaciones" element={<Citaciones />} />
+          <Route path="/usuarios" element={<Usuarios />} />
         </Route>
       </Routes>
+    ),
+    []
+  );
+
+  return (
+    <BrowserRouter>
+      <Suspense fallback={<div>Loading...</div>}>{routes}</Suspense>
     </BrowserRouter>
   );
 }

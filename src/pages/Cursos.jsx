@@ -1,6 +1,6 @@
 import { ShowCourses } from "../components/cursos/ShowCourses";
 
-export function Cursos() {
+export default function Cursos() {
   return (
     <>
       <ShowCourses />

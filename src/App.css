@@ -3,6 +3,9 @@
 }
 
 /* CONTENT */
+#content * {
+  font-family: var(--poppins);
+}
 #content {
   position: relative;
   width: calc(100% - 280px);
@@ -12,6 +15,10 @@
 #sidebar.hide ~ #content {
   width: calc(100% - 60px);
   left: 60px;
+}
+
+#content main {
+  padding: 1.5rem;
 }
 
 @media screen and (max-width: 768px) {

@@ -53,7 +53,6 @@ export function ShowCourses() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Cursos</h1>
       <Link to="/cursos/create" className={styles.createButton}>
         <i className="bx bx-plus-circle"></i>
         <span>Crear Curso</span>

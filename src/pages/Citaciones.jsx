@@ -1,3 +1,3 @@
-export function Citaciones() {
+export default function Citaciones() {
   return <div>Citaciones</div>;
 }

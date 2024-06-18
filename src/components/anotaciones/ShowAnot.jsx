@@ -10,7 +10,6 @@ import {
 import { db } from "../../firebase/config";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import styles from "../tareas/styles/show.module.css";
 
 const MySwal = withReactContent(Swal);
 
@@ -87,68 +86,57 @@ export default function ShowAnot() {
   }, []);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>Anotaciones</h1>
-        <Link to="/anotaciones/create" className={styles.createButton}>
-          <i className="bx bx-plus-circle"></i>
-          <span>Crear Anotación</span>
-        </Link>
-      </div>
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Título</th>
-            <th>Descripción</th>
-            <th>Estudiante</th>
-            <th>Profesor</th>
-            <th>Acciones</th>
+    <table className="table">
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Descripción</th>
+          <th>Estudiante</th>
+          <th>Profesor</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {anotaciones.map((anotacion) => (
+          <tr
+            key={anotacion.id}
+            className={anotacion.estado ? "activeRow" : "inactiveRow"}
+          >
+            <td>{anotacion.titulo}</td>
+            <td>{anotacion.descripcion}</td>
+            <td>{anotacion.estudiante && anotacion.estudiante.nombre}</td>
+            <td>{anotacion.profesor && anotacion.profesor.nombre}</td>
+            <td className="actions">
+              <Link
+                to={`/anotaciones/edit/${anotacion.id}`}
+                className="editButton"
+              >
+                <i className="bx bx-edit"></i> <span>Editar</span>
+              </Link>
+              <button
+                onClick={() => {
+                  confirmToggle(anotacion.id, anotacion.estado);
+                }}
+                className={`toggleButton ${
+                  !anotacion.estado ? "btnActive" : ""
+                }`}
+              >
+                {anotacion.estado ? (
+                  <>
+                    <i className="bx bxs-toggle-right"></i>
+                    <span>Desactivar</span>
+                  </>
+                ) : (
+                  <>
+                    <i className="bx bx-toggle-left"></i>
+                    <span>Activar</span>
+                  </>
+                )}
+              </button>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {anotaciones.map((anotacion) => (
-            <tr
-              key={anotacion.id}
-              className={
-                anotacion.estado ? styles.activeRow : styles.inactiveRow
-              }
-            >
-              <td>{anotacion.titulo}</td>
-              <td>{anotacion.descripcion}</td>
-              <td>{anotacion.estudiante && anotacion.estudiante.nombre}</td>
-              <td>{anotacion.profesor && anotacion.profesor.nombre}</td>
-              <td className="actions">
-                <Link
-                  to={`/anotaciones/edit/${anotacion.id}`}
-                  className={styles.editButton}
-                >
-                  <i className="bx bx-edit"></i> <span>Editar</span>
-                </Link>
-                <button
-                  onClick={() => {
-                    confirmToggle(anotacion.id, anotacion.estado);
-                  }}
-                  className={`${styles.toggleButton} ${
-                    !anotacion.estado ? styles.btnActive : ""
-                  }`}
-                >
-                  {anotacion.estado ? (
-                    <>
-                      <i className="bx bxs-toggle-right"></i>
-                      <span>Desactivar</span>
-                    </>
-                  ) : (
-                    <>
-                      <i className="bx bx-toggle-left"></i>
-                      <span>Activar</span>
-                    </>
-                  )}
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </tbody>
+    </table>
   );
 }

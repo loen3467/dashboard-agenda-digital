@@ -1,3 +1,4 @@
+import "../styles/createEdit.scss";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -8,9 +9,10 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { db } from "../../firebase/config";
-import styles from "./styles/edit.module.css";
+import { useTareas } from "../../context/TareasContext"; // Importamos el contexto
+import { Loader } from "../../utils/Loader";
 
-export function Edit() {
+export default function EditTareas() {
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [fechaEntrega, setFechaEntrega] = useState("");
@@ -18,7 +20,7 @@ export function Edit() {
   const [materias, setMaterias] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
-  console.log(id);
+  const { editTarea, loading, setLoading, getTareas } = useTareas(); // Usamos el contexto para actualizar la tarea
 
   useEffect(() => {
     const getMaterias = async () => {
@@ -39,69 +41,81 @@ export function Edit() {
         console.log("La tarea no existe");
       }
     };
-
     getMaterias();
     getTareaById(id);
-  }, [id]);
+  }, []);
 
   const update = async (e) => {
     e.preventDefault();
-    const tareaRef = doc(db, "tareas", id);
-    const materiaRef = doc(db, "materias", materiaId);
-    const data = {
-      titulo,
-      descripcion,
-      fecha_entrega: fechaEntrega,
-      idmateria: materiaRef,
-    };
-    await updateDoc(tareaRef, data);
-    navigate("/tareas");
+    setLoading(true);
+    try {
+      const tareaRef = doc(db, "tareas", id);
+      const materiaRef = doc(db, "materias", materiaId);
+      const updatedTarea = {
+        titulo,
+        descripcion,
+        fecha_entrega: fechaEntrega,
+        idmateria: materiaRef,
+      };
+      console.log(updatedTarea);
+
+      await updateDoc(tareaRef, updatedTarea);
+
+      // Actualizamos el contexto con la tarea editada
+      editTarea({ ...updatedTarea, id });
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    } finally {
+      navigate(-1);
+      setLoading(false);
+    }
   };
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.row}>
-        <div className={styles.col}>
-          <div className={styles.header}>
-            <button onClick={() => navigate("/tareas")}>
-              <i className="bx bx-arrow-back"></i>
-            </button>
-            <h1>Editar Tarea</h1>
-          </div>
+    <div className="edit-container">
+      <div className="row">
+        <div className="col">
           <form onSubmit={update}>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Título</label>
+            <div className="formGroup">
+              <label className="formLabel">Título</label>
               <input
                 value={titulo}
                 onChange={(e) => setTitulo(e.target.value)}
                 type="text"
-                className={styles.formControl}
+                className="formControl"
+                required
               />
             </div>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Descripción</label>
-              <input
+            <div className="formGroup">
+              <label className="formLabel">Descripción</label>
+              <textarea
                 value={descripcion}
                 onChange={(e) => setDescripcion(e.target.value)}
                 type="text"
-                className={styles.formControl}
+                className="formControl"
+                required
               />
             </div>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Fecha de Entrega</label>
+            <div className="formGroup">
+              <label className="formLabel">Fecha de Entrega</label>
               <input
                 value={fechaEntrega}
                 onChange={(e) => setFechaEntrega(e.target.value)}
                 type="date"
-                className={styles.formControl}
+                className="formControl"
+                required
               />
             </div>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Materia</label>
+            <div className="formGroup">
+              <label className="formLabel">Materia</label>
               <select
                 value={materiaId}
                 onChange={(e) => setMateriaId(e.target.value)}
-                className={styles.formControl}
+                className="formControl"
+                required
               >
                 <option value="">Seleccione una materia</option>
                 {materias.map((materia) => (
@@ -111,15 +125,15 @@ export function Edit() {
                 ))}
               </select>
             </div>
-            <div className={styles.buttons}>
-              <button type="submit" className={styles.btnPrimary}>
+            <div className="buttons">
+              <button type="submit" className="btnPrimary">
                 <i className="bx bx-upload"></i>
                 <span>Actualizar</span>
               </button>
               <button
                 onClick={() => navigate("/tareas")}
                 type="button"
-                className={styles.btnSecondary}
+                className="btnSecondary"
               >
                 <i className="bx bx-x-circle"></i>
                 <span>Cancelar</span>
