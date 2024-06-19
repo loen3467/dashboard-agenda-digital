@@ -14,7 +14,7 @@ export default function CreateTareas() {
   const [materias, setMaterias] = useState([]);
   const [estado, setEstado] = useState(true);
   const navigate = useNavigate();
-  const { createTarea, loading, setLoading } = useTareas(); // Usamos el contexto para actualizar las tareas
+  const { createTarea, loading, setLoading } = useTareas();
 
   const tareasCollection = collection(db, "tareas");
 
@@ -74,42 +74,42 @@ export default function CreateTareas() {
       <div className="row">
         <div className="col">
           <form onSubmit={create}>
-            <div className="formGroup">
-              <label className="formLabel">Título</label>
+            <div className="form-group">
+              <label className="form-label">Título</label>
               <input
                 value={titulo}
                 onChange={(e) => setTitulo(e.target.value)}
                 type="text"
-                className="formControl"
+                className="form-control"
                 required
               />
             </div>
-            <div className="formGroup">
-              <label className="formLabel">Descripción</label>
+            <div className="form-group">
+              <label className="form-label">Descripción</label>
               <textarea
                 value={descripcion}
                 onChange={(e) => setDescripcion(e.target.value)}
                 type="text"
-                className="formControl"
+                className="form-control"
                 required
               />
             </div>
-            <div className="formGroup">
-              <label className="formLabel">Fecha de Entrega</label>
+            <div className="form-group">
+              <label className="form-label">Fecha de Entrega</label>
               <input
                 value={fechaEntrega}
                 onChange={(e) => setFechaEntrega(e.target.value)}
                 type="date"
-                className="formControl"
+                className="form-control"
                 required
               />
             </div>
-            <div className="formGroup">
-              <label className="formLabel">Materia</label>
+            <div className="form-group">
+              <label className="form-label">Materia</label>
               <select
                 value={materiaId}
                 onChange={(e) => setMateriaId(e.target.value)}
-                className="formControl"
+                className="form-control"
                 required
               >
                 <option>Seleccione una Materia</option>
@@ -121,14 +121,14 @@ export default function CreateTareas() {
               </select>
             </div>
             <div className="buttons">
-              <button type="submit" className="btnPrimary">
+              <button type="submit" className="btn-primary">
                 <i className="bx bxs-save"></i>
                 <span>Guardar</span>
               </button>
               <button
                 onClick={() => navigate("/tareas")}
                 type="button"
-                className="btnSecondary"
+                className="btn-secondary"
               >
                 <i className="bx bx-x-circle"></i>
                 <span>Cancelar</span>

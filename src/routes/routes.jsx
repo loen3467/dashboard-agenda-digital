@@ -1,10 +1,10 @@
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "../components/header/Layout";
 import { Estudiantes } from "../components/usuarios/Estudiantes";
 import { Padres } from "../components/usuarios/Padres";
 import { Profesores } from "../components/usuarios/Profesores";
 import Cursos from "../pages/Cursos";
+import Materias from "../pages/Materias";
 import Tareas from "../pages/Tareas";
 import Anotaciones from "../pages/Anotaciones";
 import Citaciones from "../pages/Citaciones";
@@ -15,8 +15,10 @@ import CreateTareas from "../components/tareas/CreateTareas";
 import EditTareas from "../components/tareas/EditTareas";
 import CreateAnot from "../components/anotaciones/CreateAnot";
 import EditAnot from "../components/anotaciones/EditAnot";
-import CreateCourses from "../components/cursos/CreateCourses";
-import EditCourses from "../components/cursos/EditCourses";
+import CreateCurso from "../components/cursos/CreateCurso";
+import EditCurso from "../components/cursos/EditCurso";
+import CreateMateria from "../components/materias/CreateMateria";
+import EditMateria from "../components/materias/EditMateria";
 
 export function MyRoutes() {
   return (
@@ -26,8 +28,11 @@ export function MyRoutes() {
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/cursos" element={<Cursos />} />
-          <Route path="/cursos/create" element={<CreateCourses />} />
-          <Route path="/cursos/edit/:id" element={<EditCourses />} />
+          <Route path="/cursos/create" element={<CreateCurso />} />
+          <Route path="/cursos/edit/:id" element={<EditCurso />} />
+          <Route path="/materias" element={<Materias />} />
+          <Route path="/materias/create" element={<CreateMateria />} />
+          <Route path="/materias/edit/:id" element={<EditMateria />} />
           <Route path="/tareas" element={<Tareas />} />
           <Route path="/tareas/create" element={<CreateTareas />} />
           <Route path="/tareas/edit/:id" element={<EditTareas />} />

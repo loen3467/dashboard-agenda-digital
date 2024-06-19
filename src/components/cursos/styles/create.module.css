@@ -39,19 +39,19 @@ form {
   width: 100%;
 }
 
-.formGroup {
+.form-group {
   margin-bottom: 20px;
 }
 
-.formGroup label {
+.form-group label {
   display: block;
   margin-bottom: 5px;
   font-size: 1rem;
   color: #333;
 }
 
-.formGroup input,
-.formGroup select {
+.form-group input,
+.form-group select {
   width: 100%;
   padding: 10px;
   font-size: 1rem;
@@ -60,7 +60,7 @@ form {
   box-sizing: border-box;
 }
 
-.formGroup select {
+.form-group select {
   height: auto;
 }
 
@@ -71,7 +71,7 @@ form {
   padding: 10px;
 }
 
-.btnPrimary {
+.btn-primary {
   background-color: #5cb85c;
   color: white;
   padding: 10px 20px;
@@ -82,6 +82,6 @@ form {
   transition: background-color 0.3s ease;
 }
 
-.btnPrimary:hover {
+.btn-primary:hover {
   background-color: #4cae4c;
 }

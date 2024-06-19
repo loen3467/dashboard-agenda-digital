@@ -2,7 +2,7 @@ import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
 import { useState } from "react";
 import "./styles/loginContainer.scss";
-import logoAgenda from "../../assets/images/logo_agenda_dig1.png";
+import logoAgenda from "../../assets/images/logo_ad.png";
 
 export function LoginContainer() {
   const [rightPanel, setRightPanel] = useState(false);

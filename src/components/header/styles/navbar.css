@@ -5,12 +5,13 @@
   padding: 0 24px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   grid-gap: 24px;
   font-family: var(--lato);
   position: sticky;
   top: 0;
   left: 0;
-  /* z-index: 1000; */
+  z-index: 1000;
 }
 #content nav::before {
   content: "";

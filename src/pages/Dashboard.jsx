@@ -1,22 +1,9 @@
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 import "./styles/dashboard.css";
+import { items } from "../components/header/Sidebar";
+const newItems = [...items];
 
-// eslint-disable-next-line no-unused-vars
-import { SidebarItem } from "../components/header/SidebarItem";
-
-// eslint-disable-next-line no-unused-vars
-export default function Dashboard({ isSidebarHidden, onLogout }) {
-  const items = [
-    { link: "/cursos", icon: "bx bxs-shopping-bag-alt", text: "Cursos" },
-    { link: "/tareas", icon: "bx bxs-doughnut-chart", text: "Tareas" },
-    { link: "/anotaciones", icon: "bx bxs-message-dots", text: "Anotaciones" },
-    { link: "/citaciones", icon: "bx bxs-group", text: "Citaciones" },
-    { link: "/Estudiantes", icon: "bx bxs-group", text: "Gestion de Estudiantes" },
-    { link: "/Padres", icon: "bx bxs-group", text: "Gestion de Padres" },
-    { link: "/Profesores", icon: "bx bxs-group", text: "Gestion de Profesores" },
-  ];
-
+export default function Dashboard() {
   return (
     <main>
       <div className="dashboard-content">
@@ -25,7 +12,7 @@ export default function Dashboard({ isSidebarHidden, onLogout }) {
         <p>Selecciona una opción del menú para comenzar.</p>
       </div>
       <div className="dashboard-container">
-        {items.map((item, index) => (
+        {newItems.map((item, index) => (
           <Link to={item.link} key={index} className="dashboard-item">
             <div className="dashboard-icon">
               <i className={item.icon}></i>
@@ -37,9 +24,3 @@ export default function Dashboard({ isSidebarHidden, onLogout }) {
     </main>
   );
 }
-
-// Define PropTypes para Dashboard
-Dashboard.propTypes = {
-  isSidebarHidden: PropTypes.bool.isRequired,
-  onLogout: PropTypes.func.isRequired,
-};

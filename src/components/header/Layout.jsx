@@ -69,13 +69,19 @@ export function Layout() {
       case "/cursos/create":
         setLabel("Crear Curso");
         break;
-
       case "/tareas":
         setTitle("Tareas");
         setLabel("Ver Tareas");
         break;
       case "/tareas/create":
         setLabel("Crear Tarea");
+        break;
+      case "/materias":
+        setTitle("Materias");
+        setLabel("Ver Materias");
+        break;
+      case "/materias/create":
+        setLabel("Crear Materia");
         break;
       case "/anotaciones":
         setTitle("Anotaciones");

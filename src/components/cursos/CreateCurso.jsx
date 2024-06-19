@@ -1,83 +1,30 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  collection,
-  addDoc,
-  query,
-  where,
-  getDocs,
-  doc,
-  serverTimestamp,
-  updateDoc,
-} from "firebase/firestore";
-import { db } from "../../firebase/config";
+import { useCursos } from "../../context/CursosContext";
 import styles from "./styles/create.module.css";
+import { doc } from "firebase/firestore";
+import { db } from "../../firebase/config";
 
-export default function CreateCourses() {
+export default function CreateCurso() {
+  const { createCurso, estudiantes, materias } = useCursos();
   const [nombre, setNombre] = useState("");
   const [grado, setGrado] = useState("");
   const [paralelo, setParalelo] = useState("");
   const [selectedEstudiantes, setSelectedEstudiantes] = useState([]);
   const [selectedMaterias, setSelectedMaterias] = useState([]);
-  const [estudiantes, setEstudiantes] = useState([]);
-  const [materias, setMaterias] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const getEstudiantes = async () => {
-      const estudiantesCollection = collection(db, "estudiantes");
-      const data = await getDocs(estudiantesCollection);
-      const estudiantesList = data.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setEstudiantes(estudiantesList);
-    };
-
-    const getMaterias = async () => {
-      const materiasCollection = collection(db, "materias");
-      const data = await getDocs(materiasCollection);
-      const materiasList = data.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setMaterias(materiasList);
-    };
-
-    getEstudiantes();
-    getMaterias();
-  }, []);
-
-  const updateEstudiantes = async (cursoId) => {
-    const cursoRef = doc(db, "cursos", cursoId);
-    const estudiantesRefs = selectedEstudiantes.map((id) =>
-      doc(db, "estudiantes", id)
-    );
-    await Promise.all(
-      estudiantesRefs.map(async (estudianteRef) => {
-        await updateDoc(estudianteRef, {
-          id_curso: cursoRef,
-        });
-      })
-    );
-  };
-
-  const create = async (e) => {
+  const handleCreate = async (e) => {
     e.preventDefault();
-    const cursoRef = collection(db, "cursos");
-    const estudiantesRefs = selectedEstudiantes.map((id) =>
-      doc(db, "estudiantes", id)
-    );
-    const materiasRefs = selectedMaterias.map((id) => doc(db, "materias", id));
-    const newCursoRef = await addDoc(cursoRef, {
-      nombre: nombre,
+    const cursoData = {
+      nombre,
       grado: parseInt(grado),
-      paralelo: paralelo,
-      estudiantes: estudiantesRefs,
-      id_materias: materiasRefs,
-    });
-    await updateEstudiantes(newCursoRef.id); // Actualizar estudiantes con la referencia al curso
-    navigate("/cursos");
+      paralelo,
+      estudiantes: selectedEstudiantes.map((id) => doc(db, "estudiantes", id)),
+      id_materias: selectedMaterias.map((id) => doc(db, "materias", id)),
+    };
+    await createCurso(cursoData, selectedEstudiantes);
+    navigate(`/cursos`);
   };
 
   return (
@@ -90,8 +37,8 @@ export default function CreateCourses() {
             </button>
             <h1>Añadir Curso</h1>
           </div>
-          <form onSubmit={create}>
-            <div className={styles.formGroup}>
+          <form onSubmit={handleCreate}>
+            <div className={styles.form - group}>
               <label>Nombre</label>
               <input
                 value={nombre}
@@ -99,7 +46,7 @@ export default function CreateCourses() {
                 type="text"
               />
             </div>
-            <div className={styles.formGroup}>
+            <div className={styles.form - group}>
               <label>Grado</label>
               <input
                 value={grado}
@@ -107,7 +54,7 @@ export default function CreateCourses() {
                 type="number"
               />
             </div>
-            <div className={styles.formGroup}>
+            <div className={styles.form - group}>
               <label>Paralelo</label>
               <input
                 value={paralelo}
@@ -115,7 +62,7 @@ export default function CreateCourses() {
                 type="text"
               />
             </div>
-            <div className={styles.formGroup}>
+            <div className={styles.form - group}>
               <label>Estudiantes</label>
               <select
                 value={selectedEstudiantes}
@@ -141,7 +88,7 @@ export default function CreateCourses() {
                 readOnly
               />
             </div>
-            <div className={styles.formGroup}>
+            <div className={styles.form - group}>
               <label>Materias</label>
               <select
                 value={selectedMaterias}
@@ -163,7 +110,7 @@ export default function CreateCourses() {
               </select>
               <input type="text" value={selectedMaterias.join(", ")} readOnly />
             </div>
-            <button type="submit" className={styles.btnPrimary}>
+            <button type="submit" className={styles.btn - primary}>
               Guardar
             </button>
           </form>

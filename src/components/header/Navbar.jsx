@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
 import "./styles/navbar.css";
 import { Link } from "react-router-dom";
 // eslint-disable-next-line react/prop-types
 export function Navbar({ toogleSidebar }) {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  /* const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     const switchMode = document.getElementById("switch-mode");
@@ -25,12 +24,12 @@ export function Navbar({ toogleSidebar }) {
     } else {
       document.body.classList.remove("dark");
     }
-  }, [isDarkMode]);
+  }, [isDarkMode]); */
 
   return (
     <nav>
       <i className="bx bx-menu" onClick={toogleSidebar}></i>
-      <a href="#" className="nav-link">
+      {/* <a href="#" className="nav-link">
         Categorias
       </a>
       <form action="#">
@@ -46,7 +45,7 @@ export function Navbar({ toogleSidebar }) {
       <a href="#" className="notification">
         <i className="bx bxs-bell"></i>
         <span className="num">8</span>
-      </a>
+      </a> */}
       <Link to={"/"} className="profile">
         <img src="../../assets/images/logo_ad.jpg" />
       </Link>

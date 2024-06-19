@@ -97,6 +97,11 @@ export function SignIn() {
         <button className="btn-login" type="submit">
           Ingresar
         </button>
+
+        <a href="/">
+          <i class="bx bx-arrow-back"></i>
+          <span>Regresar</span>
+        </a>
       </form>
     </div>
   );

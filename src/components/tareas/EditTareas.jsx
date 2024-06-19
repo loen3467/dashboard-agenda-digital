@@ -79,42 +79,42 @@ export default function EditTareas() {
       <div className="row">
         <div className="col">
           <form onSubmit={update}>
-            <div className="formGroup">
-              <label className="formLabel">Título</label>
+            <div className="form-group">
+              <label className="form-label">Título</label>
               <input
                 value={titulo}
                 onChange={(e) => setTitulo(e.target.value)}
                 type="text"
-                className="formControl"
+                className="form-control"
                 required
               />
             </div>
-            <div className="formGroup">
-              <label className="formLabel">Descripción</label>
+            <div className="form-group">
+              <label className="form-label">Descripción</label>
               <textarea
                 value={descripcion}
                 onChange={(e) => setDescripcion(e.target.value)}
                 type="text"
-                className="formControl"
+                className="form-control"
                 required
               />
             </div>
-            <div className="formGroup">
-              <label className="formLabel">Fecha de Entrega</label>
+            <div className="form-group">
+              <label className="form-label">Fecha de Entrega</label>
               <input
                 value={fechaEntrega}
                 onChange={(e) => setFechaEntrega(e.target.value)}
                 type="date"
-                className="formControl"
+                className="form-control"
                 required
               />
             </div>
-            <div className="formGroup">
-              <label className="formLabel">Materia</label>
+            <div className="form-group">
+              <label className="form-label">Materia</label>
               <select
                 value={materiaId}
                 onChange={(e) => setMateriaId(e.target.value)}
-                className="formControl"
+                className="form-control"
                 required
               >
                 <option value="">Seleccione una materia</option>
@@ -126,14 +126,14 @@ export default function EditTareas() {
               </select>
             </div>
             <div className="buttons">
-              <button type="submit" className="btnPrimary">
+              <button type="submit" className="btn-primary">
                 <i className="bx bx-upload"></i>
                 <span>Actualizar</span>
               </button>
               <button
                 onClick={() => navigate("/tareas")}
                 type="button"
-                className="btnSecondary"
+                className="btn-secondary"
               >
                 <i className="bx bx-x-circle"></i>
                 <span>Cancelar</span>

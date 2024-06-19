@@ -17,7 +17,7 @@
 }
 
 #sidebar.hide {
-  width: 60px;
+  width: 4.5rem;
 }
 
 #sidebar .brand {
@@ -25,24 +25,23 @@
   font-weight: 700;
   height: 56px;
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: flex-start; /* Centra horizontalmente */
   color: var(--blue);
   background: var(--light);
-  padding-top: 20px; /* Ajusta el espacio superior */
-  padding-bottom: 20px; /* Ajusta el espacio inferior */
+  margin-top: 2rem; /* Ajusta el espacio superior */
   text-decoration: none;
 }
 
 #sidebar .brand .bx {
-  min-width: 20px; /* Ajusta el tamaño del ícono del logo */
+  min-width: 4.5rem; /* Ajusta el tamaño del ícono del logo */
+  max-width: 8rem;
   display: flex;
   justify-content: center;
 }
 
 #sidebar .brand img.logo-image {
-  width: 100px; /* Tamaño del logo */
-  height: 100px; /* Tamaño del logo */
+  width: 5rem; /* Tamaño del logo */
   margin-bottom: -40px; /* Espacio entre el ícono y el texto */
   border-radius: 50%; /* Para hacer el logo redondo */
 }
@@ -55,7 +54,7 @@
 #sidebar .side-menu {
   flex-grow: 1; /* Hace que este contenedor crezca para ocupar el espacio restante */
   width: 100%;
-  margin-top: 70px; /* Ajusta el margen superior */
+  padding-top: 3rem; /* Ajusta el margen superior */
   overflow-y: auto; /* Añade scroll vertical */
 }
 
@@ -122,12 +121,12 @@
   color: var(--red);
 }
 
-#sidebar .side-menu.top li a:hover {
+#sidebar .side-menu li a:hover {
   color: var(--blue);
 }
 
 #sidebar .side-menu li a .bx {
-  min-width: calc(48px - ((4px + 6px) * 2));
+  min-width: calc(60px - ((4px + 6px) * 2));
   display: flex;
   justify-content: center;
 }

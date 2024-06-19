@@ -1,9 +1,9 @@
-import { ShowCourses } from "../components/cursos/ShowCourses";
+import { ShowCursos } from "../components/cursos/ShowCursos";
 
 export default function Cursos() {
   return (
     <>
-      <ShowCourses />
+      <ShowCursos />
     </>
   );
 }

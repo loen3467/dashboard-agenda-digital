@@ -62,32 +62,32 @@ export default function CreateAnot() {
       <div className="row">
         <div className="col">
           <form onSubmit={create}>
-            <div className="formGroup">
-              <label className="formLabel">Título</label>
+            <div className="form-group">
+              <label className="form-label">Título</label>
               <input
                 value={titulo}
                 onChange={(e) => setTitulo(e.target.value)}
                 type="text"
-                className="formControl"
+                className="form-control"
                 required
               />
             </div>
-            <div className="formGroup">
-              <label className="formLabel">Descripción</label>
-              <input
+            <div className="form-group">
+              <label className="form-label">Descripción</label>
+              <textarea
                 value={descripcion}
                 onChange={(e) => setDescripcion(e.target.value)}
                 type="text"
-                className="formControl"
+                className="form-control"
                 required
               />
             </div>
-            <div className="formGroup">
-              <label className="formLabel">Estudiante</label>
+            <div className="form-group">
+              <label className="form-label">Estudiante</label>
               <select
                 value={id_est}
                 onChange={(e) => setIdEst(e.target.value)}
-                className="formControl"
+                className="form-control"
                 required
               >
                 <option value="">Seleccione un Estudiante</option>
@@ -98,12 +98,12 @@ export default function CreateAnot() {
                 ))}
               </select>
             </div>
-            <div className="formGroup">
-              <label className="formLabel">Profesor</label>
+            <div className="form-group">
+              <label className="form-label">Profesor</label>
               <select
                 value={id_profesor}
                 onChange={(e) => setIdProfesor(e.target.value)}
-                className="formControl"
+                className="form-control"
                 required
               >
                 <option value="">Seleccione un Profesor</option>
@@ -115,13 +115,13 @@ export default function CreateAnot() {
               </select>
             </div>
             <div className="buttons">
-              <button type="submit" className="btnPrimary">
+              <button type="submit" className="btn-primary">
                 <i className="bx bxs-save"></i>
                 <span>Guardar</span>
               </button>
               <button
                 type="button"
-                className="btnSecondary"
+                className="btn-secondary"
                 onClick={() => navigate(-1)}
               >
                 <i className="bx bx-x-circle"></i>

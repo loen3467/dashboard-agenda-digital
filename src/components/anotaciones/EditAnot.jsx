@@ -65,30 +65,30 @@ export default function EditAnot() {
       <div className="row">
         <div className="col">
           <form onSubmit={update}>
-            <div className="formGroup">
-              <label className="formLabel">Título</label>
+            <div className="form-group">
+              <label className="form-label">Título</label>
               <input
                 value={titulo}
                 onChange={(e) => setTitulo(e.target.value)}
                 type="text"
-                className="formControl"
+                className="form-control"
               />
             </div>
-            <div className="formGroup">
-              <label className="formLabel">Descripción</label>
-              <input
+            <div className="form-group">
+              <label className="form-label">Descripción</label>
+              <textarea
                 value={descripcion}
                 onChange={(e) => setDescripcion(e.target.value)}
                 type="text"
-                className="formControl"
+                className="form-control"
               />
             </div>
-            <div className="formGroup">
-              <label className="formLabel">Estudiante</label>
+            <div className="form-group">
+              <label className="form-label">Estudiante</label>
               <select
                 value={id_est}
                 onChange={(e) => setIdEst(e.target.value)}
-                className="formControl"
+                className="form-control"
               >
                 <option value="">Seleccione un Estudiante</option>
                 {estudiantes.map((estudiante) => (
@@ -98,12 +98,12 @@ export default function EditAnot() {
                 ))}
               </select>
             </div>
-            <div className="formGroup">
-              <label className="formLabel">Profesor</label>
+            <div className="form-group">
+              <label className="form-label">Profesor</label>
               <select
                 value={id_profesor}
                 onChange={(e) => setIdProfesor(e.target.value)}
-                className="formControl"
+                className="form-control"
               >
                 <option value="">Seleccione un Profesor</option>
                 {profesores.map((profesor) => (
@@ -114,13 +114,13 @@ export default function EditAnot() {
               </select>
             </div>
             <div className="buttons">
-              <button type="submit" className="btnPrimary">
+              <button type="submit" className="btn-primary">
                 <i className="bx bx-upload"></i>
                 <span>Actualizar</span>
               </button>
               <button
                 type="button"
-                className="btnSecondary"
+                className="btn-secondary"
                 onClick={() => navigate("/anotaciones")}
               >
                 <i className="bx bx-x-circle"></i>

@@ -3,17 +3,23 @@ import { MyRoutes } from "./routes/routes";
 import { AuthContextProvider } from "./context/AuthContext";
 import { TareasProvider } from "./context/TareasContext";
 import { AnotacionesProvider } from "./context/AnotacionesContext";
+import { CursosProvider } from "./context/CursosContext";
+import { MateriasProvider } from "./context/MateriasContext";
 
 function App() {
   return (
     <>
-      <AnotacionesProvider>
-        <TareasProvider>
-          <AuthContextProvider>
-            <MyRoutes />
-          </AuthContextProvider>
-        </TareasProvider>
-      </AnotacionesProvider>
+      <AuthContextProvider>
+        <AnotacionesProvider>
+          <TareasProvider>
+            <CursosProvider>
+              <MateriasProvider>
+                <MyRoutes />
+              </MateriasProvider>
+            </CursosProvider>
+          </TareasProvider>
+        </AnotacionesProvider>
+      </AuthContextProvider>
     </>
   );
 }
